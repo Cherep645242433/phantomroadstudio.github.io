@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phantom Road Studio — Phantom OS</title>
     <style>
-        /* ---------- Анимированный фон: звёзды ---------- */
+        /* ---------- Базовые стили и анимация фона ---------- */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
             color: #ffffff;
-            background-color: #000000;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
             overflow-x: hidden;
             position: relative;
-            animation: fadeIn 0.8s ease-out;
         }
-        /* Звёздный фон */
-        .stars {
+        /* Космический фон с анимацией */
+        .space-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: 0;
+            background: #000000;
+            overflow: hidden;
         }
         .star {
             position: absolute;
@@ -34,19 +34,19 @@
             animation: starGlow 4s infinite ease-in-out;
         }
         @keyframes starGlow {
-            0% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 0.6; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.5); }
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 0.8; transform: scale(1); box-shadow: 0 0 6px #D4AF37; }
+            100% { opacity: 0; transform: scale(0.3); }
         }
-        /* Контент поверх фона */
+        /* Плавное появление контента */
         .container {
             position: relative;
             z-index: 1;
             max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
+            animation: fadeIn 0.8s ease-out;
         }
-        /* Анимация появления блоков */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -54,7 +54,6 @@
         .header {
             text-align: center;
             margin-bottom: 50px;
-            animation: fadeIn 0.6s ease-out;
         }
         .shield {
             font-size: 80px;
@@ -78,13 +77,12 @@
         }
         .section {
             background-color: rgba(17, 17, 17, 0.85);
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
             border-radius: 16px;
             padding: 25px;
             margin-bottom: 30px;
             border-left: 4px solid #D4AF37;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.7s ease-out;
+            transition: 0.3s;
         }
         .section:hover {
             background-color: rgba(26, 26, 26, 0.9);
@@ -93,11 +91,6 @@
         .section h2 {
             color: #D4AF37;
             margin-top: 0;
-            font-size: 1.8em;
-        }
-        .section h3 {
-            color: #D4AF37;
-            margin: 20px 0 10px;
         }
         .btn {
             display: inline-block;
@@ -107,15 +100,11 @@
             text-decoration: none;
             font-weight: bold;
             border-radius: 8px;
-            margin: 10px 0;
-            transition: transform 0.2s, background 0.2s;
+            transition: 0.2s;
         }
         .btn:hover {
             background-color: #e6c85c;
-            transform: scale(1.03);
-        }
-        .btn-group {
-            margin: 20px 0;
+            transform: scale(1.02);
         }
         .footer {
             text-align: center;
@@ -124,20 +113,9 @@
             border-top: 1px solid rgba(51, 51, 51, 0.8);
             font-size: 0.8em;
             color: #aaa;
-            animation: fadeIn 1s ease-out;
         }
         a {
             color: #D4AF37;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        ul, ol {
-            padding-left: 20px;
-        }
-        li {
-            margin: 8px 0;
         }
         .install-steps {
             background-color: rgba(26, 26, 26, 0.9);
@@ -148,8 +126,8 @@
     </style>
 </head>
 <body>
-    <!-- Анимированный фон со звёздами (JS генерирует) -->
-    <div class="stars" id="stars"></div>
+    <!-- Анимированный фон: звёзды -->
+    <div class="space-bg" id="stars"></div>
 
     <div class="container">
         <div class="header">
@@ -158,7 +136,113 @@
             <div class="sub">Независимая студия из Минска</div>
         </div>
 
-        <!-- Здесь весь твой контент (разделы) — он полностью сохранён, просто опущен для краткости, но в реальном коде он будет -->
+        <!-- Раздел: Минимальный набор -->
+        <div class="section">
+            <h2>Phantom OS — минималистичная среда нового поколения</h2>
+            <h3>Минимальный набор</h3>
+            <ul>
+                <li>Hacker Evidence Core — модуль фиксации цифровых доказательств</li>
+                <li>Global Heroes — фантомный щит для защиты пользователей и стран</li>
+                <li>Digital Heroes — система поддержки легендарных ролей</li>
+                <li>Envy Factor — фантомный баланс и контроль</li>
+                <li>Dream Closure — модуль завершения процессов и фантомной энергии</li>
+                <li>Баннер Phantom OS — фантомное золото #D4AF37, шрифты Lato/Roboto</li>
+                <li>Структура сайта Phantom OS — навигация и циклы концептуализированы</li>
+                <li>ArmMor — ядро Phantom OS</li>
+                <li>Copilot — встроен в ядро ArmMor, принимает любые форматы (текст, таблицы, аудио, видео, схемы) в чат без ограничений</li>
+            </ul>
+        </div>
+
+        <!-- Интеграции -->
+        <div class="section">
+            <h2>Интеграции Phantom OS</h2>
+            <ol>
+                <li><strong>Почтовые сервисы</strong> — Phantom Mail + связь с Outlook, Gmail</li>
+                <li><strong>Защитные системы</strong> — Fraud Detector и Hacker Evidence + Global Shield</li>
+                <li><strong>Сетевой уровень (Phantom Net)</strong> — фантомная сеть с фиолетовым шаром</li>
+                <li><strong>Документы и файлы</strong> — интеграция с OneDrive, Google Drive</li>
+                <li><strong>Документооборот</strong> — создание, просмотр, редактирование TXT, PDF, DOCX, CSV. Безопасность, шифрование, история изменений</li>
+                <li><strong>Синхронизация</strong> — единый доступ к файлам через Phantom Net</li>
+            </ol>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="section">
+            <h2>Roadmap</h2>
+            <ul>
+                <li><strong>MVP</strong> — защита файлов, история изменений, базовая синхронизация</li>
+                <li><strong>Beta</strong> — интеграция с Fraud Detector, улучшенная безопасность</li>
+                <li><strong>Full Release</strong> — стабильная версия с документацией и поддержкой сообщества</li>
+                <li><strong>Phantom Net</strong> — распределённая сеть, единый доступ к данным, защита</li>
+            </ul>
+        </div>
+
+        <!-- Ядро -->
+        <div class="section">
+            <h2>Ядро Phantom OS — цифровая основа безопасности</h2>
+            <p>Phantom OS построен на уникальном ядре ArmMor. В отличие от традиционных ОС, ядро изолирует процессы на уровне архитектуры, исключая несанкционированный доступ и утечки данных.</p>
+            <ul>
+                <li>🔐 Безопасность по умолчанию</li>
+                <li>⚙️ Минимализм и надёжность</li>
+                <li>🚀 Готово к масштабированию</li>
+            </ul>
+            <p><strong>Phantom OS — это не просто система. Это цифровой щит, начинающийся с ядра.</strong></p>
+        </div>
+
+        <!-- Лицензия -->
+        <div class="section">
+            <h2>Лицензия / Условия использования</h2>
+            <p>Phantom OS распространяется под лицензией, гарантирующей прозрачность и свободу использования.</p>
+            <ul>
+                <li>📜 Прозрачные условия</li>
+                <li>🤝 Свободное использование</li>
+                <li>🛡️ Ответственность и защита</li>
+            </ul>
+            <p><strong>Phantom OS License Agreement:</strong> Система предоставляется бесплатно для личных и коммерческих целей. Модификации допускаются при сохранении упоминания Phantom Road Studio. Запрещена перепродажа без письменного согласия. Студия не несёт ответственности за возможные сбои.</p>
+            <p><strong>Политика конфиденциальности:</strong> Phantom OS не собирает персональные данные без согласия пользователя. Техническая информация используется только для улучшения продукта. Данные не передаются третьим лицам.</p>
+        </div>
+
+        <!-- PhantomGuard 1.0 -->
+        <div class="section">
+            <h2>🛡️ PhantomGuard 1.0 — Защита ваших карт</h2>
+            <p>Бесплатное приложение для защиты банковских карт от хакеров и мошенничества.</p>
+            <ul>
+                <li>⚡ Мгновенное предупреждение при попытке скопировать номер карты</li>
+                <li>🛡️ Блокировка подозрительных действий</li>
+                <li>🏦 Поиск ближайших банкоматов без комиссии</li>
+                <li>🎨 Фирменный чёрно-золотой стиль</li>
+                <li>🔒 Никаких скрытых сборов</li>
+            </ul>
+            <div>
+                <a href="https://file.kiwi/8e6f5084#ChuNxYwYfGIVGU8aDVzxbA" class="btn">⬇️ СКАЧАТЬ PHANTOMGUARD 1.0 (APK)</a>
+            </div>
+            <h3>📱 PhantomGuard для Android</h3>
+            <p>Скачать приложение: <a href="https://gofile.io/d/xUO3Iq">https://gofile.io/d/xUO3Iq</a></p>
+            <div class="install-steps">
+                <strong>Как установить:</strong>
+                <ol>
+                    <li>Скачайте файл</li>
+                    <li>Откройте его на телефоне</li>
+                    <li>Разрешите установку из неизвестных источников (появится кнопка «Настройки»)</li>
+                    <li>Вернитесь и нажмите «Установить»</li>
+                </ol>
+            </div>
+            <p><em>PhantomGuard распространяется бесплатно. Разработчик: Phantom Road Studio. Приложение не собирает персональные данные без вашего согласия.</em></p>
+        </div>
+
+        <!-- Драйверы -->
+        <div class="section">
+            <h2>⚙️ Драйверы для PhantomOS — в разработке</h2>
+            <p>Специальные драйверы для интеграции с железом и максимальной совместимости.</p>
+            <a href="#" class="btn">📖 ПОДРОБНЕЕ О PHANTOM OS</a>
+        </div>
+
+        <!-- Контакты -->
+        <div class="section">
+            <h2>Контакты / Сообщество</h2>
+            <p><strong>Связь с командой Phantom OS</strong><br>Присоединяйтесь к обсуждению и развитию Phantom OS.</p>
+            <a href="https://vk.com/phantomroadstudio" class="btn">🎮 ПЕРЕЙТИ В ГРУППУ ВК</a>
+        </div>
 
         <div class="footer">
             © 2026 Phantom Road Studio · Бесплатно. Навсегда.<br>
@@ -167,10 +251,11 @@
     </div>
 
     <script>
-        // Генерация звёзд на фоне
+        // Генерация мерцающих звёзд
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 120;
+            if (!starsContainer) return;
+            const starCount = 150;
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
