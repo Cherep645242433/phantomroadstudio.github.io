@@ -18,7 +18,7 @@
             background: #000000;
         }
 
-        /* Космический фон с анимацией */
+        /* Фон */
         .cosmic-bg {
             position: fixed;
             top: 0;
@@ -27,80 +27,74 @@
             height: 100%;
             z-index: 0;
             background: radial-gradient(ellipse at center, #0a0a1a 0%, #000000 100%);
-            overflow: hidden;
         }
 
-        /* Пульсирующее свечение по краям */
-        .glow {
+        /* Пламя по краям */
+        .flame {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
-            animation: rotateGlow 20s linear infinite;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.2) 0%, rgba(180, 60, 30, 0.1) 50%, transparent 80%);
+            filter: blur(20px);
+            animation: flamePulse 4s infinite alternate;
             pointer-events: none;
         }
 
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes flamePulse {
+            0% { opacity: 0.4; transform: scaleY(1); filter: blur(25px);}
+            100% { opacity: 0.9; transform: scaleY(1.2); filter: blur(35px);}
         }
 
-        /* Летающие золотые частицы */
-        .particle {
+        /* Фантомы (летающие тени) */
+        .phantom {
             position: absolute;
-            background-color: #D4AF37;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(100, 50, 150, 0.1) 80%);
             border-radius: 50%;
-            opacity: 0;
-            filter: blur(1px);
+            filter: blur(25px);
             pointer-events: none;
+            animation: floatPhantom 12s infinite ease-in-out;
         }
 
-        /* Плавное появление контента */
+        @keyframes floatPhantom {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(40px, -30px) scale(1.2); opacity: 0.7; }
+            100% { transform: translate(-20px, -60px) scale(0.9); opacity: 0.3; }
+        }
+
+        /* Контент поверх */
         .container {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .header {
             text-align: center;
             margin-bottom: 50px;
+            animation: fadeInUp 0.8s;
         }
 
         .shield {
             font-size: 100px;
             display: inline-block;
             animation: shieldPulse 2s infinite ease-in-out;
-            filter: drop-shadow(0 0 10px #D4AF37);
+            filter: drop-shadow(0 0 15px #D4AF37);
         }
 
         @keyframes shieldPulse {
-            0% { transform: scale(1); text-shadow: 0 0 0px #D4AF37; filter: drop-shadow(0 0 5px #D4AF37); }
-            50% { transform: scale(1.12); text-shadow: 0 0 25px #D4AF37; filter: drop-shadow(0 0 20px #D4AF37); }
-            100% { transform: scale(1); text-shadow: 0 0 0px #D4AF37; filter: drop-shadow(0 0 5px #D4AF37); }
+            0% { transform: scale(1); text-shadow: 0 0 0 #D4AF37; filter: drop-shadow(0 0 5px #D4AF37);}
+            50% { transform: scale(1.1); text-shadow: 0 0 25px #D4AF37; filter: drop-shadow(0 0 25px #D4AF37);}
+            100% { transform: scale(1); text-shadow: 0 0 0 #D4AF37; filter: drop-shadow(0 0 5px #D4AF37);}
         }
 
         h1 {
             color: #D4AF37;
             font-size: 3em;
             margin: 15px 0;
-            letter-spacing: 2px;
         }
 
         .sub {
@@ -110,42 +104,39 @@
         }
 
         .section {
-            background: rgba(10, 10, 20, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
             border-radius: 20px;
             padding: 25px;
             margin-bottom: 30px;
             border-left: 4px solid #D4AF37;
-            transition: all 0.4s ease;
+            transition: 0.4s;
         }
 
         .section:hover {
             background: rgba(20, 20, 40, 0.8);
             transform: translateX(8px);
-            border-left-width: 6px;
         }
 
         .section h2 {
             color: #D4AF37;
-            margin-top: 0;
-            font-size: 1.8em;
         }
 
         .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #D4AF37 0%, #B8960C 100%);
-            color: #000000;
+            background: linear-gradient(135deg, #D4AF37, #B8960C);
+            color: black;
             padding: 12px 28px;
+            border-radius: 40px;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 40px;
+            display: inline-block;
             transition: 0.3s;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            margin: 10px 0;
         }
 
         .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 15px #D4AF37;
         }
 
         .footer {
@@ -157,30 +148,41 @@
             color: #aaa;
         }
 
-        a {
-            color: #D4AF37;
-            text-decoration: none;
-        }
-
         .install-steps {
             background: rgba(0, 0, 0, 0.5);
             padding: 15px;
             border-radius: 12px;
-            margin: 15px 0;
         }
 
-        ul, ol {
-            padding-left: 20px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        li {
-            margin: 8px 0;
+        .section, .header, .footer {
+            animation: fadeInUp 0.8s ease backwards;
         }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
-    <div class="cosmic-bg" id="cosmicBg">
-        <div class="glow"></div>
+    <div class="cosmic-bg">
+        <div class="flame"></div>
+        <!-- Фантомы будут добавлены через JS -->
     </div>
 
     <div class="container">
@@ -190,111 +192,66 @@
             <div class="sub">Независимая студия из Минска</div>
         </div>
 
-        <!-- Раздел: Минимальный набор -->
         <div class="section">
             <h2>Phantom OS — минималистичная среда нового поколения</h2>
             <h3>Минимальный набор</h3>
-            <ul>
-                <li>Hacker Evidence Core — модуль фиксации цифровых доказательств</li>
-                <li>Global Heroes — фантомный щит для защиты пользователей и стран</li>
-                <li>Digital Heroes — система поддержки легендарных ролей</li>
-                <li>Envy Factor — фантомный баланс и контроль</li>
-                <li>Dream Closure — модуль завершения процессов и фантомной энергии</li>
-                <li>Баннер Phantom OS — фантомное золото #D4AF37, шрифты Lato/Roboto</li>
-                <li>Структура сайта Phantom OS — навигация и циклы концептуализированы</li>
-                <li>ArmMor — ядро Phantom OS</li>
-                <li>Copilot — встроен в ядро ArmMor, принимает любые форматы (текст, таблицы, аудио, видео, схемы) в чат без ограничений</li>
-            </ul>
+            <ul><li>Hacker Evidence Core — модуль фиксации цифровых доказательств</li>
+            <li>Global Heroes — фантомный щит для защиты пользователей и стран</li>
+            <li>Digital Heroes — система поддержки легендарных ролей</li>
+            <li>Envy Factor — фантомный баланс и контроль</li>
+            <li>Dream Closure — модуль завершения процессов и фантомной энергии</li>
+            <li>ArmMor — ядро Phantom OS</li>
+            <li>Copilot — встроен в ядро ArmMor без ограничений</li></ul>
         </div>
 
-        <!-- Интеграции -->
         <div class="section">
             <h2>Интеграции Phantom OS</h2>
-            <ol>
-                <li><strong>Почтовые сервисы</strong> — Phantom Mail + связь с Outlook, Gmail</li>
-                <li><strong>Защитные системы</strong> — Fraud Detector и Hacker Evidence + Global Shield</li>
-                <li><strong>Сетевой уровень (Phantom Net)</strong> — фантомная сеть с фиолетовым шаром</li>
-                <li><strong>Документы и файлы</strong> — интеграция с OneDrive, Google Drive</li>
-                <li><strong>Документооборот</strong> — создание, просмотр, редактирование TXT, PDF, DOCX, CSV. Безопасность, шифрование, история изменений</li>
-                <li><strong>Синхронизация</strong> — единый доступ к файлам через Phantom Net</li>
-            </ol>
+            <ol><li>Почтовые сервисы — Phantom Mail + Outlook, Gmail</li>
+            <li>Защитные системы — Fraud Detector + Global Shield</li>
+            <li>Сетевой уровень (Phantom Net)</li>
+            <li>Документы и файлы — OneDrive, Google Drive</li>
+            <li>Документооборот — TXT, PDF, DOCX, CSV. Безопасность, шифрование</li>
+            <li>Синхронизация через Phantom Net</li></ol>
         </div>
 
-        <!-- Roadmap -->
         <div class="section">
             <h2>Roadmap</h2>
-            <ul>
-                <li><strong>MVP</strong> — защита файлов, история изменений, базовая синхронизация</li>
-                <li><strong>Beta</strong> — интеграция с Fraud Detector, улучшенная безопасность</li>
-                <li><strong>Full Release</strong> — стабильная версия с документацией и поддержкой сообщества</li>
-                <li><strong>Phantom Net</strong> — распределённая сеть, единый доступ к данным, защита</li>
-            </ul>
+            <ul><li>MVP — защита файлов, история изменений</li>
+            <li>Beta — интеграция с Fraud Detector</li>
+            <li>Full Release — стабильная версия</li>
+            <li>Phantom Net — распределённая сеть</li></ul>
         </div>
 
-        <!-- Ядро -->
         <div class="section">
             <h2>Ядро Phantom OS — цифровая основа безопасности</h2>
-            <p>Phantom OS построен на уникальном ядре ArmMor. В отличие от традиционных ОС, ядро изолирует процессы на уровне архитектуры, исключая несанкционированный доступ и утечки данных.</p>
-            <ul>
-                <li>🔐 Безопасность по умолчанию</li>
-                <li>⚙️ Минимализм и надёжность</li>
-                <li>🚀 Готово к масштабированию</li>
-            </ul>
-            <p><strong>Phantom OS — это не просто система. Это цифровой щит, начинающийся с ядра.</strong></p>
+            <p>Ядро ArmMor изолирует процессы, исключая утечки данных.</p>
+            <ul><li>🔐 Безопасность по умолчанию</li>
+            <li>⚙️ Минимализм и надёжность</li>
+            <li>🚀 Готово к масштабированию</li></ul>
+            <p><strong>Phantom OS — это цифровой щит, начинающийся с ядра.</strong></p>
         </div>
 
-        <!-- Лицензия -->
         <div class="section">
             <h2>Лицензия / Условия использования</h2>
-            <p>Phantom OS распространяется под лицензией, гарантирующей прозрачность и свободу использования.</p>
-            <ul>
-                <li>📜 Прозрачные условия</li>
-                <li>🤝 Свободное использование</li>
-                <li>🛡️ Ответственность и защита</li>
-            </ul>
-            <p><strong>Phantom OS License Agreement:</strong> Система предоставляется бесплатно для личных и коммерческих целей. Модификации допускаются при сохранении упоминания Phantom Road Studio. Запрещена перепродажа без письменного согласия. Студия не несёт ответственности за возможные сбои.</p>
-            <p><strong>Политика конфиденциальности:</strong> Phantom OS не собирает персональные данные без согласия пользователя. Техническая информация используется только для улучшения продукта. Данные не передаются третьим лицам.</p>
+            <p>Бесплатно для личных и коммерческих целей. Модификации с упоминанием Phantom Road Studio.</p>
+            <p><strong>Политика конфиденциальности:</strong> данные не собираются без согласия, не передаются третьим лицам.</p>
         </div>
 
-        <!-- PhantomGuard 1.0 -->
         <div class="section">
             <h2>🛡️ PhantomGuard 1.0 — Защита ваших карт</h2>
-            <p>Бесплатное приложение для защиты банковских карт от хакеров и мошенничества.</p>
-            <ul>
-                <li>⚡ Мгновенное предупреждение при попытке скопировать номер карты</li>
-                <li>🛡️ Блокировка подозрительных действий</li>
-                <li>🏦 Поиск ближайших банкоматов без комиссии</li>
-                <li>🎨 Фирменный чёрно-золотой стиль</li>
-                <li>🔒 Никаких скрытых сборов</li>
-            </ul>
-            <div>
-                <a href="https://file.kiwi/8e6f5084#ChuNxYwYfGIVGU8aDVzxbA" class="btn">⬇️ СКАЧАТЬ PHANTOMGUARD 1.0 (APK)</a>
-            </div>
-            <h3>📱 PhantomGuard для Android</h3>
-            <p>Скачать приложение: <a href="https://gofile.io/d/xUO3Iq">https://gofile.io/d/xUO3Iq</a></p>
-            <div class="install-steps">
-                <strong>Как установить:</strong>
-                <ol>
-                    <li>Скачайте файл</li>
-                    <li>Откройте его на телефоне</li>
-                    <li>Разрешите установку из неизвестных источников (появится кнопка «Настройки»)</li>
-                    <li>Вернитесь и нажмите «Установить»</li>
-                </ol>
-            </div>
-            <p><em>PhantomGuard распространяется бесплатно. Разработчик: Phantom Road Studio. Приложение не собирает персональные данные без вашего согласия.</em></p>
+            <p>Бесплатное приложение для защиты банковских карт.</p>
+            <ul><li>⚡ Мгновенное предупреждение</li><li>🛡️ Блокировка подозрительных действий</li><li>🏦 Поиск банкоматов</li><li>🎨 Чёрно-золотой стиль</li><li>🔒 Без скрытых сборов</li></ul>
+            <a href="https://file.kiwi/8e6f5084#ChuNxYwYfGIVGU8aDVzxbA" class="btn">⬇️ СКАЧАТЬ PHANTOMGUARD 1.0 (APK)</a>
+            <div class="install-steps"><strong>Как установить:</strong><ol><li>Скачайте файл</li><li>Откройте на телефоне</li><li>Разрешите установку</li><li>Нажмите «Установить»</li></ol></div>
         </div>
 
-        <!-- Драйверы -->
         <div class="section">
             <h2>⚙️ Драйверы для PhantomOS — в разработке</h2>
-            <p>Специальные драйверы для интеграции с железом и максимальной совместимости.</p>
             <a href="#" class="btn">📖 ПОДРОБНЕЕ О PHANTOM OS</a>
         </div>
 
-        <!-- Контакты -->
         <div class="section">
             <h2>Контакты / Сообщество</h2>
-            <p><strong>Связь с командой Phantom OS</strong><br>Присоединяйтесь к обсуждению и развитию Phantom OS.</p>
             <a href="https://vk.com/phantomroadstudio" class="btn">🎮 ПЕРЕЙТИ В ГРУППУ ВК</a>
         </div>
 
@@ -305,49 +262,20 @@
     </div>
 
     <script>
-        // Создаём летающие золотые частицы
-        function createParticles() {
-            const bg = document.getElementById('cosmicBg');
-            if (!bg) return;
-            const particleCount = 80;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                const size = Math.random() * 4 + 1;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animation = `floatParticle ${Math.random() * 8 + 6}s linear infinite`;
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                particle.style.opacity = Math.random() * 0.6 + 0.2;
-                bg.appendChild(particle);
-            }
+        // Добавляем плавающие фантомы
+        const bg = document.querySelector('.cosmic-bg');
+        for (let i = 0; i < 12; i++) {
+            const phantom = document.createElement('div');
+            phantom.classList.add('phantom');
+            const size = Math.random() * 150 + 80;
+            phantom.style.width = size + 'px';
+            phantom.style.height = size + 'px';
+            phantom.style.left = Math.random() * 100 + '%';
+            phantom.style.top = Math.random() * 100 + '%';
+            phantom.style.animationDelay = Math.random() * 5 + 's';
+            phantom.style.animationDuration = Math.random() * 8 + 8 + 's';
+            bg.appendChild(phantom);
         }
-
-        // Добавляем стиль для анимации частиц прямо в JS (чтобы не засорять CSS)
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes floatParticle {
-                0% {
-                    transform: translateY(0) translateX(0);
-                    opacity: 0;
-                }
-                20% {
-                    opacity: 0.8;
-                }
-                80% {
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: translateY(-100vh) translateX(40px);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        createParticles();
     </script>
 </body>
 </html>
