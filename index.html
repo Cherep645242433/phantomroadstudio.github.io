@@ -5,39 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phantom Road Studio — Phantom OS</title>
     <style>
-        /* ---------- Базовые стили и анимация фона ---------- */
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Arial, sans-serif;
             color: #ffffff;
-            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
             overflow-x: hidden;
-            position: relative;
+            background: #000000;
         }
+
         /* Космический фон с анимацией */
-        .space-bg {
+        .cosmic-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: #000000;
+            background: radial-gradient(ellipse at center, #0a0a1a 0%, #000000 100%);
             overflow: hidden;
         }
-        .star {
+
+        /* Пульсирующее свечение по краям */
+        .glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
+            animation: rotateGlow 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Летающие золотые частицы */
+        .particle {
             position: absolute;
             background-color: #D4AF37;
             border-radius: 50%;
             opacity: 0;
-            animation: starGlow 4s infinite ease-in-out;
+            filter: blur(1px);
+            pointer-events: none;
         }
-        @keyframes starGlow {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 0.8; transform: scale(1); box-shadow: 0 0 6px #D4AF37; }
-            100% { opacity: 0; transform: scale(0.3); }
-        }
+
         /* Плавное появление контента */
         .container {
             position: relative;
@@ -45,89 +64,124 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .header {
             text-align: center;
             margin-bottom: 50px;
         }
+
         .shield {
-            font-size: 80px;
+            font-size: 100px;
             display: inline-block;
-            animation: pulse 2s infinite ease-in-out;
+            animation: shieldPulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px #D4AF37);
         }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.9; text-shadow: 0 0 0px #D4AF37; }
-            50% { transform: scale(1.08); opacity: 1; text-shadow: 0 0 15px #D4AF37; }
-            100% { transform: scale(1); opacity: 0.9; text-shadow: 0 0 0px #D4AF37; }
+
+        @keyframes shieldPulse {
+            0% { transform: scale(1); text-shadow: 0 0 0px #D4AF37; filter: drop-shadow(0 0 5px #D4AF37); }
+            50% { transform: scale(1.12); text-shadow: 0 0 25px #D4AF37; filter: drop-shadow(0 0 20px #D4AF37); }
+            100% { transform: scale(1); text-shadow: 0 0 0px #D4AF37; filter: drop-shadow(0 0 5px #D4AF37); }
         }
+
         h1 {
             color: #D4AF37;
-            font-size: 2.8em;
-            margin: 10px 0;
+            font-size: 3em;
+            margin: 15px 0;
+            letter-spacing: 2px;
         }
+
         .sub {
             font-size: 1.2em;
             color: #D4AF37;
-            margin-bottom: 30px;
+            opacity: 0.9;
         }
+
         .section {
-            background-color: rgba(17, 17, 17, 0.85);
-            backdrop-filter: blur(3px);
-            border-radius: 16px;
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
             padding: 25px;
             margin-bottom: 30px;
             border-left: 4px solid #D4AF37;
-            transition: 0.3s;
+            transition: all 0.4s ease;
         }
+
         .section:hover {
-            background-color: rgba(26, 26, 26, 0.9);
-            transform: translateX(5px);
+            background: rgba(20, 20, 40, 0.8);
+            transform: translateX(8px);
+            border-left-width: 6px;
         }
+
         .section h2 {
             color: #D4AF37;
             margin-top: 0;
+            font-size: 1.8em;
         }
+
         .btn {
             display: inline-block;
-            background-color: #D4AF37;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8960C 100%);
             color: #000000;
-            padding: 12px 24px;
+            padding: 12px 28px;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 8px;
-            transition: 0.2s;
+            border-radius: 40px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
+
         .btn:hover {
-            background-color: #e6c85c;
-            transform: scale(1.02);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
         }
+
         .footer {
             text-align: center;
             margin-top: 50px;
             padding-top: 20px;
-            border-top: 1px solid rgba(51, 51, 51, 0.8);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
             font-size: 0.8em;
             color: #aaa;
         }
+
         a {
             color: #D4AF37;
+            text-decoration: none;
         }
+
         .install-steps {
-            background-color: rgba(26, 26, 26, 0.9);
+            background: rgba(0, 0, 0, 0.5);
             padding: 15px;
             border-radius: 12px;
             margin: 15px 0;
         }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
     </style>
 </head>
 <body>
-    <!-- Анимированный фон: звёзды -->
-    <div class="space-bg" id="stars"></div>
+    <div class="cosmic-bg" id="cosmicBg">
+        <div class="glow"></div>
+    </div>
 
     <div class="container">
         <div class="header">
@@ -251,25 +305,49 @@
     </div>
 
     <script>
-        // Генерация мерцающих звёзд
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            if (!starsContainer) return;
-            const starCount = 150;
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                const size = Math.random() * 2.5 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 5 + 's';
-                star.style.animationDuration = Math.random() * 3 + 2 + 's';
-                starsContainer.appendChild(star);
+        // Создаём летающие золотые частицы
+        function createParticles() {
+            const bg = document.getElementById('cosmicBg');
+            if (!bg) return;
+            const particleCount = 80;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animation = `floatParticle ${Math.random() * 8 + 6}s linear infinite`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.opacity = Math.random() * 0.6 + 0.2;
+                bg.appendChild(particle);
             }
         }
-        createStars();
+
+        // Добавляем стиль для анимации частиц прямо в JS (чтобы не засорять CSS)
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatParticle {
+                0% {
+                    transform: translateY(0) translateX(0);
+                    opacity: 0;
+                }
+                20% {
+                    opacity: 0.8;
+                }
+                80% {
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(40px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        createParticles();
     </script>
 </body>
 </html>
