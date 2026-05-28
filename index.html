@@ -1,45 +1,285 @@
-        .flame {
-            position: absolute;
-            bottom: 0;
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Road Studio — Phantom OS</title>
+    <meta name="google-site-verification" content="SczOxO5MYCf1uJGB9Bjg2JnMP1PvV4vHDVcmYMM_9kQ" />
+    <meta name="description" content="Официальный сайт Phantom Road Studio. Бесплатное приложение PhantomGuard для защиты банковских карт. Операционная система Phantom OS с ядром ArmMor. Чёрный космос, золотой щит, никакой рекламы.">
+    <meta name="keywords" content="PhantomGuard, защита карт, безопасность, банковские карты, Phantom OS, ArmMor, фантомная защита, бесплатное приложение, Android">
+    <meta name="author" content="Phantom Road Studio">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='black'/%3E%3Ctext x='50' y='80' font-size='80' text-anchor='middle' fill='%23D4AF37'%3E🛡️%3C/text%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 30%;
-            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.3) 0%, rgba(200, 70, 30, 0.2) 40%, transparent 80%);
-            filter: blur(15px);
-            animation: flamePulse 3s infinite alternate;
-            pointer-events: none;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at center, #0a0a1a 0%, #000000 100%);
         }
 
-        @keyframes flamePulse {
-            0% { opacity: 0.4; transform: scaleY(1); filter: blur(15px);}
-            100% { opacity: 0.8; transform: scaleY(1.2); filter: blur(20px);}
-        }
-
-        .spark {
+        /* Золотые линии — чётко, без размытия */
+        .gold-line {
             position: absolute;
-            background-color: #D4AF37;
-            border-radius: 50%;
-            width: 4px;
-            height: 4px;
+            background: linear-gradient(90deg, #D4AF37, #FFDF80);
+            height: 2px;
+            width: 0;
             opacity: 0;
+            border-radius: 2px;
+            box-shadow: 0 0 6px #D4AF37;
             pointer-events: none;
-            box-shadow: 0 0 4px #D4AF37;
-            animation: floatSpark 6s linear infinite;
+            animation: drawLine 4s ease-out infinite;
         }
 
-        @keyframes floatSpark {
+        @keyframes drawLine {
             0% {
-                transform: translateY(0) translateX(0);
+                width: 0;
                 opacity: 0;
             }
-            10% {
+            20% {
                 opacity: 1;
             }
-            90% {
+            80% {
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) translateX(30px);
+                width: 200px;
                 opacity: 0;
             }
         }
+
+        .gold-line-vertical {
+            position: absolute;
+            background: linear-gradient(180deg, #D4AF37, #FFDF80);
+            width: 2px;
+            height: 0;
+            opacity: 0;
+            border-radius: 2px;
+            box-shadow: 0 0 6px #D4AF37;
+            pointer-events: none;
+            animation: drawLineVertical 4s ease-out infinite;
+        }
+
+        @keyframes drawLineVertical {
+            0% {
+                height: 0;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                height: 150px;
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .shield {
+            font-size: 100px;
+            display: inline-block;
+            animation: shieldPulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 20px #D4AF37);
+        }
+
+        @keyframes shieldPulse {
+            0% { transform: scale(1); text-shadow: 0 0 0 #D4AF37; filter: drop-shadow(0 0 5px #D4AF37);}
+            50% { transform: scale(1.15); text-shadow: 0 0 30px #D4AF37; filter: drop-shadow(0 0 30px #D4AF37);}
+            100% { transform: scale(1); text-shadow: 0 0 0 #D4AF37; filter: drop-shadow(0 0 5px #D4AF37);}
+        }
+
+        h1 {
+            color: #D4AF37;
+            font-size: 3em;
+            margin: 15px 0;
+        }
+
+        .sub {
+            font-size: 1.2em;
+            color: #D4AF37;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #D4AF37;
+            transition: 0.3s;
+        }
+
+        .section:hover {
+            background: rgba(20, 20, 40, 0.85);
+            transform: translateX(8px);
+        }
+
+        .section h2 {
+            color: #D4AF37;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #D4AF37, #B8960C);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #D4AF37;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            font-size: 0.8em;
+            color: #aaa;
+        }
+
+        .install-steps {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section, .header, .footer {
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg" id="cosmicBg"></div>
+    <div class="container">
+        <div class="header">
+            <div class="shield">🛡️</div>
+            <h1>Phantom Road Studio</h1>
+            <div class="sub">Независимая студия из Минска</div>
+        </div>
+        <div class="section">
+            <h2>Phantom OS — минималистичная среда нового поколения</h2>
+            <h3>Минимальный набор</h3>
+            <ul><li>Hacker Evidence Core — модуль фиксации цифровых доказательств</li><li>Global Heroes — фантомный щит для защиты пользователей и стран</li><li>Digital Heroes — система поддержки легендарных ролей</li><li>Envy Factor — фантомный баланс и контроль</li><li>Dream Closure — модуль завершения процессов и фантомной энергии</li><li>ArmMor — ядро Phantom OS</li><li>Copilot — встроен в ядро ArmMor без ограничений</li></ul>
+        </div>
+        <div class="section">
+            <h2>Интеграции Phantom OS</h2>
+            <ol><li>Почтовые сервисы — Phantom Mail + Outlook, Gmail</li><li>Защитные системы — Fraud Detector + Global Shield</li><li>Сетевой уровень (Phantom Net)</li><li>Документы и файлы — OneDrive, Google Drive</li><li>Документооборот — TXT, PDF, DOCX, CSV. Безопасность, шифрование</li><li>Синхронизация через Phantom Net</li></ol>
+        </div>
+        <div class="section">
+            <h2>Roadmap</h2>
+            <ul><li>MVP — защита файлов, история изменений</li><li>Beta — интеграция с Fraud Detector</li><li>Full Release — стабильная версия</li><li>Phantom Net — распределённая сеть</li></ul>
+        </div>
+        <div class="section">
+            <h2>Ядро Phantom OS — цифровая основа безопасности</h2>
+            <p>Ядро ArmMor изолирует процессы, исключая утечки данных.</p>
+            <ul><li>🔐 Безопасность по умолчанию</li><li>⚙️ Минимализм и надёжность</li><li>🚀 Готово к масштабированию</li></ul>
+            <p><strong>Phantom OS — это цифровой щит, начинающийся с ядра.</strong></p>
+        </div>
+        <div class="section">
+            <h2>Лицензия / Условия использования</h2>
+            <p>Бесплатно для личных и коммерческих целей. Модификации с упоминанием Phantom Road Studio.</p>
+            <p><strong>Политика конфиденциальности:</strong> данные не собираются без согласия, не передаются третьим лицам.</p>
+        </div>
+        <div class="section">
+            <h2>🛡️ PhantomGuard 1.0 — Защита ваших карт</h2>
+            <p>Бесплатное приложение для защиты банковских карт.</p>
+            <ul><li>⚡ Мгновенное предупреждение</li><li>🛡️ Блокировка подозрительных действий</li><li>🏦 Поиск банкоматов</li><li>🎨 Чёрно-золотой стиль</li><li>🔒 Без скрытых сборов</li></ul>
+            <a href="https://file.kiwi/8e6f5084#ChuNxYwYfGIVGU8aDVzxbA" class="btn">⬇️ СКАЧАТЬ PHANTOMGUARD 1.0 (APK)</a>
+            <div class="install-steps"><strong>Как установить:</strong><ol><li>Скачайте файл</li><li>Откройте на телефоне</li><li>Разрешите установку</li><li>Нажмите «Установить»</li></ol></div>
+        </div>
+        <div class="section">
+            <h2>⚙️ Драйверы для PhantomOS — в разработке</h2>
+            <a href="#" class="btn">📖 ПОДРОБНЕЕ О PHANTOM OS</a>
+        </div>
+        <div class="section">
+            <h2>Контакты / Сообщество</h2>
+            <a href="https://vk.com/phantomroadstudio" class="btn">🎮 ПЕРЕЙТИ В ГРУППУ ВК</a>
+        </div>
+        <div class="footer">
+            © 2026 Phantom Road Studio · Бесплатно. Навсегда.<br>
+            Официальный сайт Phantom Road Studio
+        </div>
+    </div>
+    <script>
+        const bg = document.getElementById('cosmicBg');
+        // Горизонтальные линии
+        for (let i = 0; i < 50; i++) {
+            const line = document.createElement('div');
+            line.classList.add('gold-line');
+            line.style.top = Math.random() * 100 + '%';
+            line.style.left = Math.random() * 80 + '%';
+            line.style.animationDelay = Math.random() * 6 + 's';
+            line.style.animationDuration = Math.random() * 3 + 3 + 's';
+            bg.appendChild(line);
+        }
+        // Вертикальные линии
+        for (let i = 0; i < 40; i++) {
+            const line = document.createElement('div');
+            line.classList.add('gold-line-vertical');
+            line.style.left = Math.random() * 100 + '%';
+            line.style.top = Math.random() * 80 + '%';
+            line.style.animationDelay = Math.random() * 6 + 's';
+            line.style.animationDuration = Math.random() * 3 + 3 + 's';
+            bg.appendChild(line);
+        }
+    </script>
+</body>
+</html>
