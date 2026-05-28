@@ -80,14 +80,12 @@
         <div class="section">
             <h2>🛡️ PhantomGuard 1.0 — Защита ваших карт</h2>
 
-            <!-- Кнопки вкладок -->
             <div style="display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; flex-wrap: wrap;">
                 <button onclick="showTab('description')" id="btnDesc" style="background: none; border: none; color: #D4AF37; font-size: 1.1em; cursor: pointer; padding: 5px 10px;">📱 Описание</button>
                 <button onclick="showTab('screenshots')" id="btnScr" style="background: none; border: none; color: #aaa; font-size: 1.1em; cursor: pointer; padding: 5px 10px;">📸 Скриншоты</button>
                 <button onclick="showTab('requirements')" id="btnReq" style="background: none; border: none; color: #aaa; font-size: 1.1em; cursor: pointer; padding: 5px 10px;">⚙️ Системные требования</button>
             </div>
 
-            <!-- Вкладка: Описание -->
             <div id="tabDescription">
                 <p>Бесплатное приложение для защиты банковских карт.</p>
                 <ul>
@@ -101,31 +99,31 @@
                 <div class="install-steps"><strong>Как установить:</strong><ol><li>Скачайте файл</li><li>Откройте на телефоне</li><li>Разрешите установку</li><li>Нажмите «Установить»</li></ol></div>
             </div>
 
-            <!-- Вкладка: Скриншоты -->
+            <!-- Вкладка: Скриншоты (улучшенная для телефонов) -->
             <div id="tabScreenshots" style="display: none;">
                 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
-                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=f46e6c7e-5a9111f1-84b464e6-b239f62" alt="Статистика 1" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
+                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=f46e6c7e-5a9111f1-84b464e6-b239f62" alt="Статистика 1" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="openModal(this.src)">
                         <p style="margin-top: 10px;">📊 301 взаимодействие за день</p>
                     </div>
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
-                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=f95c736-5a9211f1-a392a949-812064b7" alt="Статистика 2" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
+                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=f95c736-5a9211f1-a392a949-812064b7" alt="Статистика 2" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="openModal(this.src)">
                         <p style="margin-top: 10px;">📈 101 дочитывание</p>
                     </div>
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
-                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=2053f520-5a9211f1-9ec2b077-3141f9e7" alt="Сайт" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
+                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=2053f520-5a9211f1-9ec2b077-3141f9e7" alt="Сайт" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="openModal(this.src)">
                         <p style="margin-top: 10px;">🌍 Официальный сайт</p>
                     </div>
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
-                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=3657bbd6-5a9211f1-afdcb311-1952e036" alt="Google Console" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
+                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=3657bbd6-5a9211f1-afdcb311-1952e036" alt="Google Console" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="openModal(this.src)">
                         <p style="margin-top: 10px;">✅ Google нас видит</p>
                     </div>
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
-                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=42587be6-5a9211f1-a211e6d7-95abc9bc" alt="GitHub" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
+                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=42587be6-5a9211f1-a211e6d7-95abc9bc" alt="GitHub" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="openModal(this.src)">
                         <p style="margin-top: 10px;">💻 Код на GitHub</p>
                     </div>
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
-                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=57b465a4-5a9211f1-994c35f9-1989fa06" alt="Общий результат" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
+                        <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=57b465a4-5a9211f1-994c35f9-1989fa06" alt="Общий результат" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="openModal(this.src)">
                         <p style="margin-top: 10px;">🏆 Общий результат</p>
                     </div>
                 </div>
@@ -157,6 +155,11 @@
             © 2026 Phantom Road Studio · Бесплатно. Навсегда.<br>
             Официальный сайт Phantom Road Studio
         </div>
+    </div>
+
+    <!-- Модальное окно для увеличения картинки -->
+    <div id="imageModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; cursor: pointer;" onclick="closeModal()">
+        <img id="modalImage" style="max-width: 90%; max-height: 90%; border-radius: 12px; border: 2px solid #D4AF37;">
     </div>
 
     <script>
@@ -207,6 +210,17 @@
                 req.style.display = 'block';
                 btnReq.style.color = '#D4AF37';
             }
+        }
+
+        // Открытие модального окна для скринов
+        function openModal(src) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImg.src = src;
+        }
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
         }
     </script>
 </body>
