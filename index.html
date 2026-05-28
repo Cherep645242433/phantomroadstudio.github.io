@@ -76,14 +76,15 @@
             <p><strong>Политика конфиденциальности:</strong> данные не собираются без согласия, не передаются третьим лицам.</p>
         </div>
 
-        <!-- ========== PHANTOMGUARD С ВКЛАДКАМИ ========== -->
+        <!-- ========== PHANTOMGUARD С ТРЕМЯ ВКЛАДКАМИ ========== -->
         <div class="section">
             <h2>🛡️ PhantomGuard 1.0 — Защита ваших карт</h2>
 
             <!-- Кнопки вкладок -->
-            <div style="display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+            <div style="display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; flex-wrap: wrap;">
                 <button onclick="showTab('description')" id="btnDesc" style="background: none; border: none; color: #D4AF37; font-size: 1.1em; cursor: pointer; padding: 5px 10px;">📱 Описание</button>
                 <button onclick="showTab('screenshots')" id="btnScr" style="background: none; border: none; color: #aaa; font-size: 1.1em; cursor: pointer; padding: 5px 10px;">📸 Скриншоты</button>
+                <button onclick="showTab('requirements')" id="btnReq" style="background: none; border: none; color: #aaa; font-size: 1.1em; cursor: pointer; padding: 5px 10px;">⚙️ Системные требования</button>
             </div>
 
             <!-- Вкладка: Описание -->
@@ -100,43 +101,47 @@
                 <div class="install-steps"><strong>Как установить:</strong><ol><li>Скачайте файл</li><li>Откройте на телефоне</li><li>Разрешите установку</li><li>Нажмите «Установить»</li></ol></div>
             </div>
 
-            <!-- Вкладка: Скриншоты (скрыта) -->
+            <!-- Вкладка: Скриншоты -->
             <div id="tabScreenshots" style="display: none;">
                 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                    <!-- Карточка 1 -->
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
                         <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=f46e6c7e-5a9111f1-84b464e6-b239f62" alt="Статистика 1" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
                         <p style="margin-top: 10px;">📊 301 взаимодействие за день</p>
                     </div>
-                    <!-- Карточка 2 -->
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
                         <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=f95c736-5a9211f1-a392a949-812064b7" alt="Статистика 2" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
                         <p style="margin-top: 10px;">📈 101 дочитывание</p>
                     </div>
-                    <!-- Карточка 3 -->
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
                         <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=2053f520-5a9211f1-9ec2b077-3141f9e7" alt="Сайт" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
                         <p style="margin-top: 10px;">🌍 Официальный сайт</p>
                     </div>
-                    <!-- Карточка 4 -->
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
                         <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=3657bbd6-5a9211f1-afdcb311-1952e036" alt="Google Console" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
                         <p style="margin-top: 10px;">✅ Google нас видит</p>
                     </div>
-                    <!-- Карточка 5 -->
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
                         <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=42587be6-5a9211f1-a211e6d7-95abc9bc" alt="GitHub" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
                         <p style="margin-top: 10px;">💻 Код на GitHub</p>
                     </div>
-                    <!-- Карточка 6 -->
                     <div style="background: rgba(0,0,0,0.7); border: 1px solid #D4AF37; border-radius: 16px; padding: 12px; width: 280px;">
                         <img src="https://rpc.alice.yandex.ru/gproxy/get_preview_url?FileGuid=57b465a4-5a9211f1-994c35f9-1989fa06" alt="Общий результат" style="width: 100%; border-radius: 12px; cursor: pointer;" onclick="window.open(this.src)">
                         <p style="margin-top: 10px;">🏆 Общий результат</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Вкладка: Системные требования -->
+            <div id="tabRequirements" style="display: none;">
+                <h3 style="color: #D4AF37; margin-bottom: 15px;">🤖 Android (минимальные)</h3>
+                <ul><li>Android 10 и выше</li><li>2 ГБ ОЗУ</li><li>50 МБ свободного места</li><li>Экран от HD (720×1280)</li><li>Интернет (Wi‑Fi / 4G / 5G)</li><li>GPS (для безопасных банкоматов)</li><li>ARM‑процессор (64 бита)</li></ul>
+                <h3 style="color: #D4AF37; margin: 20px 0 15px;">⚡ Android (рекомендуемые)</h3>
+                <ul><li>Android 13 и выше</li><li>4 ГБ ОЗУ</li><li>100 МБ свободного места</li><li>Full HD (1080×1920) или выше</li></ul>
+                <h3 style="color: #D4AF37; margin: 20px 0 15px;">🍏 iOS (в планах)</h3>
+                <ul><li>iOS 15 и выше</li><li>iPhone 7 и новее</li><li>2 ГБ ОЗУ</li><li>GPS / интернет – обязательны</li></ul>
+            </div>
         </div>
-        <!-- ========================================= -->
+        <!-- ================================================= -->
 
         <div class="section">
             <h2>⚙️ Драйверы для PhantomOS — в разработке</h2>
@@ -155,7 +160,7 @@
     </div>
 
     <script>
-        // Анимация золотых линий
+        // Золотые линии
         const bg = document.getElementById('cosmicBg');
         for (let i = 0; i < 50; i++) {
             const line = document.createElement('div');
@@ -180,18 +185,27 @@
         function showTab(tab) {
             const desc = document.getElementById('tabDescription');
             const scr = document.getElementById('tabScreenshots');
+            const req = document.getElementById('tabRequirements');
             const btnDesc = document.getElementById('btnDesc');
             const btnScr = document.getElementById('btnScr');
+            const btnReq = document.getElementById('btnReq');
+            
+            desc.style.display = 'none';
+            scr.style.display = 'none';
+            req.style.display = 'none';
+            btnDesc.style.color = '#aaa';
+            btnScr.style.color = '#aaa';
+            btnReq.style.color = '#aaa';
+            
             if (tab === 'description') {
                 desc.style.display = 'block';
-                scr.style.display = 'none';
                 btnDesc.style.color = '#D4AF37';
-                btnScr.style.color = '#aaa';
-            } else {
-                desc.style.display = 'none';
+            } else if (tab === 'screenshots') {
                 scr.style.display = 'block';
-                btnDesc.style.color = '#aaa';
                 btnScr.style.color = '#D4AF37';
+            } else if (tab === 'requirements') {
+                req.style.display = 'block';
+                btnReq.style.color = '#D4AF37';
             }
         }
     </script>
