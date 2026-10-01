@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cherep645242433.github.io/phantomroadstudio.github.io/sitemap.xml
