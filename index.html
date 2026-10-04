@@ -39,6 +39,7 @@
     z-index: 9999;
     box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
   }
+  .work-banner a { color: #000; text-decoration: underline; }
 
   .phantom-bg {
     position: fixed;
@@ -56,18 +57,8 @@
     filter: blur(1px) drop-shadow(0 0 40px rgba(200,220,255,0.4));
     animation: fly1 90s infinite ease-in-out;
   }
-
-  .phantom-bg img:nth-child(2) {
-    width: 120px;
-    opacity: 0.1;
-    animation: fly2 120s infinite ease-in-out;
-  }
-
-  .phantom-bg img:nth-child(3) {
-    width: 80px;
-    opacity: 0.08;
-    animation: fly3 150s infinite ease-in-out;
-  }
+  .phantom-bg img:nth-child(2) { width: 120px; opacity: 0.1; animation: fly2 120s infinite ease-in-out; }
+  .phantom-bg img:nth-child(3) { width: 80px; opacity: 0.08; animation: fly3 150s infinite ease-in-out; }
 
   @keyframes fly1 {
     0%   { top: 10%; left: -15%; }
@@ -365,7 +356,7 @@
 </head>
 <body>
 
-  <div class="work-banner">🚧 Сайт в разработке. Скоро всё будет. 🚧</div>
+  <div class="work-banner">✨ Phantom v1.4 уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
 
   <div class="phantom-bg">
     <img src="phantom.png" alt="">
@@ -379,8 +370,8 @@
       <a href="#about">О студии</a>
       <a href="#games">Игры</a>
       <a href="#team">Команда</a>
+      <a href="#tech">Phantom</a>
       <a href="#music">Музыка</a>
-      <a href="#tech">Технологии</a>
       <a href="#catalog">Каталоги</a>
       <a href="#contacts">Контакты</a>
     </nav>
@@ -625,6 +616,45 @@
     </div>
   </section>
 
+  <!-- PHANTOM (ИИ-ассистент) -->
+  <section id="tech">
+    <h2>Phantom — наш ИИ-ассистент</h2>
+    <p><strong>Phantom</strong> — локальный AI-помощник на базе Qwen, Claude и Alice. Работает <strong>без интернета</strong>, всё хранит на вашем компьютере.</p>
+    <p>Три ассистента в одном окне: <strong>Квен</strong> (инженер-оптимизатор), <strong>Claude</strong> (аналитик), <strong>Alice</strong> (помощница).</p>
+
+    <h3 style="color:#D4AF37; margin-top:30px; margin-bottom:15px; letter-spacing:2px;">Возможности</h3>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🧠 Три ассистента — Qwen, Claude, Alice</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">📄 Читает документы (.docx, .pdf, .xlsx, .txt)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🖼 Распознаёт картинки (llava)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">✂ Удаляет фон у картинок (локально, rembg)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🧩 Склеивает картинки в ряд</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🎵 Играет музыку (встроенный плеер)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">💾 Помнит всё — история чатов на диске</li>
+      <li style="padding:8px 0; color:#ccc;">🚫 Работает без интернета</li>
+    </ul>
+
+    <h3 style="color:#D4AF37; margin-top:30px; margin-bottom:15px; letter-spacing:2px;">Скриншоты</h3>
+    <div class="grid">
+      <div class="game-card">
+        <div class="cover"><img src="chat.png" alt="Диалог с Квеном"></div>
+        <div class="content"><p class="genre">Диалог с Квеном</p></div>
+      </div>
+      <div class="game-card">
+        <div class="cover"><img src="image.png" alt="Распознавание картинок"></div>
+        <div class="content"><p class="genre">Распознавание картинок</p></div>
+      </div>
+      <div class="game-card">
+        <div class="cover"><img src="music.png" alt="Плеер"></div>
+        <div class="content"><p class="genre">Встроенный плеер</p></div>
+      </div>
+    </div>
+
+    <p style="margin-top:30px;">Также мы занимаемся сборкой и прокачкой ПК.</p>
+
+    <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" class="btn" target="_blank" style="margin-top:20px; display:inline-block;">⬇ Скачать Phantom v1.4</a>
+  </section>
+
   <!-- МУЗЫКА -->
   <section id="music">
     <h2>Музыка</h2>
@@ -634,20 +664,13 @@
     <a href="#" class="btn">Слушать</a>
   </section>
 
-  <section id="tech">
-    <h2>Технологии</h2>
-    <p><strong>Квен</strong> — наш инженер-оптимизатор. ИИ-помощник, который помогает с кодом, системой и настройкой.</p>
-    <p>Также мы занимаемся сборкой и прокачкой ПК.</p>
-    <a href="#" class="btn">Скачать Квена</a>
-  </section>
-
   <section id="catalog">
     <h2>Каталоги</h2>
     <p>Брендированная одежда и мерч Phantom Road Studio.</p>
-    <ul>
-      <li>Футболки с логотипом</li>
-      <li>Худи с фантомом</li>
-      <li>Кепки, кружки, стикеры</li>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:8px 0; color:#ccc;">◆ Футболки с логотипом</li>
+      <li style="padding:8px 0; color:#ccc;">◆ Худи с фантомом</li>
+      <li style="padding:8px 0; color:#ccc;">◆ Кепки, кружки, стикеры</li>
     </ul>
     <p>Скоро здесь появится полный каталог.</p>
   </section>
@@ -655,10 +678,10 @@
   <section id="contacts">
     <h2>Контакты</h2>
     <p>Свяжитесь с нами:</p>
-    <ul>
-      <li>Telegram: @phantomroadstudio</li>
-      <li>VK: vk.com/phantomroadstudio</li>
-      <li>Почта: bayarovich2018@mail.ru</li>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:8px 0; color:#ccc;">◆ Telegram: @phantomroadstudio</li>
+      <li style="padding:8px 0; color:#ccc;">◆ VK: vk.com/phantomroadstudio</li>
+      <li style="padding:8px 0; color:#ccc;">◆ Почта: bayarovich2018@mail.ru</li>
     </ul>
   </section>
 
