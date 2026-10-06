@@ -2,199 +2,139 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Книга — Phantom Road Studio</title>
-<link rel="icon" href="phantom-icon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Книги — Phantom Road Studio</title>
+<link rel="icon" href="phantom-icon.ico" type="image/x-icon">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#050505; color:#eee; font-family:'Segoe UI',sans-serif; line-height:1.7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding-top: 35px; }
 
-.header {
-  background:#000;
-  border-bottom:2px solid #D4AF37;
-  padding:20px 40px;
-  display:flex; justify-content:space-between; align-items:center;
-  position:sticky; top:0; z-index:100;
-}
-.header .logo { color:#D4AF37; font-size:22px; letter-spacing:6px; text-transform:uppercase; }
-.header .menu { display:flex; gap:28px; }
-.header .menu a { color:#ccc; text-decoration:none; font-size:14px; transition:0.2s; }
-.header .menu a:hover, .header .menu a.active { color:#D4AF37; }
+  .work-banner {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: #D4AF37; color: #000; text-align: center;
+    padding: 8px 15px; font-size: 14px; font-weight: bold;
+    letter-spacing: 1px; z-index: 9999;
+  }
+  .work-banner a { color: #000; text-decoration: underline; }
 
-.banner {
-  background:#D4AF37; color:#000; text-align:center; padding:10px;
-  font-weight:bold; font-size:14px; letter-spacing:1px;
-}
+  header {
+    position: fixed; top: 35px; width: 100%;
+    background: rgba(5,5,5,0.95); border-bottom: 1px solid #D4AF37;
+    z-index: 100; padding: 15px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(10px);
+  }
+  header .logo { font-size: 20px; letter-spacing: 4px; color: #D4AF37; text-transform: uppercase; font-weight: bold; }
+  header nav a {
+    color: #ccc; text-decoration: none; margin-left: 25px;
+    font-size: 14px; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s;
+  }
+  header nav a:hover, header nav a.active { color: #D4AF37; text-shadow: 0 0 10px #D4AF37; }
 
-.container { max-width:820px; margin:60px auto; padding:0 24px; }
+  section { max-width: 1200px; margin: 0 auto; padding: 140px 40px 80px; }
 
-h1 { color:#D4AF37; font-size:44px; letter-spacing:4px; margin-bottom:10px; text-transform:uppercase; }
-.subtitle { color:#888; font-size:14px; letter-spacing:2px; margin-bottom:50px; border-bottom:1px solid #222; padding-bottom:20px; }
+  section h2 {
+    font-size: 42px; color: #D4AF37; letter-spacing: 6px;
+    text-transform: uppercase; margin-bottom: 40px;
+    border-bottom: 1px solid #D4AF37; padding-bottom: 15px;
+  }
 
-.toc { background:#0a0a0a; border:1px solid #D4AF37; border-radius:12px; padding:24px 30px; margin-bottom:60px; }
-.toc h2 { color:#D4AF37; font-size:18px; letter-spacing:2px; margin-bottom:16px; }
-.toc ol { list-style:none; counter-reset:chapter; }
-.toc li { counter-increment:chapter; margin:10px 0; }
-.toc li::before { content:counter(chapter) ". "; color:#D4AF37; font-weight:bold; }
-.toc a { color:#eee; text-decoration:none; font-size:16px; transition:0.2s; }
-.toc a:hover { color:#D4AF37; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
 
-.chapter { margin-bottom:70px; }
-.chapter h2 { color:#D4AF37; font-size:26px; letter-spacing:3px; margin-bottom:24px; padding-bottom:10px; border-bottom:1px solid #222; text-transform:uppercase; }
-.chapter h3 { color:#D4AF37; font-size:18px; margin:30px 0 14px; letter-spacing:1px; }
-.chapter p { margin-bottom:16px; color:#ddd; }
-.chapter em { color:#D4AF37; font-style:normal; }
-.chapter ul { margin:16px 0 16px 24px; }
-.chapter li { margin-bottom:8px; color:#ddd; }
-.chapter blockquote {
-  border-left:3px solid #D4AF37; padding:14px 20px; margin:20px 0;
-  background:#0a0a0a; color:#eee; font-style:italic;
-}
+  .book-card {
+    background: #0a0a0a; border: 1px solid #D4AF37; border-radius: 12px;
+    overflow: hidden; box-shadow: 0 0 20px rgba(212,175,55,0.15);
+    transition: 0.3s; display: flex; flex-direction: column;
+  }
+  .book-card:hover {
+    box-shadow: 0 0 35px rgba(212,175,55,0.45);
+    transform: translateY(-5px);
+  }
 
-.footer { text-align:center; padding:40px 20px; color:#555; font-size:12px; border-top:1px solid #111; margin-top:80px; }
+  .book-card .cover {
+    width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-bottom: 1px solid #D4AF37;
+    color: #D4AF37; font-size: 48px; letter-spacing: 4px;
+  }
+  .book-card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .book-card .content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+
+  .book-card h3 {
+    font-size: 20px; color: #D4AF37; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .book-card .genre {
+    color: #888; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 15px;
+  }
+
+  .btn {
+    display: inline-block; margin-top: auto; padding: 10px 20px;
+    background: #D4AF37; color: #000; text-decoration: none;
+    font-weight: bold; letter-spacing: 2px; text-transform: uppercase;
+    border-radius: 6px; transition: 0.3s; border: none; cursor: pointer;
+    font-family: inherit; font-size: 13px; text-align: center;
+  }
+  .btn:hover { background: #ff2a2a; color: #fff; box-shadow: 0 0 20px #ff2a2a; }
+  .btn.disabled { background: #333; color: #777; cursor: not-allowed; pointer-events: none; }
+
+  footer {
+    text-align: center; padding: 40px 20px; border-top: 1px solid #D4AF37;
+    color: #666; font-size: 14px; letter-spacing: 2px; margin-top: 80px;
+  }
+
+  @media (max-width: 768px) {
+    header { flex-direction: column; padding: 10px; }
+    header nav a { margin: 5px 10px; font-size: 12px; }
+    section h2 { font-size: 28px; }
+    .grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<div class="banner">📖 Книга «История лаймового Shelby» — главы выкладываются по мере готовности</div>
+<div class="work-banner">✨ Phantom v1.4 уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
 
-<div class="header">
+<header>
   <div class="logo">Phantom Road Studio</div>
-  <div class="menu">
-    <a href="index.html">О студии</a>
-    <a href="#">Игры</a>
-    <a href="#">Команда</a>
-    <a href="phantom.html">Phantom</a>
-    <a href="#">Музыка</a>
-    <a href="book.html" class="active">Книга</a>
-    <a href="#">Контакты</a>
+  <nav>
+    <a href="index.html#about">О студии</a>
+    <a href="index.html#games">Игры</a>
+    <a href="index.html#team">Команда</a>
+    <a href="index.html#tech">Phantom</a>
+    <a href="index.html#music">Музыка</a>
+    <a href="books.html" class="active">Книги</a>
+    <a href="index.html#catalog">Каталоги</a>
+    <a href="index.html#contacts">Контакты</a>
+  </nav>
+</header>
+
+<section>
+  <h2>Книги</h2>
+  <div class="grid">
+
+    <div class="book-card">
+      <div class="cover">NWS</div>
+      <div class="content">
+        <h3>NWS (Need World Speed)</h3>
+        <p class="genre">Уличные гонки · Книга</p>
+        <a href="book-nws.html" class="btn">Читать</a>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
 
-<div class="container">
-
-  <h1>История лаймового Shelby</h1>
-  <div class="subtitle">NWS · Need World Speed · Книга в разработке</div>
-
-  <div class="toc">
-    <h2>Оглавление</h2>
-    <ol>
-      <li><a href="#akt1">Акт 1. Друг в беде</a></li>
-      <li><a href="#akt2">Акт 2. Находка</a></li>
-      <li><a href="#akt3">Акт 3. Восстановление и преображение</a></li>
-      <li><a href="#akt4">Акт 4. Первые гонки</a></li>
-      <li><a href="#akt5">Акт 5. Новая цель</a></li>
-      <li><a href="#pogonya">Финал погони</a></li>
-      <li><a href="#epilog">Эпилог. Гараж на ЗИЛе</a></li>
-    </ol>
-  </div>
-
-  <div class="chapter" id="akt1">
-    <h2>Акт 1. Друг в беде</h2>
-    <p>Главный герой дружил с <em>Максом</em> — безбашенным гонщиком, любителем риска и быстрых машин. Макс был харизматичен, но импульсивен: он влез в долги к местным бандитам, проиграв крупную сумму на подпольных гонках.</p>
-    <p>Однажды ночью Макс появился у героя с потрёпанной сумкой и связкой ключей:</p>
-    <blockquote>«Слушай, дружище, я должен скрыться. Они ищут меня по всему городу. Забери её. Она верна тем, кто её любит. И не дай им её найти».</blockquote>
-    <p>В руках Макса блеснули ключи от гаража № 17 на окраине промзоны.</p>
-  </div>
-
-  <div class="chapter" id="akt2">
-    <h2>Акт 2. Находка</h2>
-    <p>На следующее утро герой приехал к гаражу. Внутри, под слоем пыли и брезентом, стоял <em>Shelby</em> — абсолютно целый, будто только что из салона. Кузов блестел, двигатель тихо урчал при проверке, подвеска была идеально настроена. Макс явно готовил машину к чему-то важному, вкладывал душу и деньги.</p>
-    <p>Герой отмыл машину и нашёл под сиденьем:</p>
-    <ul>
-      <li>старую фотографию Макса на фоне этой же машины (оба улыбаются, Макс показывает большой палец);</li>
-      <li>записку с координатами и словом <em>«Финиш»</em>;</li>
-      <li>карту города с отмеченным маршрутом нелегальной гонки <em>«Чёрная петля»</em>.</li>
-    </ul>
-  </div>
-
-  <div class="chapter" id="akt3">
-    <h2>Акт 3. Восстановление и преображение</h2>
-    <p>Хотя машина была в идеальном техническом состоянии, герой решил сделать её <em>неузнаваемой</em>, чтобы бандиты не связали яркий автомобиль с Максом. Он:</p>
-    <ul>
-      <li>провёл полную диагностику — всё работало безупречно;</li>
-      <li>заменил тормозные колодки на более мощные (для гонок);</li>
-      <li>настроил двигатель по записям Макса (выжал ещё 15 л. с.);</li>
-      <li>перекрасил машину в <em>лаймовый цвет</em> — дерзкий, заметный, но не ассоциирующийся с прошлыми победами Макса.</li>
-    </ul>
-    <blockquote>«Лаймовый — это цвет новой главы, — подумал герой. — Теперь она не просто машина. Она — мой шанс всё исправить».</blockquote>
-  </div>
-
-  <div class="chapter" id="akt4">
-    <h2>Акт 4. Первые гонки</h2>
-    <p>Герой начал участвовать в нелегальных заездах. Лаймовый Shelby сразу привлёк внимание:</p>
-    <ul>
-      <li>новички восхищались идеальным состоянием и ярким цветом;</li>
-      <li>опытные гонщики насторожились — машина шла слишком ровно на виражах, будто пилотируемая призраком;</li>
-      <li>бандиты, искавшие Макса, заметили необычную тачку и начали следить за ней.</li>
-    </ul>
-    <p>На одной из гонок герой обошёл местного авторитета <em>Грига</em>. Тот, разъярённый, подошёл после заезда:</p>
-    <blockquote>«Откуда у тебя эта тачка? Я её знаю. Это машина Макса. Где он?»</blockquote>
-    <p>Герой не ответил. Он понял: бандиты не оставят его в покое, пока не найдут друга.</p>
-  </div>
-
-  <div class="chapter" id="akt5">
-    <h2>Акт 5. Новая цель</h2>
-    <p>Теперь у героя две задачи:</p>
-    <ul>
-      <li>выиграть <em>Большой Приз «Чёрной петли»</em> — гонка, которую Макс так и не закончил. Призовой фонд покроет его долг;</li>
-      <li>найти Макса и предупредить его, что бандиты вышли на след Shelby.</li>
-    </ul>
-    <p>Машина стала не просто средством передвижения — она стала <em>символом долга, дружбы и борьбы</em>. Каждый раз, садясь за руль, герой чувствует: Макс где-то рядом.</p>
-  </div>
-
-  <div class="chapter" id="pogonya">
-    <h2>Финал погони: Кутузовский проспект → набережная Тараса Шевченко</h2>
-
-    <h3>Этап 1. Преследование на Кутузовском</h3>
-    <p>Герой мчится по Кутузовскому проспекту на лаймовом Shelby. В зеркале заднего вида — две Skoda ДПС и две чёрные машины без опознавательных знаков. Радио в салоне трещит:</p>
-    <blockquote>«Объект движется в сторону Нового Арбата, скорость 140 км/ч, перекрывайте съезд на мост!»</blockquote>
-    <p>Герой знает этот район наизусть: здесь он с Максом когда-то гонял по ночам. Он резко уходит влево, проскакивает между двумя такси и ныряет на съезд к <em>набережной Тараса Шевченко</em>.</p>
-
-    <h3>Этап 2. Погоня по набережной</h3>
-    <p>Набережная — узкий участок с плотным трафиком. Герой использует знание местных «коротких путей»:</p>
-    <ul>
-      <li>петляет между машинами, уходя от манёвров блокировки;</li>
-      <li>на скорости 80 км/ч проскакивает пешеходный переход — Skoda ДПС вынуждены тормозить;</li>
-      <li>уходит на боковой съезд к старому причалу, где мало освещения и много тупиков.</li>
-    </ul>
-    <p>Одна из чёрных машин под прикрытием пытается его догнать, но застревает за автобусом. Радиопереговоры:</p>
-    <blockquote>«Чёрный-один, объект ушёл на причал. Повторяю: объект на причале. Блокируйте выходы!»</blockquote>
-
-    <h3>Этап 3. Ловушка у причала</h3>
-    <p>Герой заезжает на территорию старого причала — здесь тихо, пустынно, только ржавые контейнеры и заброшенные склады. Он глушит двигатель и выключает фары.</p>
-    <p>Skoda ДПС и машины под прикрытием въезжают на территорию. Они медленно едут между складами, мигалки освещают груды металлолома.</p>
-    <p>Командир операции по радио:</p>
-    <blockquote>«Объект остановился. Визуально не наблюдаем. Осматриваем территорию. Всем группам — внимание, он может быть вооружён».</blockquote>
-    <p>Оперативники выходят из машин, осматривают склады. Герой сидит в тени контейнера, не дыша. Он видит, как один из полицейских подходит к его машине — но не замечает её из-за угла склада.</p>
-
-    <h3>Этап 4. Уход от преследования</h3>
-    <p>Когда оперативники уходят к дальним складам, герой:</p>
-    <ul>
-      <li>тихо заводит двигатель;</li>
-      <li>медленно выруливает задним ходом к боковой калитке;</li>
-      <li>выезжает на параллельную улицу — <em>2-й Силикатный проезд</em> — и скрывается в промзоне;</li>
-      <li>через 15 минут он уже на <em>ЗИЛе</em>, в гараже, который Макс когда-то называл «наш тайник».</li>
-    </ul>
-  </div>
-
-  <div class="chapter" id="epilog">
-    <h2>Эпилог. Гараж на ЗИЛе</h2>
-    <p>Shelby стоит в тусклом свете лампочки. Герой выходит из машины, вытирает пот со лба. Он достаёт из бардачка фотографию Макса и записку с координатами «Финиша».</p>
-    <p>В кармане вибрирует телефон — сообщение от неизвестного номера:</p>
-    <blockquote>«Ты хорошо ушёл. Но они вернутся. Встретимся у „Украины" в 3:00. Один. И привези машину».</blockquote>
-    <p>Герой сжимает руль. Он понимает: это не конец. Бандиты нашли его след. Чтобы спасти Макса и себя, ему нужно:</p>
-    <ul>
-      <li>закончить «Чёрную петлю» — гонку, которую Макс так и не завершил;</li>
-      <li>раскрыть тайну координат «Финиша»;</li>
-      <li>найти способ перехитрить и полицию, и бандитов.</li>
-    </ul>
-    <p>Он закрывает гараж, садится в Shelby и едет к центру города. Лаймовый цвет машины мелькает в свете фонарей — теперь это не просто цвет, а <em>вызов</em>.</p>
-  </div>
-
-</div>
-
-<div class="footer">© 2026 Phantom Road Studio · NWS · Need World Speed</div>
+<footer>
+  © 2026 Phantom Road Studio. Все права защищены.
+</footer>
 
 </body>
 </html>
