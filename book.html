@@ -41,7 +41,7 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 25px;
   }
 
@@ -52,7 +52,6 @@
   }
   .book-card:hover {
     box-shadow: 0 0 35px rgba(212,175,55,0.45);
-    transform: translateY(-5px);
   }
 
   .book-card .cover {
@@ -83,6 +82,41 @@
     font-family: inherit; font-size: 13px; text-align: center;
   }
   .btn:hover { background: #ff2a2a; color: #fff; box-shadow: 0 0 20px #ff2a2a; }
+
+  /* ===== РАЗВОРАЧИВАЮЩАЯСЯ КНИГА ===== */
+  .book-reader {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #1a1a1a;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .book-reader.open { display: block; }
+
+  .book-reader h4 {
+    color: #D4AF37; font-size: 22px; letter-spacing: 2px;
+    margin-bottom: 6px; text-transform: uppercase;
+    border-bottom: 1px solid #222; padding-bottom: 10px;
+  }
+  .book-reader .book-sub {
+    color: #888; font-size: 12px; letter-spacing: 2px; margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .book-reader h5 {
+    color: #D4AF37; font-size: 17px; letter-spacing: 1px;
+    margin-top: 24px; margin-bottom: 10px;
+  }
+  .book-reader p {
+    font-size: 15px; line-height: 1.7; color: #ddd; margin-bottom: 12px;
+  }
+  .book-reader em { color: #D4AF37; font-style: normal; }
+  .book-reader ul { margin: 12px 0 12px 22px; }
+  .book-reader li { margin-bottom: 6px; color: #ddd; font-size: 14px; }
+  .book-reader blockquote {
+    border-left: 3px solid #D4AF37; padding: 10px 16px; margin: 14px 0;
+    background: #111; color: #eee; font-style: italic; font-size: 14px;
+  }
 
   footer {
     text-align: center; padding: 40px 20px; border-top: 1px solid #D4AF37;
@@ -124,7 +158,53 @@
       <div class="content">
         <h3>NWS (Need World Speed)</h3>
         <p class="genre">Уличные гонки · Книга</p>
-        <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/book.html" class="btn">Читать</a>
+        <button class="btn" onclick="toggleBook(this)">Читать</button>
+
+        <div class="book-reader">
+          <h4>История лаймового Shelby</h4>
+          <p class="book-sub">NWS · Need World Speed · Глава 1</p>
+
+          <h5>Акт 1. Друг в беде</h5>
+          <p>Главный герой дружил с <em>Максом</em> — безбашенным гонщиком, любителем риска и быстрых машин. Макс был харизматичен, но импульсивен: он влез в долги к местным бандитам, проиграв крупную сумму на подпольных гонках.</p>
+          <p>Однажды ночью Макс появился у героя с потрёпанной сумкой и связкой ключей:</p>
+          <blockquote>«Слушай, дружище, я должен скрыться. Они ищут меня по всему городу. Забери её. Она верна тем, кто её любит. И не дай им её найти».</blockquote>
+          <p>В руках Макса блеснули ключи от гаража № 17 на окраине промзоны.</p>
+
+          <h5>Акт 2. Находка</h5>
+          <p>На следующее утро герой приехал к гаражу. Внутри, под слоем пыли и брезентом, стоял <em>Shelby</em> — абсолютно целый, будто только что из салона. Кузов блестел, двигатель тихо урчал при проверке, подвеска была идеально настроена.</p>
+          <p>Герой отмыл машину и нашёл под сиденьем:</p>
+          <ul>
+            <li>старую фотографию Макса на фоне этой же машины;</li>
+            <li>записку с координатами и словом <em>«Финиш»</em>;</li>
+            <li>карту города с отмеченным маршрутом нелегальной гонки <em>«Чёрная петля»</em>.</li>
+          </ul>
+
+          <h5>Акт 3. Восстановление и преображение</h5>
+          <p>Хотя машина была в идеальном состоянии, герой решил сделать её <em>неузнаваемой</em>. Он:</p>
+          <ul>
+            <li>провёл полную диагностику;</li>
+            <li>заменил тормозные колодки на более мощные;</li>
+            <li>настроил двигатель по записям Макса;</li>
+            <li>перекрасил машину в <em>лаймовый цвет</em>.</li>
+          </ul>
+          <blockquote>«Лаймовый — это цвет новой главы, — подумал герой. — Теперь она не просто машина. Она — мой шанс всё исправить».</blockquote>
+
+          <h5>Акт 4. Первые гонки</h5>
+          <p>Герой начал участвовать в нелегальных заездах. Лаймовый Shelby сразу привлёк внимание. На одной из гонок он обошёл местного авторитета <em>Грига</em>. Тот, разъярённый, подошёл после заезда:</p>
+          <blockquote>«Откуда у тебя эта тачка? Я её знаю. Это машина Макса. Где он?»</blockquote>
+
+          <h5>Акт 5. Новая цель</h5>
+          <p>Теперь у героя две задачи: выиграть <em>Большой Приз «Чёрной петли»</em> и найти Макса, чтобы предупредить — бандиты вышли на след Shelby.</p>
+
+          <h5>Финал погони</h5>
+          <p>Кутузовский проспект → набережная Тараса Шевченко. Две Skoda ДПС и две чёрные машины. Герой уходит на причал, прячется в тени контейнеров, а когда оперативники уходят — тихо заводит двигатель и скрывается через <em>2-й Силикатный проезд</em>. Через 15 минут он на <em>ЗИЛе</em>, в гараже Макса.</p>
+
+          <h5>Эпилог. Гараж на ЗИЛе</h5>
+          <p>В кармане вибрирует телефон — сообщение от неизвестного:</p>
+          <blockquote>«Ты хорошо ушёл. Но они вернутся. Встретимся у „Украины" в 3:00. Один. И привези машину».</blockquote>
+          <p>Лаймовый цвет машины мелькает в свете фонарей — теперь это не просто цвет, а <em>вызов</em>.</p>
+        </div>
+
       </div>
     </div>
 
@@ -134,6 +214,14 @@
 <footer>
   © 2026 Phantom Road Studio. Все права защищены.
 </footer>
+
+<script>
+  function toggleBook(btn) {
+    const reader = btn.nextElementSibling;
+    reader.classList.toggle('open');
+    btn.textContent = reader.classList.contains('open') ? 'Свернуть' : 'Читать';
+  }
+</script>
 
 </body>
 </html>
