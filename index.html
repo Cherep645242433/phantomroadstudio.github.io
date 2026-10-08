@@ -420,6 +420,34 @@
     color: #fff;
   }
 
+  .faq-answer ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0;
+  }
+
+  .faq-answer ul li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    color: #ccc;
+    font-size: 14px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .faq-answer ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: #D4AF37;
+  }
+
+  .faq-answer h5 {
+    color: #D4AF37;
+    font-size: 15px;
+    margin: 12px 0 8px;
+    letter-spacing: 1px;
+  }
+
   footer {
     position: relative;
     z-index: 1;
@@ -926,7 +954,23 @@
         <span class="arrow">▼</span>
       </button>
       <div class="faq-answer">
-        Windows 10/11 (64-bit), 8+ ГБ ОЗУ, около 25 ГБ на диске (с моделями ИИ), любая видеокарта.
+        <h5>Минимальные:</h5>
+        <ul>
+          <li>ОС: Windows 10 (64-bit)</li>
+          <li>Процессор: 4 ядра (Intel i5 / AMD Ryzen 5 или аналог)</li>
+          <li>ОЗУ: 8 ГБ</li>
+          <li>Видеокарта: любая (модели ИИ работают на CPU)</li>
+          <li>Место: ~25 ГБ (с моделями ИИ)</li>
+          <li>Интернет: не нужен (после установки)</li>
+        </ul>
+        <h5>Рекомендуемые:</h5>
+        <ul>
+          <li>ОС: Windows 11 (64-bit)</li>
+          <li>Процессор: 6–8 ядер (Intel i7 / AMD Ryzen 7)</li>
+          <li>ОЗУ: 16 ГБ</li>
+          <li>Видеокарта: дискретная (NVIDIA/AMD) — для быстрой генерации</li>
+          <li>Место: ~40 ГБ (все модели + запас)</li>
+        </ul>
       </div>
     </div>
 
