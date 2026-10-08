@@ -299,13 +299,6 @@
     box-shadow: 0 0 20px #ff2a2a;
   }
 
-  .btn-disabled {
-    background: #222;
-    color: #888;
-    cursor: default;
-    pointer-events: none;
-  }
-
   .game-details {
     display: none;
     margin-top: 20px;
@@ -360,6 +353,64 @@
     color: #D4AF37;
   }
 
+  .faq-item {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #D4AF37;
+    padding: 18px 22px;
+    text-align: left;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .faq-question:hover {
+    background: #111;
+  }
+
+  .faq-question .arrow {
+    color: #D4AF37;
+    font-size: 14px;
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-question .arrow {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 22px 18px;
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-answer {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
   footer {
     position: relative;
     z-index: 1;
@@ -403,6 +454,7 @@
       <a href="book.html">Книги</a>
       <a href="#catalog">Каталоги</a>
       <a href="#news">Новости</a>
+      <a href="#faq">FAQ</a>
       <a href="#contacts">Контакты</a>
     </nav>
   </header>
@@ -762,7 +814,7 @@
         <div class="content">
           <p class="genre">08.10.2026</p>
           <h3>Сайт обновлён</h3>
-          <p style="font-size:14px; color:#ccc;">Добавлены разделы <strong>Релизы</strong> и <strong>Новости</strong>.</p>
+          <p style="font-size:14px; color:#ccc;">Добавлены разделы <strong>Релизы</strong>, <strong>Новости</strong> и <strong>FAQ</strong>.</p>
         </div>
       </div>
       <div class="game-card">
@@ -817,6 +869,111 @@
     </div>
   </section>
 
+  <section id="faq">
+    <h2>Частые вопросы</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Что такое Phantom?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Phantom — локальный ИИ-ассистент студии. Работает без интернета, всё хранит на вашем компьютере.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Как установить?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Скачайте с GitHub (кнопка «Скачать» в разделе Релизы), распакуйте архив и запустите файл. Установка не требуется.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Нужен ли интернет?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Нет. Phantom работает полностью офлайн. Интернет нужен только для первоначального скачивания.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Это бесплатно?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Да. Все программы Phantom Road Studio — бесплатны. Мы делаем проекты от души, без коммерческой цели.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Какие системные требования?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Windows 10/11 (64-bit), 8+ ГБ ОЗУ, около 25 ГБ на диске (с моделями ИИ), любая видеокарта.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Это безопасно?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Да. Всё работает локально — ваши данные никуда не уходят. Никаких облаков и сторонних серверов.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Когда выйдет NWS?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        NWS — в разработке. Дата релиза пока не объявлена. Следите за новостями на сайте.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Кто вы такие?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Phantom Road Studio — творческое объединение, которое работает на стыке игр, музыки и технологий.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Как с вами связаться?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Telegram: @phantomroadstudio, VK: vk.com/phantomroadstudio, почта: bayarovich2018@mail.ru. Смотрите раздел «Контакты».
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Вы продаётесь?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Нет. Phantom Road Studio — независимая студия. Мы делаем проекты для людей, а не для продажи.
+      </div>
+    </div>
+
+  </section>
+
   <section id="contacts">
     <h2>Контакты</h2>
     <p>Свяжитесь с нами:</p>
@@ -836,6 +993,11 @@
     const details = btn.nextElementSibling;
     details.classList.toggle('open');
     btn.textContent = details.classList.contains('open') ? 'Свернуть' : 'Подробнее';
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
   }
 </script>
 
