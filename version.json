@@ -1,4 +1,4 @@
 {
-  "version": "1.6",
+  "version": "1.7",
   "notes": "Клод на gemma2:9b, DeepSeek на deepseek-r1:7b, оптимизация под 4 ГБ VRAM, тихое автообновление с оповещением"
 }
