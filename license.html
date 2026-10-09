@@ -1,11 +1,319 @@
-Лицензия
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="MrgGTTqvL6fLFHX64bCXURa27wD9uaGBOqIjpC8HDHM" />
+<title>Лицензия — Phantom Road Studio</title>
+<meta name="description" content="Лицензия, политика конфиденциальности и условия использования Phantom Road Studio.">
+<meta name="keywords" content="Phantom Road Studio, лицензия, политика конфиденциальности, условия использования">
+<link rel="icon" href="phantom-icon.ico" type="image/x-icon">
 
-Все материалы сайта Phantom Road Studio — тексты, дизайн, 
-изображения, код — являются интеллектуальной собственностью 
-Phantom Road Studio.
+<meta property="og:title" content="Лицензия — Phantom Road Studio">
+<meta property="og:description" content="Лицензия, политика конфиденциальности и условия использования.">
+<meta property="og:image" content="https://cherep645242433.github.io/phantomroadstudio.github.io/cover.png">
+<meta property="og:url" content="https://cherep645242433.github.io/phantomroadstudio.github.io/license.html">
+<meta property="og:type" content="website">
 
-Копирование, распространение, изменение материалов сайта 
-без письменного разрешения правообладателя запрещено.
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #050505;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    padding-top: 35px;
+  }
 
-Цитирование в информационных целях разрешено 
-с обязательным указанием источника — phantomroadstudio.github.io.
+  .work-banner {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    background: #D4AF37;
+    color: #000;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+  }
+  .work-banner a { color: #000; text-decoration: underline; }
+
+  .phantom-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .phantom-bg img {
+    position: absolute;
+    width: 200px;
+    opacity: 0.15;
+    filter: blur(1px) drop-shadow(0 0 40px rgba(200,220,255,0.4));
+    animation: fly1 90s infinite ease-in-out;
+  }
+  .phantom-bg img:nth-child(2) { width: 120px; opacity: 0.1; animation: fly2 120s infinite ease-in-out; }
+  .phantom-bg img:nth-child(3) { width: 80px; opacity: 0.08; animation: fly3 150s infinite ease-in-out; }
+
+  @keyframes fly1 {
+    0%   { top: 10%; left: -15%; }
+    25%  { top: 40%; left: 30%; }
+    50%  { top: 70%; left: 70%; }
+    75%  { top: 20%; left: 40%; }
+    100% { top: 10%; left: -15%; }
+  }
+  @keyframes fly2 {
+    0%   { top: 80%; left: 90%; }
+    33%  { top: 30%; left: 50%; }
+    66%  { top: 60%; left: 10%; }
+    100% { top: 80%; left: 90%; }
+  }
+  @keyframes fly3 {
+    0%   { top: 50%; left: 50%; }
+    50%  { top: 10%; left: 80%; }
+    100% { top: 50%; left: 50%; }
+  }
+
+  header {
+    position: fixed;
+    top: 35px;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    border-bottom: 1px solid #D4AF37;
+    z-index: 100;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+  }
+
+  header .logo {
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: #D4AF37;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  header nav a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.3s;
+  }
+
+  header nav a:hover {
+    color: #D4AF37;
+    text-shadow: 0 0 10px #D4AF37;
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 120px 40px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  section h1 {
+    font-size: 42px;
+    color: #D4AF37;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #D4AF37;
+    padding-bottom: 15px;
+  }
+
+  section h2 {
+    font-size: 24px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  section h3 {
+    font-size: 18px;
+    color: #D4AF37;
+    letter-spacing: 2px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+  }
+
+  section p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 14px;
+  }
+
+  section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+  }
+
+  section ul li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.7;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  section ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: #D4AF37;
+  }
+
+  section a {
+    color: #D4AF37;
+    text-decoration: underline;
+  }
+
+  section a:hover {
+    color: #fff;
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 12px 24px;
+    background: #D4AF37;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 13px;
+  }
+
+  .back-btn:hover {
+    background: #ff2a2a;
+    color: #fff;
+    box-shadow: 0 0 20px #ff2a2a;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid #D4AF37;
+    color: #666;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-top: 40px;
+  }
+
+  footer a {
+    color: #888;
+    text-decoration: underline;
+  }
+
+  footer a:hover {
+    color: #D4AF37;
+  }
+
+  @media (max-width: 768px) {
+    header { flex-direction: column; padding: 10px; }
+    header nav a { margin: 5px 10px; font-size: 12px; }
+    section { padding: 100px 20px 60px; }
+    section h1 { font-size: 28px; letter-spacing: 4px; }
+    section h2 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="work-banner">✨ Phantom уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
+
+  <div class="phantom-bg">
+    <img src="phantom.png" alt="">
+    <img src="phantom.png" alt="">
+    <img src="phantom.png" alt="">
+  </div>
+
+  <header>
+    <a href="index.html" class="logo">Phantom Road Studio</a>
+    <nav>
+      <a href="index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <section>
+    <h1>Лицензия</h1>
+    <p>Настоящая страница описывает условия использования материалов сайта <strong>Phantom Road Studio</strong> (далее — Студия), политику конфиденциальности и условия использования.</p>
+    <p>Адрес сайта: <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/" target="_blank">cherep645242433.github.io/phantomroadstudio.github.io</a></p>
+
+    <h2>1. Лицензия на контент</h2>
+    <p>Все материалы сайта Phantom Road Studio — тексты, дизайн, изображения, логотипы, графика, код — являются интеллектуальной собственностью Студии.</p>
+    <h3>Разрешено:</h3>
+    <ul>
+      <li>Просмотр материалов сайта</li>
+      <li>Скачивание программ, доступных в разделе «Релизы»</li>
+      <li>Цитирование фрагментов текста с обязательным указанием источника (ссылка на сайт)</li>
+    </ul>
+    <h3>Запрещено:</h3>
+    <ul>
+      <li>Копирование и распространение материалов сайта без письменного разрешения Студии</li>
+      <li>Изменение, переработка, декомпиляция контента</li>
+      <li>Использование логотипов и графики в коммерческих целях</li>
+      <li>Выдача материалов сайта за свои собственные</li>
+    </ul>
+
+    <h2>2. Политика конфиденциальности</h2>
+    <p>Студия уважает вашу приватность и <strong>не собирает</strong> персональные данные посетителей сайта.</p>
+    <ul>
+      <li>Сайт <strong>не использует</strong> системы сбора аналитики (Google Analytics, Яндекс.Метрика и т.п.)</li>
+      <li>Сайт <strong>не использует</strong> cookies для отслеживания</li>
+      <li>Сайт <strong>не передаёт</strong> ваши данные третьим лицам</li>
+      <li>Сайт <strong>не требует</strong> регистрации</li>
+    </ul>
+    <p>Программы Phantom Road Studio (Phantom и др.) работают <strong>локально</strong> на вашем компьютере. Все данные, включая историю чатов, хранятся <strong>только у вас</strong> и никуда не передаются.</p>
+
+    <h2>3. Условия использования</h2>
+    <h3>3.1. Программы</h3>
+    <ul>
+      <li>Все программы Студии распространяются <strong>бесплатно</strong></li>
+      <li>Программы предоставляются «как есть», без гарантий</li>
+      <li>Студия не несёт ответственности за возможный ущерб от использования</li>
+      <li>Запрещена продажа программ и их модификаций</li>
+    </ul>
+    <h3>3.2. Сайт</h3>
+    <ul>
+      <li>Сайт предоставляет информацию о проектах Студии</li>
+      <li>Ссылки на сторонние ресурсы (GitHub, VK, Telegram, YouTube) — не являются собственностью Студии</li>
+      <li>Студия не несёт ответственности за содержимое сторонних сайтов</li>
+    </ul>
+    <h3>3.3. Изменения</h3>
+    <p>Студия оставляет за собой право изменять условия лицензии. Актуальная версия всегда доступна на этой странице.</p>
+
+    <p style="margin-top:30px; color:#888; font-size:14px;">Дата последнего обновления: 09.10.2026</p>
+
+    <a href="index.html" class="back-btn">← На главную</a>
+  </section>
+
+  <footer>
+    © 2026 Phantom Road Studio. Все права защищены. | <a href="license.html">Лицензия</a>
+  </footer>
+
+</body>
+</html>
