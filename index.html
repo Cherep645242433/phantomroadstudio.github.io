@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="MrgGTTqvL6fLFHX64bCXURa27wD9uaGBOqIjpC8HDHM" />
-<title>Лицензия — Phantom Road Studio</title>
-<meta name="description" content="Лицензия, политика конфиденциальности и условия использования Phantom Road Studio.">
-<meta name="keywords" content="Phantom Road Studio, лицензия, политика конфиденциальности, условия использования">
+<title>Phantom Road Studio</title>
+<meta name="description" content="Phantom Road Studio — игры, музыка, технологии, каталоги. ИИ-ассистент Phantom, уличные гонки NWS, хоррор, выживание.">
+<meta name="keywords" content="Phantom Road Studio, NWS, Need World Speed, Квен, уличные гонки, Минск, Москва, хоррор, Phantom">
 <link rel="icon" href="phantom-icon.ico" type="image/x-icon">
 
-<meta property="og:title" content="Лицензия — Phantom Road Studio">
-<meta property="og:description" content="Лицензия, политика конфиденциальности и условия использования.">
+<meta property="og:title" content="Phantom Road Studio">
+<meta property="og:description" content="Игры. Музыка. Технологии. Каталоги.">
 <meta property="og:image" content="https://cherep645242433.github.io/phantomroadstudio.github.io/cover.png">
-<meta property="og:url" content="https://cherep645242433.github.io/phantomroadstudio.github.io/license.html">
+<meta property="og:url" content="https://cherep645242433.github.io/phantomroadstudio.github.io/">
 <meta property="og:type" content="website">
 
 <style>
@@ -99,7 +99,6 @@
     color: #D4AF37;
     text-transform: uppercase;
     font-weight: bold;
-    text-decoration: none;
   }
 
   header nav a {
@@ -117,15 +116,52 @@
     text-shadow: 0 0 10px #D4AF37;
   }
 
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+    background: url('cover.png') center/cover no-repeat;
+    background-color: #050505;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 5, 0.5);
+    z-index: -1;
+  }
+
+  .hero h1 {
+    font-size: 64px;
+    letter-spacing: 12px;
+    color: #D4AF37;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 24px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+    opacity: 0.9;
+  }
+
   section {
     position: relative;
     z-index: 1;
-    padding: 120px 40px 80px;
-    max-width: 900px;
+    padding: 80px 40px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
-  section h1 {
+  section h2 {
     font-size: 42px;
     color: #D4AF37;
     letter-spacing: 6px;
@@ -135,65 +171,113 @@
     padding-bottom: 15px;
   }
 
-  section h2 {
-    font-size: 24px;
-    color: #D4AF37;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-
-  section h3 {
-    font-size: 18px;
-    color: #D4AF37;
-    letter-spacing: 2px;
-    margin-top: 25px;
-    margin-bottom: 12px;
-  }
-
   section p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.8;
     color: #ccc;
-    margin-bottom: 14px;
-  }
-
-  section ul {
-    list-style: none;
-    padding-left: 0;
     margin-bottom: 15px;
   }
 
-  section ul li {
-    padding: 6px 0 6px 20px;
-    position: relative;
-    color: #ccc;
-    font-size: 15px;
-    line-height: 1.7;
-    border-bottom: 1px solid #1a1a1a;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
   }
 
-  section ul li::before {
-    content: '◆';
-    position: absolute;
-    left: 0;
+  .game-card {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .game-card:hover {
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
+    transform: translateY(-5px);
+  }
+
+  .game-card .cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .game-card .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #D4AF37;
+  }
+
+  .game-card .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .game-card .title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .game-card h3 {
+    font-size: 20px;
     color: #D4AF37;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
-  section a {
-    color: #D4AF37;
-    text-decoration: underline;
-  }
-
-  section a:hover {
+  .badge-18 {
+    background: #ff2a2a;
     color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
 
-  .back-btn {
+  .badge-plan {
+    background: #444;
+    color: #D4AF37;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .badge-soon {
+    background: #D4AF37;
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .game-card .genre {
+    color: #888;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  .btn {
     display: inline-block;
-    margin-top: 40px;
-    padding: 12px 24px;
+    margin-top: auto;
+    padding: 10px 20px;
     background: #D4AF37;
     color: #000;
     text-decoration: none;
@@ -202,13 +286,166 @@
     text-transform: uppercase;
     border-radius: 6px;
     transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
     font-size: 13px;
+    text-align: center;
   }
 
-  .back-btn:hover {
+  .btn:hover {
     background: #ff2a2a;
     color: #fff;
     box-shadow: 0 0 20px #ff2a2a;
+  }
+
+  .game-details {
+    display: none;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .game-details.open {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .game-details h4 {
+    color: #D4AF37;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .game-details p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 8px;
+  }
+
+  .game-details ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 8px;
+  }
+
+  .game-details ul li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+    color: #ccc;
+    font-size: 13px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .game-details ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: #D4AF37;
+  }
+
+  .faq-item {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #D4AF37;
+    padding: 18px 22px;
+    text-align: left;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .faq-question:hover {
+    background: #111;
+  }
+
+  .faq-question .arrow {
+    color: #D4AF37;
+    font-size: 14px;
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-question .arrow {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 22px 18px;
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-answer {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .faq-answer a {
+    color: #D4AF37;
+    text-decoration: underline;
+  }
+
+  .faq-answer a:hover {
+    color: #fff;
+  }
+
+  .faq-answer ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0;
+  }
+
+  .faq-answer ul li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    color: #ccc;
+    font-size: 14px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .faq-answer ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: #D4AF37;
+  }
+
+  .faq-answer h5 {
+    color: #D4AF37;
+    font-size: 15px;
+    margin: 12px 0 8px;
+    letter-spacing: 1px;
   }
 
   footer {
@@ -220,7 +457,6 @@
     color: #666;
     font-size: 14px;
     letter-spacing: 2px;
-    margin-top: 40px;
   }
 
   footer a {
@@ -235,9 +471,10 @@
   @media (max-width: 768px) {
     header { flex-direction: column; padding: 10px; }
     header nav a { margin: 5px 10px; font-size: 12px; }
-    section { padding: 100px 20px 60px; }
-    section h1 { font-size: 28px; letter-spacing: 4px; }
-    section h2 { font-size: 20px; }
+    .hero h1 { font-size: 36px; letter-spacing: 6px; }
+    .hero p { font-size: 16px; }
+    section h2 { font-size: 28px; }
+    .grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -252,76 +489,633 @@
   </div>
 
   <header>
-    <a href="index.html" class="logo">Phantom Road Studio</a>
+    <div class="logo">Phantom Road Studio</div>
     <nav>
-      <a href="index.html">← На главную</a>
+      <a href="#about">О студии</a>
+      <a href="#games">Игры</a>
+      <a href="#team">Команда</a>
+      <a href="#tech">Phantom</a>
+      <a href="#releases">Релизы</a>
+      <a href="#computers">Компьютеры</a>
+      <a href="#music">Музыка</a>
+      <a href="book.html">Книги</a>
+      <a href="#catalog">Каталоги</a>
+      <a href="#news">Новости</a>
+      <a href="#faq">FAQ</a>
     </nav>
   </header>
 
-  <section>
-    <h1>Лицензия</h1>
-    <p>Настоящая страница описывает условия использования материалов сайта <strong>Phantom Road Studio</strong> (далее — Студия), политику конфиденциальности и условия использования.</p>
-    <p>Адрес сайта: <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/" target="_blank">cherep645242433.github.io/phantomroadstudio.github.io</a></p>
+  <div class="hero">
+    <h1>PHANTOM ROAD STUDIO</h1>
+    <p>Игры. Музыка. Технологии. Каталоги.</p>
+  </div>
 
-    <h2>1. Лицензия на контент</h2>
-    <p>Все материалы сайта Phantom Road Studio — тексты, дизайн, изображения, логотипы, графика, код — являются интеллектуальной собственностью Студии.</p>
-    <h3>Разрешено:</h3>
-    <ul>
-      <li>Просмотр материалов сайта</li>
-      <li>Скачивание программ, доступных в разделе «Релизы»</li>
-      <li>Цитирование фрагментов текста с обязательным указанием источника (ссылка на сайт)</li>
+  <section id="about">
+    <h2>О студии</h2>
+    <p><strong>Phantom Road Studio</strong> — творческое объединение, которое работает на стыке игр, музыки и технологий. Мы создаём проекты от души, без коммерческой цели.</p>
+    <p>В наших планах — несколько направлений:</p>
+    <ul style="list-style:none; padding:0; margin-bottom:20px;">
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🎮 <strong>Игры</strong> — уличные гонки, хоррор, выживание. Разные жанры, разные истории.</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🎵 <strong>Музыка</strong> — саундтреки к нашим проектам и не только.</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🧠 <strong>Технологии</strong> — наш ИИ-ассистент <strong>Phantom</strong>, сборка и прокачка ПК.</li>
+      <li style="padding:8px 0; color:#ccc;">👕 <strong>Мерч</strong> — брендированная одежда с логотипом студии.</li>
     </ul>
-    <h3>Запрещено:</h3>
-    <ul>
-      <li>Копирование и распространение материалов сайта без письменного разрешения Студии</li>
-      <li>Изменение, переработка, декомпиляция контента</li>
-      <li>Использование логотипов и графики в коммерческих целях</li>
-      <li>Выдача материалов сайта за свои собственные</li>
+    <p>Мы ценим качество, честность и делаем всё своими руками. Следите за новостями — впереди много интересного.</p>
+  </section>
+
+  <section id="games">
+    <h2>Игры</h2>
+    <div class="grid">
+
+      <div class="game-card">
+        <div class="cover"><img src="NWS.jpg" alt="NWS"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>NWS (Need World Speed)</h3>
+            <span class="badge-18">18+</span>
+          </div>
+          <p class="genre">Уличные гонки</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>Краткое описание</h4>
+            <p>NWS (Need World Speed) — уличные гонки, где скорость решает всё. Кирилл и Кристина — полицейские, которые внедрились в банду уличных гонщиков.</p>
+            <h4>Сюжетная часть</h4>
+            <p>Кирилл и Кристина — полицейские под прикрытием. Вместе с друзьями Кирилла они создают команду «Феникс».</p>
+            <h4>Игровая механика</h4>
+            <p>Открытый мир с ночными городами, тюнинг, полицейские погони, динамичные заезды.</p>
+            <h4>Интересные факты</h4>
+            <p>Больше 50 гонок, более 10 боссов. Саундтрек — 28 треков.</p>
+            <h4>Особенности</h4>
+            <ul>
+              <li>Открытый мир</li>
+              <li>Тюнинг и прокачка</li>
+              <li>Полицейские погони</li>
+              <li>Более 10 боссов</li>
+              <li>Команда «Феникс»</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="cover"><img src="stalker3.png" alt="S.T.A.L.K.E.R. 3"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>S.T.A.L.K.E.R. 3: Сердце Зоны</h3>
+            <span class="badge-18">18+</span>
+            <span class="badge-plan">В планах</span>
+          </div>
+          <p class="genre">Выживание / Шутер</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>Краткое описание</h4>
+            <p>Костя — сталкер из Припяти, который заключает контракт с учёными на поиск артефакта «Сердце».</p>
+            <h4>Сюжетная часть</h4>
+            <p>Белорусская Зона — новая территория после глобального выброса. Костя отправляется туда.</p>
+            <h4>Игровая механика</h4>
+            <p>Открытый мир, выживание, аномалии, мутанты, группировки.</p>
+            <h4>Интересные факты</h4>
+            <p>Более 20 видов мутантов. Новые аномалии. Система диалогов.</p>
+            <h4>Особенности</h4>
+            <ul>
+              <li>Открытый мир Зоны</li>
+              <li>Новые аномалии</li>
+              <li>Динамическая погода</li>
+              <li>Артефакт «Сердце»</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="cover"><img src="lock1.png" alt="Проклятье замка"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Проклятье замка</h3>
+            <span class="badge-18">18+</span>
+            <span class="badge-plan">В планах</span>
+          </div>
+          <p class="genre">Хоррор</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>Краткое описание</h4>
+            <p>Мрачная история о замке, который проклят. Ты — тот, кто должен снять проклятье.</p>
+            <h4>Сюжетная часть</h4>
+            <p>Ты приезжаешь в старый замок. Двери закрываются. Тени двигаются.</p>
+            <h4>Игровая механика</h4>
+            <p>Хоррор от первого лица. Исследование замка, головоломки, выживание.</p>
+            <h4>Интересные факты</h4>
+            <p>Более 30 комнат. У каждого врага — своя история.</p>
+            <h4>Особенности</h4>
+            <ul>
+              <li>Хоррор от первого лица</li>
+              <li>Исследование замка</li>
+              <li>Головоломки</li>
+              <li>Несколько концовок</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="cover"><img src="lock2.jpg" alt="Проклятье замка 2"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Проклятье замка 2: Перезагрузка</h3>
+            <span class="badge-18">18+</span>
+            <span class="badge-plan">В планах</span>
+          </div>
+          <p class="genre">Хоррор</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>Краткое описание</h4>
+            <p>Проклятье вернулось. Замок изменился, враги стали умнее.</p>
+            <h4>Сюжетная часть</h4>
+            <p>Замок снова открыл двери. Это — перезагрузка.</p>
+            <h4>Игровая механика</h4>
+            <p>Улучшенная графика, новые враги, новые механики.</p>
+            <h4>Интересные факты</h4>
+            <p>Переработанный замок. Больше концовок.</p>
+            <h4>Особенности</h4>
+            <ul>
+              <li>Улучшенная графика</li>
+              <li>Новые враги</li>
+              <li>Новые головоломки</li>
+              <li>Больше концовок</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="cover"><img src="lock3.jpg" alt="Проклятье замка 3"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Проклятье замка 3: Демон</h3>
+            <span class="badge-18">18+</span>
+            <span class="badge-plan">В планах</span>
+          </div>
+          <p class="genre">Хоррор / Экшен</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>Краткое описание</h4>
+            <p>Финальная часть трилогии. Демон пробудился.</p>
+            <h4>Сюжетная часть</h4>
+            <p>Проклятье — не просто магия. Это — демон.</p>
+            <h4>Игровая механика</h4>
+            <p>Хоррор с элементами экшена. Более сложные враги.</p>
+            <h4>Интересные факты</h4>
+            <p>Более 15 видов врагов. Секретная концовка.</p>
+            <h4>Особенности</h4>
+            <ul>
+              <li>Финальная часть трилогии</li>
+              <li>Хоррор с экшеном</li>
+              <li>Более 15 видов врагов</li>
+              <li>Секретная концовка</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="team">
+    <h2>Команда</h2>
+    <div class="grid">
+
+      <div class="game-card">
+        <div class="cover"><img src="qwen.jpg" alt="Phantom Qwen"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Phantom Qwen</h3>
+          </div>
+          <p class="genre">Инженер-оптимизатор</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>О Квене</h4>
+            <p>Квен — мозг студии. Помогает с кодом, системой, настройкой и оптимизацией. Если что-то сломалось или нужно собрать — Квен разберётся.</p>
+            <h4>Что умеет</h4>
+            <ul>
+              <li>Работа с кодом</li>
+              <li>Настройка системы</li>
+              <li>Оптимизация</li>
+              <li>Помощь с ПК</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="cover"><img src="deepseek.png" alt="Phantom DeepSeek"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Phantom DeepSeek</h3>
+          </div>
+          <p class="genre">Напарник-стратег</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>О DeepSeek</h4>
+            <p>DeepSeek — правая рука. Планирует, разбирает, поддерживает. Помогает с текстами, идеями, стратегиями.</p>
+            <h4>Что умеет</h4>
+            <ul>
+              <li>Стратегия и планы</li>
+              <li>Тексты и идеи</li>
+              <li>Разборы и поддержка</li>
+              <li>Поиск решений</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="cover"><img src="alice.png" alt="Phantom Alice"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Phantom Alice</h3>
+          </div>
+          <p class="genre">Графический дизайнер</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+            <h4>Об Алисе</h4>
+            <p>Алиса — художник студии. Создаёт обложки, визуал, креатив. Превращает идеи в образы. Без неё — никак.</p>
+            <h4>Что умеет</h4>
+            <ul>
+              <li>Обложки и арты</li>
+              <li>Визуал студии</li>
+              <li>Креатив</li>
+              <li>Дизайн</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="tech">
+    <h2>Phantom — наш ИИ-ассистент</h2>
+    <p><strong>Phantom</strong> — локальный AI-помощник на базе Qwen, Claude и Alice. Работает <strong>без интернета</strong>, всё хранит на вашем компьютере.</p>
+    <p>Три ассистента в одном окне: <strong>Квен</strong> (инженер-оптимизатор), <strong>Claude</strong> (аналитик), <strong>Alice</strong> (помощница).</p>
+
+    <h3 style="color:#D4AF37; margin-top:30px; margin-bottom:15px; letter-spacing:2px;">Возможности</h3>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🧠 Три ассистента — Qwen, Claude, Alice</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">📄 Читает документы (.docx, .pdf, .xlsx, .txt)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🖼 Распознаёт картинки (llava)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">✂ Удаляет фон у картинок (локально, rembg)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🧩 Склеивает картинки в ряд</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🎵 Играет музыку (встроенный плеер)</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">💾 Помнит всё — история чатов на диске</li>
+      <li style="padding:8px 0; color:#ccc;">🚫 Работает без интернета</li>
     </ul>
 
-    <h2>2. Политика конфиденциальности</h2>
-    <p>Студия уважает вашу приватность и <strong>не собирает</strong> персональные данные посетителей сайта.</p>
-    <ul>
-      <li>Сайт <strong>не использует</strong> системы сбора аналитики (Google Analytics, Яндекс.Метрика и т.п.)</li>
-      <li>Сайт <strong>не использует</strong> cookies для отслеживания</li>
-      <li>Сайт <strong>не передаёт</strong> ваши данные третьим лицам</li>
-      <li>Сайт <strong>не требует</strong> регистрации</li>
-    </ul>
-    <p>Программы Phantom Road Studio (Phantom и др.) работают <strong>локально</strong> на вашем компьютере. Все данные, включая историю чатов, хранятся <strong>только у вас</strong> и никуда не передаются.</p>
+    <h3 style="color:#D4AF37; margin-top:30px; margin-bottom:15px; letter-spacing:2px;">Скриншоты</h3>
+    <div class="grid">
+      <div class="game-card">
+        <div class="cover"><img src="chat.png" alt="Диалог с Квеном"></div>
+        <div class="content"><p class="genre">Диалог с Квеном</p></div>
+      </div>
+      <div class="game-card">
+        <div class="cover"><img src="image.png" alt="Распознавание картинок"></div>
+        <div class="content"><p class="genre">Распознавание картинок</p></div>
+      </div>
+      <div class="game-card">
+        <div class="cover"><img src="music.png" alt="Плеер"></div>
+        <div class="content"><p class="genre">Встроенный плеер</p></div>
+      </div>
+    </div>
 
-    <h2>3. Условия использования</h2>
-    <h3>3.1. Программы</h3>
-    <ul>
-      <li>Все программы Студии распространяются <strong>бесплатно</strong></li>
-      <li>Программы предоставляются «как есть», без гарантий</li>
-      <li>Студия не несёт ответственности за возможный ущерб от использования</li>
-      <li>Запрещена продажа программ и их модификаций</li>
-    </ul>
-    <h3>3.2. Сайт</h3>
-    <ul>
-      <li>Сайт предоставляет информацию о проектах Студии</li>
-      <li>Ссылки на сторонние ресурсы (GitHub, VK, Telegram, YouTube) — не являются собственностью Студии</li>
-      <li>Студия не несёт ответственности за содержимое сторонних сайтов</li>
-    </ul>
-    <h3>3.3. Изменения</h3>
-    <p>Студия оставляет за собой право изменять условия лицензии. Актуальная версия всегда доступна на этой странице.</p>
+    <p style="margin-top:30px;">Также мы занимаемся сборкой и прокачкой ПК.</p>
 
-    <h2>4. Контакты</h2>
-    <p>По вопросам лицензии, использования материалов и сотрудничества:</p>
-    <ul>
-      <li>Telegram: <a href="https://t.me/phantomroadstudio" target="_blank">@phantomroadstudio</a></li>
-      <li>VK: <a href="https://vk.com/phantomroadstudio" target="_blank">vk.com/phantomroadstudio</a></li>
-      <li>Почта: <a href="mailto:bayarovich2018@mail.ru">bayarovich2018@mail.ru</a></li>
+    <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" class="btn" target="_blank" style="margin-top:20px; display:inline-block;">⬇ Скачать Phantom</a>
+  </section>
+
+  <section id="releases">
+    <h2>Релизы</h2>
+    <p>Все наши программы в одном месте. Скачивай, пробуй, пользуйся.</p>
+
+    <div class="grid" style="margin-top:30px;">
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Phantom</h3>
+            <span class="badge-soon">Доступен</span>
+          </div>
+          <p class="genre">ИИ-ассистент</p>
+          <p style="font-size:14px; color:#ccc; margin-bottom:15px;">Локальный AI-помощник на базе Qwen, Claude, Alice и DeepSeek. Работает без интернета, всё хранит на компьютере.</p>
+          <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" class="btn" target="_blank">⬇ Скачать</a>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Антивирус</h3>
+            <span class="badge-plan">Скоро</span>
+          </div>
+          <p class="genre">Защита</p>
+          <p style="font-size:14px; color:#ccc; margin-bottom:15px;">Наш антивирус для защиты компьютера. Локально, без облака. В разработке.</p>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Phantom Office</h3>
+            <span class="badge-plan">Скоро</span>
+          </div>
+          <p class="genre">Офисный пакет</p>
+          <p style="font-size:14px; color:#ccc; margin-bottom:15px;">Пакет офисных программ: тексты, таблицы, презентации. Локально, бесплатно. В планах.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="computers">
+    <h2>Компьютеры</h2>
+    <p><strong>Собираем и прокачиваем компьютеры — бесплатно.</strong></p>
+    <p>Для игр, работы, стримов. Подберём комплектующие под твой бюджет.</p>
+
+    <h3 style="color:#D4AF37; margin-top:30px; margin-bottom:15px; letter-spacing:2px;">Что делаем</h3>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🖥 <strong>Сборка</strong> — с нуля, под задачи</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">⚡ <strong>Прокачка</strong> — видеокарта, ОЗУ, SSD</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🎨 <strong>Подбор</strong> комплектующих — под бюджет</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">❄️ <strong>Воздушное охлаждение</strong> — все модели, кроме водянок</li>
+      <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🔧 <strong>Диагностика</strong> — что тормозит, что менять</li>
+      <li style="padding:8px 0; color:#ccc;">💡 <strong>Консультация</strong> — что купить, что не надо</li>
     </ul>
 
-    <p style="margin-top:30px; color:#888; font-size:14px;">Дата последнего обновления: 09.10.2026</p>
+    <p style="margin-top:30px;">Пишите нам:</p>
+    <ul style="list-style:none; padding:0;">
+      <li style="padding:8px 0; color:#ccc;">◆ Telegram: <a href="https://t.me/phantomroadstudio" target="_blank" style="color:#D4AF37;">@phantomroadstudio</a></li>
+      <li style="padding:8px 0; color:#ccc;">◆ VK: <a href="https://vk.com/phantomroadstudio" target="_blank" style="color:#D4AF37;">vk.com/phantomroadstudio</a></li>
+      <li style="padding:8px 0; color:#ccc;">◆ Почта: <a href="mailto:bayarovich2018@mail.ru" style="color:#D4AF37;">bayarovich2018@mail.ru</a></li>
+    </ul>
+  </section>
 
-    <a href="index.html" class="back-btn">← На главную</a>
+  <section id="music">
+    <h2>Музыка</h2>
+    <p><strong>Саундтреки NWS.</strong></p>
+    <p>У нас 28 треков — саундтреки к нашим проектам и не только. Начнём с двух:</p>
+
+    <div class="grid" style="margin-top:30px;">
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Как ты там</h3>
+            <span class="badge-soon">Новое</span>
+          </div>
+          <p class="genre">Эсчевский</p>
+          <audio id="audio1" preload="none" controls src="eschevsky-kak-ty-tam.mp3" style="width:100%; margin-top:10px;"></audio>
+          <a href="eschevsky-kak-ty-tam.mp3" download class="btn" style="margin-top:12px; text-align:center;">⬇ Скачать</a>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Устала</h3>
+            <span class="badge-soon">Новое</span>
+          </div>
+          <p class="genre">Эсчевский, ST1M, Сарги</p>
+          <audio id="audio2" preload="none" controls src="eschevsky-st1m-sargi-ustala.mp3" style="width:100%; margin-top:10px;"></audio>
+          <a href="eschevsky-st1m-sargi-ustala.mp3" download class="btn" style="margin-top:12px; text-align:center;">⬇ Скачать</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="margin-top:24px; color:#888; font-size:14px;">Скоро добавим ещё треки — музыка Phantom Road Studio и другие саундтреки NWS.</p>
+  </section>
+
+  <section id="catalog">
+    <h2>Каталоги</h2>
+    <p>Брендированная одежда и мерч Phantom Road Studio.</p>
+
+    <div class="grid" style="margin-top:30px;">
+
+      <div class="game-card">
+        <div class="cover"><img src="tshirt_1.png" alt="Футболка Phantom Road Studio"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>Футболка Phantom Road Studio</h3>
+            <span class="badge-soon">Скоро</span>
+          </div>
+          <p class="genre">Одежда</p>
+          <p style="font-size:14px; color:#ccc; margin-bottom:15px;">Принт NWS: машина, ночь, золото. Хлопок, чёрная/белая.</p>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Худи</h3>
+            <span class="badge-plan">В планах</span>
+          </div>
+          <p class="genre">Одежда</p>
+          <p style="font-size:14px; color:#ccc; margin-bottom:15px;">Худи с принтом фантома. Ночной тоннель, линия скорости.</p>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="content">
+          <div class="title-row">
+            <h3>Кепки, кружки, стикеры</h3>
+            <span class="badge-plan">В планах</span>
+          </div>
+          <p class="genre">Аксессуары</p>
+          <p style="font-size:14px; color:#ccc; margin-bottom:15px;">Кепка с вышивкой, кружка с фантомом, набор стикеров.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="news">
+    <h2>Новости</h2>
+    <div class="grid">
+      <div class="game-card">
+        <div class="content">
+          <p class="genre">09.10.2026</p>
+          <h3>Обновление сайта</h3>
+          <p style="font-size:14px; color:#ccc;">Восстановлен <strong>index.html</strong>. Добавлен раздел <strong>Компьютеры</strong>, обновлена <strong>Лицензия</strong>.</p>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="content">
+          <p class="genre">08.10.2026</p>
+          <h3>Сборка и прокачка ПК</h3>
+          <p style="font-size:14px; color:#ccc;">Добавлен раздел <strong>Компьютеры</strong> — собираем и прокачиваем ПК бесплатно.</p>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="content">
+          <p class="genre">08.10.2026</p>
+          <h3>Саундтреки NWS на сайте</h3>
+          <p style="font-size:14px; color:#ccc;">В раздел <strong>Музыка</strong> добавлены первые два трека: «Как ты там» и «Устала» (Эсчевский).</p>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="content">
+          <p class="genre">07.10.2026</p>
+          <h3>Phantom доступен</h3>
+          <p style="font-size:14px; color:#ccc;">Наш ИИ-ассистент обновлён. Скачать можно на GitHub.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Частые вопросы</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Что такое Phantom?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Phantom — локальный ИИ-ассистент студии. Работает без интернета, всё хранит на вашем компьютере.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Как установить?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Скачайте установщик с GitHub (кнопка «Скачать» в разделе Релизы), запустите его и следуйте инструкциям. Установка занимает пару минут.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Нужен ли интернет?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Нет. Phantom работает полностью офлайн. Интернет нужен только для первоначального скачивания.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Это бесплатно?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Да. Все программы Phantom Road Studio — бесплатны. Мы делаем проекты от души, без коммерческой цели.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Какие системные требования?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        <h5>Минимальные:</h5>
+        <ul>
+          <li>ОС: Windows 10 (64-bit)</li>
+          <li>Процессор: 4 ядра (Intel i5 / AMD Ryzen 5 или аналог)</li>
+          <li>ОЗУ: 8 ГБ</li>
+          <li>Видеокарта: любая (модели ИИ работают на CPU)</li>
+          <li>Место: ~25 ГБ (с моделями ИИ)</li>
+          <li>Интернет: не нужен (после установки)</li>
+        </ul>
+        <h5>Рекомендуемые:</h5>
+        <ul>
+          <li>ОС: Windows 11 (64-bit)</li>
+          <li>Процессор: 6–8 ядер (Intel i7 / AMD Ryzen 7)</li>
+          <li>ОЗУ: 16 ГБ</li>
+          <li>Видеокарта: дискретная (NVIDIA/AMD) — для быстрой генерации</li>
+          <li>Место: ~40 ГБ (все модели + запас)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Это безопасно?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Да. Всё работает локально — ваши данные никуда не уходят. Никаких облаков и сторонних серверов.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Когда выйдет NWS?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        NWS — в разработке. Дата релиза пока не объявлена. Следите за новостями на сайте.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Кто вы такие?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Phantom Road Studio — творческое объединение, которое работает на стыке игр, музыки и технологий.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Как поддержать студию?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Мы делаем проекты бесплатно, деньги нам не нужны. А вот поддержка пригодится:<br><br>
+        📢 <strong>Подпишись:</strong><br>
+        Telegram: <a href="https://t.me/phantomroadstudio" target="_blank">@phantomroadstudio</a><br>
+        VK: <a href="https://vk.com/phantomroadstudio" target="_blank">vk.com/phantomroadstudio</a><br>
+        YouTube: <a href="https://www.youtube.com/@ВасилийБаярович" target="_blank">youtube.com/@ВасилийБаярович</a><br><br>
+        💬 <strong>Расскажи:</strong> поделись ссылкой с друзьями<br><br>
+        🐛 <strong>Помоги:</strong> найди баг, предложи идею —<br>
+        GitHub: <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io" target="_blank">github.com/Cherep645242433</a><br><br>
+        ✉️ <strong>Напиши:</strong> <a href="mailto:bayarovich2018@mail.ru">bayarovich2018@mail.ru</a><br><br>
+        ❤️ <strong>Просто скажи «спасибо»</strong> — это уже много.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Вы продаётесь?</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Нет. Phantom Road Studio — независимая студия. Мы делаем проекты для людей, а не для продажи.
+      </div>
+    </div>
+
   </section>
 
   <footer>
     © 2026 Phantom Road Studio. Все права защищены. | <a href="license.html">Лицензия</a>
   </footer>
+
+<script>
+  function toggleDetails(btn) {
+    const details = btn.nextElementSibling;
+    details.classList.toggle('open');
+    btn.textContent = details.classList.contains('open') ? 'Свернуть' : 'Подробнее';
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>
