@@ -15,7 +15,6 @@
 <meta property="og:type" content="website">
 
 <style>
-  /* Сброс и база */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -24,26 +23,36 @@
     font-family: 'Segoe UI', sans-serif;
     overflow-x: hidden;
     padding-top: 35px;
-    cursor: crosshair; /* Кастомный курсор */
+    cursor: none; /* Прячем стандартную стрелку */
   }
 
-  /* Стили для кастомного курсора (точка) */
+  /* Кастомный курсор — Пылающий Фантом */
   .custom-cursor {
-    width: 10px;
-    height: 10px;
-    border: 2px solid #D4AF37;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-image: url('phantom.png'); /* Твой логотип */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     position: fixed;
     pointer-events: none;
     z-index: 10001;
     transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s;
+    transition: transform 0.1s ease-out, filter 0.3s;
+    filter: drop-shadow(0 0 8px #D4AF37) drop-shadow(0 0 20px #ff2a2a); /* Золотое и красное свечение */
+    animation: flameFloat 1.5s infinite alternate ease-in-out; /* Анимация парения */
   }
+
+  /* Увеличение и усиление свечения при наведении */
   .custom-cursor.hover {
-    width: 30px;
-    height: 30px;
-    background: rgba(212, 175, 55, 0.2);
-    border-color: #ff2a2a;
+    transform: translate(-50%, -50%) scale(1.5);
+    filter: drop-shadow(0 0 15px #ff2a2a) drop-shadow(0 0 30px #D4AF37);
+  }
+
+  /* Анимация "пламени" — легкое покачивание */
+  @keyframes flameFloat {
+    0% { margin-top: 0px; margin-left: 0px; transform: translate(-50%, -50%) rotate(-5deg); }
+    100% { margin-top: -3px; margin-left: 2px; transform: translate(-50%, -50%) rotate(5deg); }
   }
 
   /* Киберпанк-сетка */
@@ -579,6 +588,7 @@
   }
 
   @media (max-width: 768px) {
+    body { cursor: auto; } /* Возвращаем стандартный курсор на мобилках */
     header { flex-direction: column; padding: 10px; }
     header nav a { margin: 5px 10px; font-size: 12px; }
     .hero h1 { font-size: 36px; letter-spacing: 6px; }
@@ -1253,12 +1263,27 @@
     // Автоматический год в футере
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 1. Кастомный курсор (движение)
+    // 1. Кастомный курсор (плавное движение Пылающего Фантома)
     const cursor = document.getElementById('cursor');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     });
+
+    function animateCursor() {
+      // Плавность (чем меньше коэффициент, тем плавнее, но медленнее)
+      cursorX += (mouseX - cursorX) * 0.2;
+      cursorY += (mouseY - cursorY) * 0.2;
+      
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+      
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
 
     // Увеличение курсора при наведении на кнопки и карточки
     const interactives = document.querySelectorAll('a, button, .game-card');
