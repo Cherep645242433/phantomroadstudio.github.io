@@ -26,11 +26,11 @@
     cursor: none; /* Прячем стандартную стрелку */
   }
 
-  /* Кастомный курсор — Пылающий Фантом (Адаптация под белый фон) */
+  /* Кастомный курсор — Пылающий Фантом (БЕЗ КВАДРАТОВ) */
   .custom-cursor {
-    width: 45px; /* Чуть увеличили, чтобы было видно детали */
+    width: 45px;
     height: 45px;
-    background-image: url('phantom.png'); /* Твой логотип */
+    background-image: url('phantom.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -40,20 +40,18 @@
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out, filter 0.3s;
     
-    /* ФИЛЬТРЫ: Инверсия (убирает белый фон) + свечение */
-    filter: invert(1) drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 20px #ff2a2a);
+    /* Магия: contrast(4) выжигает серый фон в белый, invert(1) делает его прозрачным */
+    filter: contrast(4) invert(1) drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 20px #ff2a2a);
     mix-blend-mode: screen;
     
-    animation: flameFloat 1.5s infinite alternate ease-in-out; /* Анимация парения */
+    animation: flameFloat 1.5s infinite alternate ease-in-out;
   }
 
-  /* Увеличение и усиление свечения при наведении */
   .custom-cursor.hover {
     transform: translate(-50%, -50%) scale(1.5);
-    filter: invert(1) drop-shadow(0 0 15px #ff2a2a) drop-shadow(0 0 30px #D4AF37);
+    filter: contrast(4) invert(1) drop-shadow(0 0 15px #ff2a2a) drop-shadow(0 0 30px #D4AF37);
   }
 
-  /* Анимация "пламени" — легкое покачивание */
   @keyframes flameFloat {
     0% { margin-top: 0px; margin-left: 0px; transform: translate(-50%, -50%) rotate(-5deg); }
     100% { margin-top: -3px; margin-left: 2px; transform: translate(-50%, -50%) rotate(5deg); }
@@ -93,6 +91,7 @@
   }
   .work-banner a { color: #000; text-decoration: underline; }
 
+  /* ФОНОВЫЕ ПРИЗРАКИ (БЕЗ КВАДРАТОВ) */
   .phantom-bg {
     position: fixed;
     top: 0; left: 0;
@@ -107,9 +106,8 @@
     width: 200px;
     opacity: 0.15;
     animation: fly1 90s infinite ease-in-out;
-    
-    /* Убираем белый фон у летающих призраков */
-    filter: invert(1) drop-shadow(0 0 20px rgba(200,220,255,0.4));
+    /* Тот же трюк с контрастом для фона */
+    filter: contrast(4) invert(1) drop-shadow(0 0 20px rgba(200,220,255,0.4));
     mix-blend-mode: screen;
   }
   .phantom-bg img:nth-child(2) { width: 120px; opacity: 0.1; animation: fly2 120s infinite ease-in-out; }
@@ -221,7 +219,6 @@
     margin: 0 auto;
   }
 
-  /* Градиентный заголовок и переливание */
   section h2 {
     font-size: 42px;
     letter-spacing: 6px;
@@ -583,7 +580,6 @@
     color: #D4AF37;
   }
 
-  /* Анимация появления при скролле */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -608,10 +604,7 @@
 </head>
 <body>
 
-  <!-- Кастомный курсор -->
   <div class="custom-cursor" id="cursor"></div>
-
-  <!-- Киберпанк-сетка -->
   <div class="cyber-grid"></div>
 
   <div class="work-banner">✨ Phantom уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
@@ -1239,7 +1232,47 @@
   </div>
 
   <script>
-    // Подробнее / Скрыть
+    // Ждем загрузки страницы (чтобы элементы точно были в DOM)
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Кастомный курсор
+      const cursor = document.getElementById('cursor');
+      
+      // Если курсор есть на странице, запускаем анимацию
+      if (cursor) {
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+          cursorX += (mouseX - cursorX) * 0.2;
+          cursorY += (mouseY - cursorY) * 0.2;
+          
+          cursor.style.left = cursorX + 'px';
+          cursor.style.top = cursorY + 'px';
+          
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Увеличение курсора при наведении
+        const interactives = document.querySelectorAll('a, button, .game-card');
+        interactives.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+      }
+
+      // 2. Год в футере
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    });
+
+    // 3. Кнопка Подробнее / Скрыть
     function toggleDetails(btn) {
       const details = btn.nextElementSibling;
       if (!details || !details.classList.contains('game-details')) return;
@@ -1247,59 +1280,30 @@
       btn.textContent = details.classList.contains('open') ? 'Скрыть' : 'Подробнее';
     }
 
-    // FAQ
+    // 4. FAQ
     function toggleFaq(btn) {
       const item = btn.closest('.faq-item');
       if (!item) return;
       item.classList.toggle('open');
     }
 
-    // Lightbox
+    // 5. Lightbox
     function openLightbox(src) {
       const lb = document.getElementById('lightbox');
+      if (!lb) return;
       lb.querySelector('img').src = src;
       lb.classList.add('open');
     }
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
+      const lb = document.getElementById('lightbox');
+      if (!lb) return;
+      lb.classList.remove('open');
     }
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeLightbox();
     });
 
-    // Автоматический год в футере
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // 1. Кастомный курсор (плавное движение Пылающего Фантома)
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function animateCursor() {
-      cursorX += (mouseX - cursorX) * 0.2;
-      cursorY += (mouseY - cursorY) * 0.2;
-      
-      cursor.style.left = cursorX + 'px';
-      cursor.style.top = cursorY + 'px';
-      
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Увеличение курсора при наведении
-    const interactives = document.querySelectorAll('a, button, .game-card');
-    interactives.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-
-    // 2. Scroll Reveal (плавное появление)
-    const revealElements = document.querySelectorAll('.reveal');
+    // 6. Scroll Reveal (плавное появление)
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1309,11 +1313,10 @@
       });
     }, { threshold: 0.1 });
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // 3. Tilt Effect (3D-наклон карточек)
-    const cards = document.querySelectorAll('.game-card');
-    cards.forEach(card => {
+    // 7. Tilt Effect (3D-наклон карточек)
+    document.querySelectorAll('.game-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
