@@ -26,7 +26,7 @@
     cursor: none; /* Прячем стандартную стрелку */
   }
 
-  /* Кастомный курсор — Пылающий Фантом */
+  /* Кастомный курсор — Пылающий Фантом (С CSS-магией) */
   .custom-cursor {
     width: 40px;
     height: 40px;
@@ -41,6 +41,9 @@
     transition: transform 0.1s ease-out, filter 0.3s;
     filter: drop-shadow(0 0 8px #D4AF37) drop-shadow(0 0 20px #ff2a2a); /* Золотое и красное свечение */
     animation: flameFloat 1.5s infinite alternate ease-in-out; /* Анимация парения */
+    
+    /* МАГИЯ: Убираем чёрный фон у картинки (чёрный станет прозрачным) */
+    mix-blend-mode: screen; 
   }
 
   /* Увеличение и усиление свечения при наведении */
@@ -104,6 +107,7 @@
     opacity: 0.15;
     filter: blur(1px) drop-shadow(0 0 40px rgba(200,220,255,0.4));
     animation: fly1 90s infinite ease-in-out;
+    mix-blend-mode: screen; /* Убираем чёрный фон у летающих призраков */
   }
   .phantom-bg img:nth-child(2) { width: 120px; opacity: 0.1; animation: fly2 120s infinite ease-in-out; }
   .phantom-bg img:nth-child(3) { width: 80px; opacity: 0.08; animation: fly3 150s infinite ease-in-out; }
@@ -1274,7 +1278,6 @@
     });
 
     function animateCursor() {
-      // Плавность (чем меньше коэффициент, тем плавнее, но медленнее)
       cursorX += (mouseX - cursorX) * 0.2;
       cursorY += (mouseY - cursorY) * 0.2;
       
@@ -1285,7 +1288,7 @@
     }
     animateCursor();
 
-    // Увеличение курсора при наведении на кнопки и карточки
+    // Увеличение курсора при наведении
     const interactives = document.querySelectorAll('a, button, .game-card');
     interactives.forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
@@ -1298,7 +1301,7 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          revealObserver.unobserve(entry.target); // Срабатывает только 1 раз
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
@@ -1316,8 +1319,8 @@
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = ((y - centerY) / centerY) * -5; // Наклон по X
-        const rotateY = ((x - centerX) / centerX) * 5;  // Наклон по Y
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
       });
