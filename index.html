@@ -60,14 +60,29 @@
   }
 
   /* Фоновое видео/гифка */
+   /* Фоновое видео/гифка (ОЖИВЛЕННАЯ) */
   .phantom-video-bg {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     z-index: -2;
-    opacity: 0.25; /* Делаем полупрозрачным */
+    opacity: 0.35; /* Сделали чуть заметнее */
     pointer-events: none;
+    
+    /* МАГИЯ: заставляем гифку медленно парить и дышать */
+    animation: bgFloat 8s infinite ease-in-out alternate;
+  }
+
+  @keyframes bgFloat {
+    0% { 
+      transform: scale(1) translate(0, 0); 
+      filter: brightness(1);
+    }
+    100% { 
+      transform: scale(1.05) translate(-1%, -1%); /* Легкий зум и сдвиг */
+      filter: brightness(1.2); /* Легкое свечение */
+    }
   }
 
   /* Затемнение поверх видео для читаемости текста */
