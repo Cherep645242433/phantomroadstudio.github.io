@@ -15,6 +15,7 @@
 <meta property="og:type" content="website">
 
 <style>
+  /* Сброс и база */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -23,6 +24,44 @@
     font-family: 'Segoe UI', sans-serif;
     overflow-x: hidden;
     padding-top: 35px;
+    cursor: crosshair; /* Кастомный курсор */
+  }
+
+  /* Стили для кастомного курсора (точка) */
+  .custom-cursor {
+    width: 10px;
+    height: 10px;
+    border: 2px solid #D4AF37;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  .custom-cursor.hover {
+    width: 30px;
+    height: 30px;
+    background: rgba(212, 175, 55, 0.2);
+    border-color: #ff2a2a;
+  }
+
+  /* Киберпанк-сетка */
+  .cyber-grid {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 10s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
   }
 
   .work-banner {
@@ -113,6 +152,7 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: 0.3s;
+    cursor: pointer;
   }
 
   header nav a:hover {
@@ -165,14 +205,22 @@
     margin: 0 auto;
   }
 
+  /* Градиентный заголовок и переливание */
   section h2 {
     font-size: 42px;
-    color: #D4AF37;
     letter-spacing: 6px;
     text-transform: uppercase;
     margin-bottom: 40px;
     border-bottom: 1px solid #D4AF37;
     padding-bottom: 15px;
+    background: linear-gradient(90deg, #D4AF37, #fff, #D4AF37);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+  }
+  @keyframes shine {
+    to { background-position: 200% center; }
   }
 
   section p {
@@ -194,14 +242,16 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-    transition: 0.3s;
+    transition: box-shadow 0.3s, border-color 0.3s;
     display: flex;
     flex-direction: column;
+    transform-style: preserve-3d;
+    will-change: transform;
   }
 
   .game-card:hover {
     box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
-    transform: translateY(-5px);
+    border-color: #ff2a2a;
   }
 
   .game-card .cover {
@@ -357,7 +407,6 @@
     color: #D4AF37;
   }
 
-  /* === СКРИНШОТЫ === */
   .screenshots {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -381,7 +430,6 @@
     transform: scale(1.03);
   }
 
-  /* Lightbox */
   .lightbox {
     display: none;
     position: fixed;
@@ -519,6 +567,17 @@
     color: #D4AF37;
   }
 
+  /* Анимация появления при скролле */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   @media (max-width: 768px) {
     header { flex-direction: column; padding: 10px; }
     header nav a { margin: 5px 10px; font-size: 12px; }
@@ -526,10 +585,17 @@
     .hero p { font-size: 16px; }
     section h2 { font-size: 28px; }
     .grid { grid-template-columns: 1fr; }
+    .custom-cursor { display: none; } /* Убираем кастомный курсор на мобилках */
   }
 </style>
 </head>
 <body>
+
+  <!-- Кастомный курсор -->
+  <div class="custom-cursor" id="cursor"></div>
+
+  <!-- Киберпанк-сетка -->
+  <div class="cyber-grid"></div>
 
   <div class="work-banner">✨ Phantom уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
 
@@ -562,7 +628,7 @@
     <p>Игры. Музыка. Технологии. Каталоги.</p>
   </div>
 
-  <section id="about">
+  <section id="about" class="reveal">
     <h2>О студии</h2>
     <p><strong>Phantom Road Studio</strong> — творческое объединение, которое работает на стыке игр, музыки и технологий. Мы создаём проекты от души, без коммерческой цели.</p>
     <p>В наших планах — несколько направлений:</p>
@@ -576,11 +642,11 @@
   </section>
 
   <section id="games">
-    <h2>Игры</h2>
+    <h2 class="reveal">Игры</h2>
     <div class="grid">
 
       <!-- NWS: World Tour -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
         <div class="content">
           <div class="title-row">
@@ -619,7 +685,7 @@
       </div>
 
       <!-- S.T.A.L.K.E.R. 3 -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="stalker3.png" alt="S.T.A.L.K.E.R. 3"></div>
         <div class="content">
           <div class="title-row">
@@ -657,7 +723,7 @@
       </div>
 
       <!-- Проклятье замка -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="lock1.png" alt="Проклятье замка"></div>
         <div class="content">
           <div class="title-row">
@@ -695,7 +761,7 @@
       </div>
 
       <!-- Проклятье замка 2 -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="lock2.jpg" alt="Проклятье замка 2"></div>
         <div class="content">
           <div class="title-row">
@@ -733,7 +799,7 @@
       </div>
 
       <!-- Проклятье замка 3 -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="lock3.jpg" alt="Проклятье замка 3"></div>
         <div class="content">
           <div class="title-row">
@@ -771,7 +837,7 @@
       </div>
 
       <!-- Metro: The New Era -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="metro-the-new-era.png" alt="Metro: The New Era"></div>
         <div class="content">
           <div class="title-row">
@@ -814,10 +880,10 @@
   </section>
 
   <section id="team">
-    <h2>Команда</h2>
+    <h2 class="reveal">Команда</h2>
     <div class="grid">
 
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="qwen.jpg" alt="Phantom Qwen"></div>
         <div class="content">
           <div class="title-row">
@@ -839,7 +905,7 @@
         </div>
       </div>
 
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="deepseek.png" alt="Phantom DeepSeek"></div>
         <div class="content">
           <div class="title-row">
@@ -861,7 +927,7 @@
         </div>
       </div>
 
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="alice.png" alt="Phantom Alice"></div>
         <div class="content">
           <div class="title-row">
@@ -886,7 +952,7 @@
     </div>
   </section>
 
-  <section id="tech">
+  <section id="tech" class="reveal">
     <h2>Phantom — наш ИИ-ассистент</h2>
     <p><strong>Phantom</strong> — локальный AI-помощник на базе Qwen, Claude и Alice. Работает <strong>без интернета</strong>, всё хранит на вашем компьютере.</p>
     <p>Три ассистента в одном окне: <strong>Квен</strong> (инженер-оптимизатор), <strong>Claude</strong> (аналитик), <strong>Alice</strong> (помощница).</p>
@@ -902,11 +968,11 @@
     </ul>
   </section>
 
-  <section id="releases">
+  <section id="releases" class="reveal">
     <h2>Релизы</h2>
     <p>Здесь — наши выпущенные проекты и версии. Скачивай, пробуй, пиши отзывы.</p>
     <div class="grid">
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row">
             <h3>Phantom</h3>
@@ -917,7 +983,7 @@
           <a class="btn" href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row">
             <h3>NWS: World Tour</h3>
@@ -928,7 +994,7 @@
           <button class="btn" onclick="alert('Релиз ещё не вышел. Следи за новостями!')">Скоро</button>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row">
             <h3>S.T.A.L.K.E.R. 3</h3>
@@ -942,7 +1008,7 @@
     </div>
   </section>
 
-  <section id="computers">
+  <section id="computers" class="reveal">
     <h2>Компьютеры</h2>
     <p>Мы не только делаем игры — мы собираем и прокачиваем ПК. Подбираем комплектующие под задачи: игры, работа, монтаж, стримы.</p>
     <ul style="list-style:none; padding:0;">
@@ -953,11 +1019,11 @@
     </ul>
   </section>
 
-  <section id="music">
+  <section id="music" class="reveal">
     <h2>Музыка</h2>
     <p>Саундтреки к нашим играм и не только. Всё пишем сами — от битов до атмосферных треков.</p>
     <div class="grid">
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>NWS: World Tour OST</h3></div>
           <p class="genre">Саундтрек</p>
@@ -965,7 +1031,7 @@
           <button class="btn" onclick="alert('Плеер скоро будет добавлен.')">Слушать</button>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>Проклятье замка OST</h3></div>
           <p class="genre">Саундтрек</p>
@@ -976,11 +1042,11 @@
     </div>
   </section>
 
-  <section id="catalog">
+  <section id="catalog" class="reveal">
     <h2>Каталоги</h2>
     <p>Наши каталоги — игры, музыка, референсы, сборки. Всё в одном месте.</p>
     <div class="grid">
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>Каталог игр</h3></div>
           <p class="genre">Игры</p>
@@ -988,7 +1054,7 @@
           <a class="btn" href="#games">Смотреть</a>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>Каталог музыки</h3></div>
           <p class="genre">Музыка</p>
@@ -996,7 +1062,7 @@
           <a class="btn" href="#music">Смотреть</a>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>Каталог ПК</h3></div>
           <p class="genre">Компьютеры</p>
@@ -1008,23 +1074,23 @@
   </section>
 
   <section id="news">
-    <h2>Новости</h2>
+    <h2 class="reveal">Новости</h2>
     <div class="grid">
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>Phantom доступен</h3><span class="badge-soon">Релиз</span></div>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Наш ИИ-ассистент Phantom вышел. Скачивай, пробуй, пиши отзывы.</p>
           <a class="btn" href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>NWS: World Tour в разработке</h3><span class="badge-plan">Разработка</span></div>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Работа над NWS: World Tour идёт. Готовим сюжет, механику и саундтрек.</p>
           <a class="btn" href="#games">Подробнее</a>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="content">
           <div class="title-row"><h3>Сайт обновлён</h3><span class="badge-soon">Обновление</span></div>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Добавили скриншоты игр, разделы релизов и каталогов. Смотри, что нового.</p>
@@ -1035,23 +1101,23 @@
   </section>
 
   <section id="faq">
-    <h2>FAQ</h2>
+    <h2 class="reveal">FAQ</h2>
 
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">Что такое Phantom Road Studio? <span class="arrow">▼</span></button>
       <div class="faq-answer">
         <p>Phantom Road Studio — творческое объединение, которое делает игры, музыку и технологии. Всё своими руками, от души.</p>
       </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">Когда выйдет NWS: World Tour? <span class="arrow">▼</span></button>
       <div class="faq-answer">
         <p>Точная дата пока не объявлена. Игра в активной разработке. Следи за разделом <a href="#news">Новости</a> — там будут анонсы.</p>
       </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">Что такое Phantom? <span class="arrow">▼</span></button>
       <div class="faq-answer">
         <p>Phantom — наш локальный ИИ-ассистент. Работает без интернета, хранит всё на твоём компьютере. Внутри — три ассистента: Квен, Claude и Alice.</p>
@@ -1067,14 +1133,14 @@
       </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">Игры платные? <span class="arrow">▼</span></button>
       <div class="faq-answer">
         <p>Наши проекты делаются без коммерческой цели. Некоторые релизы бесплатны, другие — в планах. Всё будет указано в разделе <a href="#releases">Релизы</a>.</p>
       </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">Где скачать игры и Phantom? <span class="arrow">▼</span></button>
       <div class="faq-answer">
         <p>Все актуальные релизы — в разделе <a href="#releases">Релизы</a>, а также на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">GitHub</a>.</p>
@@ -1085,12 +1151,12 @@
 
   <!-- РАЗДЕЛ РАЗРАБОТКИ -->
   <section id="devlog">
-    <h2>Разработки</h2>
-    <p>Дневник разработки — что делаем, что готово, что впереди.</p>
+    <h2 class="reveal">Разработки</h2>
+    <p class="reveal">Дневник разработки — что делаем, что готово, что впереди.</p>
     <div class="grid">
       
       <!-- NWS -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="NWS.jpg" alt="NWS"></div>
         <div class="content">
           <div class="title-row"><h3>NWS: World Tour</h3><span class="badge-plan">В работе</span></div>
@@ -1106,7 +1172,7 @@
       </div>
 
       <!-- S.T.A.L.K.E.R. 3 -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="stalker3.png" alt="S.T.A.L.K.E.R. 3"></div>
         <div class="content">
           <div class="title-row"><h3>S.T.A.L.K.E.R. 3</h3><span class="badge-plan">Концепт</span></div>
@@ -1122,7 +1188,7 @@
       </div>
 
       <!-- METRO: THE NEW ERA -->
-      <div class="game-card">
+      <div class="game-card reveal">
         <div class="cover"><img src="metro-the-new-era.png" alt="Metro: The New Era"></div>
         <div class="content">
           <div class="title-row"><h3>METRO: THE NEW ERA</h3><span class="badge-plan">Концепт</span></div>
@@ -1186,6 +1252,55 @@
 
     // Автоматический год в футере
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 1. Кастомный курсор (движение)
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Увеличение курсора при наведении на кнопки и карточки
+    const interactives = document.querySelectorAll('a, button, .game-card');
+    interactives.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // 2. Scroll Reveal (плавное появление)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target); // Срабатывает только 1 раз
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // 3. Tilt Effect (3D-наклон карточек)
+    const cards = document.querySelectorAll('.game-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -5; // Наклон по X
+        const rotateY = ((x - centerX) / centerX) * 5;  // Наклон по Y
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+      });
+    });
   </script>
 
 </body>
