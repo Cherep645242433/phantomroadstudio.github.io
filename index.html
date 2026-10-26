@@ -26,11 +26,11 @@
     cursor: none; /* Прячем стандартную стрелку */
   }
 
-  /* Кастомный курсор — Пылающий Фантом (БЕЗ КВАДРАТОВ) */
+  /* Кастомный курсор — Огненный Фантом (ЧИСТЫЙ) */
   .custom-cursor {
-    width: 45px;
-    height: 45px;
-    background-image: url('phantom.png');
+    width: 50px;
+    height: 50px;
+    background-image: url('phantom.png'); /* Твоя картинка с ПРОЗРАЧНЫМ фоном */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -40,21 +40,20 @@
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out, filter 0.3s;
     
-    /* Магия: contrast(4) выжигает серый фон в белый, invert(1) делает его прозрачным */
-    filter: contrast(4) invert(1) drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 20px #ff2a2a);
-    mix-blend-mode: screen;
+    /* Только свечение, никаких инверсий! */
+    filter: drop-shadow(0 0 10px #ff2a2a) drop-shadow(0 0 25px #ff5e00);
     
     animation: flameFloat 1.5s infinite alternate ease-in-out;
   }
 
   .custom-cursor.hover {
-    transform: translate(-50%, -50%) scale(1.5);
-    filter: contrast(4) invert(1) drop-shadow(0 0 15px #ff2a2a) drop-shadow(0 0 30px #D4AF37);
+    transform: translate(-50%, -50%) scale(1.3);
+    filter: drop-shadow(0 0 15px #ff5e00) drop-shadow(0 0 35px #ff2a2a);
   }
 
   @keyframes flameFloat {
     0% { margin-top: 0px; margin-left: 0px; transform: translate(-50%, -50%) rotate(-5deg); }
-    100% { margin-top: -3px; margin-left: 2px; transform: translate(-50%, -50%) rotate(5deg); }
+    100% { margin-top: -5px; margin-left: 2px; transform: translate(-50%, -50%) rotate(5deg); }
   }
 
   /* Киберпанк-сетка */
@@ -91,7 +90,7 @@
   }
   .work-banner a { color: #000; text-decoration: underline; }
 
-  /* ФОНОВЫЕ ПРИЗРАКИ (БЕЗ КВАДРАТОВ) */
+  /* ФОНОВЫЕ ПРИЗРАКИ (ЧИСТЫЕ) */
   .phantom-bg {
     position: fixed;
     top: 0; left: 0;
@@ -104,14 +103,12 @@
   .phantom-bg img {
     position: absolute;
     width: 200px;
-    opacity: 0.15;
+    opacity: 0.1;
     animation: fly1 90s infinite ease-in-out;
-    /* Тот же трюк с контрастом для фона */
-    filter: contrast(4) invert(1) drop-shadow(0 0 20px rgba(200,220,255,0.4));
-    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 15px #ff2a2a);
   }
-  .phantom-bg img:nth-child(2) { width: 120px; opacity: 0.1; animation: fly2 120s infinite ease-in-out; }
-  .phantom-bg img:nth-child(3) { width: 80px; opacity: 0.08; animation: fly3 150s infinite ease-in-out; }
+  .phantom-bg img:nth-child(2) { width: 120px; opacity: 0.07; animation: fly2 120s infinite ease-in-out; }
+  .phantom-bg img:nth-child(3) { width: 80px; opacity: 0.05; animation: fly3 150s infinite ease-in-out; }
 
   @keyframes fly1 {
     0%   { top: 10%; left: -15%; }
@@ -1165,7 +1162,6 @@
     <p class="reveal">Дневник разработки — что делаем, что готово, что впереди.</p>
     <div class="grid">
       
-      <!-- NWS -->
       <div class="game-card reveal">
         <div class="cover"><img src="NWS.jpg" alt="NWS"></div>
         <div class="content">
@@ -1181,7 +1177,6 @@
         </div>
       </div>
 
-      <!-- S.T.A.L.K.E.R. 3 -->
       <div class="game-card reveal">
         <div class="cover"><img src="stalker3.png" alt="S.T.A.L.K.E.R. 3"></div>
         <div class="content">
@@ -1197,7 +1192,6 @@
         </div>
       </div>
 
-      <!-- METRO: THE NEW ERA -->
       <div class="game-card reveal">
         <div class="cover"><img src="metro-the-new-era.png" alt="Metro: The New Era"></div>
         <div class="content">
@@ -1232,13 +1226,12 @@
   </div>
 
   <script>
-    // Ждем загрузки страницы (чтобы элементы точно были в DOM)
+    // Ждем загрузки страницы
     document.addEventListener('DOMContentLoaded', () => {
       
       // 1. Кастомный курсор
       const cursor = document.getElementById('cursor');
       
-      // Если курсор есть на странице, запускаем анимацию
       if (cursor) {
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
@@ -1259,7 +1252,6 @@
         }
         animateCursor();
 
-        // Увеличение курсора при наведении
         const interactives = document.querySelectorAll('a, button, .game-card');
         interactives.forEach(el => {
           el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
