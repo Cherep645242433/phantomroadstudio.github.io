@@ -26,12 +26,10 @@
     cursor: none;
   }
 
-  /* ГЛОБАЛЬНОЕ ПРАВИЛО: Прячем стандартный курсор */
   a, button, input, textarea, select, .game-card, .faq-question, .screenshots img, .btn {
     cursor: none !important;
   }
 
-  /* Кастомный курсор — ОГНЕННЫЙ Фантом */
   .custom-cursor {
     width: 55px;
     height: 55px;
@@ -44,7 +42,6 @@
     z-index: 10001;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out, filter 0.3s;
-    
     filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.2) drop-shadow(0 0 15px #ff2a2a) drop-shadow(0 0 35px #ff5e00);
     animation: flameFloat 1.5s infinite alternate ease-in-out;
   }
@@ -59,45 +56,41 @@
     100% { margin-top: -5px; margin-left: 2px; transform: translate(-50%, -50%) rotate(5deg); }
   }
 
-  /* Фоновое видео/гифка */
-   /* Фоновое видео/гифка (ОЖИВЛЕННАЯ) */
-    /* Фоновое видео/гифка (ОЖИВЛЕННАЯ) */
-   /* Фоновое видео/гифка */
   .phantom-video-bg {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
-    
-    /* Опускаем гифку вниз, чтобы голова была видна */
-    object-position: center 30%; 
-    
+    object-position: center 30%;
     z-index: -2;
-    opacity: 0.2; /* Приглушённая прозрачность */
+    opacity: 0.2;
     pointer-events: none;
-    
-    /* УБРАЛИ АНИМАЦИЮ, ЧТОБЫ ГИФКА СНОВА СТАЛА ЖИВОЙ */
   }
 
-  @keyframes bgFloat {
-    0% { 
-      transform: scale(1) translate(0, 0); 
-      filter: brightness(1);
-    }
-    100% { 
-      transform: scale(1.05) translate(-1%, -1%); /* Легкий зум и сдвиг */
-      filter: brightness(1.2); /* Легкое свечение */
-    }
-  }
-
-  /* Затемнение поверх видео для читаемости текста */
   .video-overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.9) 100%);
+    background: radial-gradient(circle, rgba(5,5,5,0.6) 0%, rgba(5,5,5,0.95) 100%);
     z-index: -1;
     pointer-events: none;
+  }
+
+  .cyber-grid {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 10s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
   }
 
   .work-banner {
@@ -150,7 +143,6 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: 0.3s;
-    cursor: none;
   }
 
   header nav a:hover {
@@ -328,7 +320,6 @@
     border-radius: 6px;
     transition: 0.3s;
     border: none;
-    cursor: none;
     font-family: inherit;
     font-size: 13px;
     text-align: center;
@@ -424,7 +415,6 @@
     z-index: 10000;
     align-items: center;
     justify-content: center;
-    cursor: none;
     padding: 20px;
   }
 
@@ -461,7 +451,6 @@
     font-size: 17px;
     font-weight: bold;
     letter-spacing: 1px;
-    cursor: none;
     font-family: inherit;
     display: flex;
     justify-content: space-between;
@@ -499,7 +488,6 @@
   .faq-answer a {
     color: #D4AF37;
     text-decoration: underline;
-    cursor: none;
   }
 
   .faq-answer a:hover {
@@ -548,7 +536,6 @@
   footer a {
     color: #888;
     text-decoration: underline;
-    cursor: none;
   }
 
   footer a:hover {
@@ -581,11 +568,9 @@
 <body>
 
   <div class="custom-cursor" id="cursor"></div>
-
-  <!-- Фоновое видео/гифка -->
   <img src="phantom (1).gif" class="phantom-video-bg" alt="">
-  <!-- Затемнение для читаемости -->
   <div class="video-overlay"></div>
+  <div class="cyber-grid"></div>
 
   <div class="work-banner">✨ Phantom уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
 
@@ -628,7 +613,6 @@
   <section id="games">
     <h2 class="reveal">Игры</h2>
     <div class="grid">
-      <!-- NWS: World Tour -->
       <div class="game-card reveal">
         <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
         <div class="content">
@@ -667,7 +651,6 @@
         </div>
       </div>
 
-      <!-- S.T.A.L.K.E.R. 3 -->
       <div class="game-card reveal">
         <div class="cover"><img src="stalker3.png" alt="S.T.A.L.K.E.R. 3"></div>
         <div class="content">
@@ -705,7 +688,6 @@
         </div>
       </div>
 
-      <!-- Проклятье замка -->
       <div class="game-card reveal">
         <div class="cover"><img src="lock1.png" alt="Проклятье замка"></div>
         <div class="content">
@@ -743,7 +725,6 @@
         </div>
       </div>
 
-      <!-- Проклятье замка 2 -->
       <div class="game-card reveal">
         <div class="cover"><img src="lock2.jpg" alt="Проклятье замка 2"></div>
         <div class="content">
@@ -781,7 +762,6 @@
         </div>
       </div>
 
-      <!-- Проклятье замка 3 -->
       <div class="game-card reveal">
         <div class="cover"><img src="lock3.jpg" alt="Проклятье замка 3"></div>
         <div class="content">
@@ -819,7 +799,6 @@
         </div>
       </div>
 
-      <!-- Metro: The New Era -->
       <div class="game-card reveal">
         <div class="cover"><img src="metro-the-new-era.png" alt="Metro: The New Era"></div>
         <div class="content">
@@ -1136,14 +1115,35 @@
   <section id="devlog">
     <h2 class="reveal">Разработки</h2>
     <p class="reveal">Дневник разработки — что делаем, что готово, что впереди.</p>
-    <div class="grid">
+    
+    <!-- БЛОК СТАТУСА И СКРИНШОТА -->
+    <div class="game-card reveal" style="grid-column: 1 / -1; margin-bottom: 30px; border-color: #ff2a2a; box-shadow: 0 0 25px rgba(255, 42, 42, 0.3);">
       
+      <!-- Наш главный скрин -->
+      <div class="cover" style="aspect-ratio: auto; max-height: 500px;">
+        <img src="garage-nws.webp" alt="Гараж NWS: World Tour" style="width: 100%; height: 100%; object-fit: cover; border-bottom: none;">
+      </div>
+
+      <div class="content">
+        <div class="title-row">
+          <h3 style="color: #ff2a2a;">🛠 Статус разработки: Этап 1 — Прототипирование (WIP)</h3>
+        </div>
+        <p style="color:#ccc; font-size: 15px; line-height: 1.8;">
+          Сейчас мы собираем базовую сцену: тестируем освещение, импортируем первые 3D-модели и настраиваем материалы в Unity. 
+          <br><br>
+          <strong>Глобальные планы:</strong> Мы готовим <strong>более 200 автомобилей</strong> — от классики уличных гонок до гиперкаров! А также впереди <strong>Этап 2</strong> (сборка сюжета и механик) и <strong>Этап 3</strong> (полная детализация, текстуры высокого разрешения, анимации и оптимизация). 
+          <br><br>
+          <em>Всё, что вы видите сейчас на скриншотах — это лишь «скелет» будущей игры, но мы работаем над этим каждый день!</em>
+        </p>
+      </div>
+    </div>
+
+    <div class="grid">
       <div class="game-card reveal">
         <div class="cover"><img src="NWS.jpg" alt="NWS"></div>
         <div class="content">
           <div class="title-row"><h3>NWS: World Tour</h3><span class="badge-plan">В работе</span></div>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Сюжет, механика, саундтрек. Готовим демо-версию.</p>
-          
           <h4 style="color:#D4AF37; font-size:14px; letter-spacing:2px; margin-bottom:8px; text-transform:uppercase;">Скриншоты</h4>
           <div class="screenshots">
             <img src="nws-dev-1.jpg" alt="NWS разработка 1" onclick="openLightbox(this.src)">
@@ -1158,7 +1158,6 @@
         <div class="content">
           <div class="title-row"><h3>S.T.A.L.K.E.R. 3</h3><span class="badge-plan">Концепт</span></div>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Прописываем лор Белорусской Зоны, мутантов, аномалии.</p>
-          
           <h4 style="color:#D4AF37; font-size:14px; letter-spacing:2px; margin-bottom:8px; text-transform:uppercase;">Скриншоты</h4>
           <div class="screenshots">
             <img src="stalker-dev-1.jpg" alt="S.T.A.L.K.E.R. 3 разработка 1" onclick="openLightbox(this.src)">
@@ -1173,7 +1172,6 @@
         <div class="content">
           <div class="title-row"><h3>METRO: THE NEW ERA</h3><span class="badge-plan">Концепт</span></div>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Карта Минского метро, фракции, Хранители.</p>
-          
           <h4 style="color:#D4AF37; font-size:14px; letter-spacing:2px; margin-bottom:8px; text-transform:uppercase;">Скриншоты</h4>
           <div class="screenshots">
             <img src="metro-dev-1.jpg" alt="Metro разработка 1" onclick="openLightbox(this.src)">
@@ -1182,7 +1180,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -1196,7 +1193,6 @@
     </p>
   </footer>
 
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img src="" alt="Просмотр">
   </div>
