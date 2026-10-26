@@ -62,23 +62,21 @@
   /* Фоновое видео/гифка */
    /* Фоновое видео/гифка (ОЖИВЛЕННАЯ) */
     /* Фоновое видео/гифка (ОЖИВЛЕННАЯ) */
+   /* Фоновое видео/гифка */
   .phantom-video-bg {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     
-    /* ВОТ ЗДЕСЬ МЕНЯЕМ ПОЛОЖЕНИЕ: */
-    object-position: center 30%; /* Сдвигает гифку чуть ниже центра */
+    /* Опускаем гифку вниз, чтобы голова была видна */
+    object-position: center 30%; 
     
     z-index: -2;
-    opacity: 0.2; /* Сделали чуть прозрачнее, как ты просил */
+    opacity: 0.2; /* Приглушённая прозрачность */
     pointer-events: none;
     
-    animation: bgFloat 8s infinite ease-in-out alternate;
-  }
-    /* МАГИЯ: заставляем гифку медленно парить и дышать */
-    animation: bgFloat 8s infinite ease-in-out alternate;
+    /* УБРАЛИ АНИМАЦИЮ, ЧТОБЫ ГИФКА СНОВА СТАЛА ЖИВОЙ */
   }
 
   @keyframes bgFloat {
