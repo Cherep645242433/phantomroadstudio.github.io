@@ -1,0 +1,4 @@
+Contact: mailto:v.bayarovitch@yandex.ru
+Expires: 2027-12-31T23:59:00.000Z
+Preferred-Languages: ru, en
+Canonical: https://cherep645242433.github.io/phantomroadstudio.github.io/.well-known/security.txt
