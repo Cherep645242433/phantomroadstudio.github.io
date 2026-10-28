@@ -631,6 +631,63 @@
     outline: none;
   }
 
+  /* --- ПУТЕВОДИТЕЛЬ (Tour) --- */
+  .tour-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 20000;
+    justify-content: center;
+    align-items: center;
+  }
+  .tour-overlay.active { display: flex; }
+
+  .tour-box {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+    position: relative;
+    z-index: 20002;
+  }
+  .tour-box h3 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  .tour-box p {
+    color: #ccc;
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .tour-box .btn-tour {
+    padding: 10px 20px;
+    background: #D4AF37;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+  }
+  .tour-box .btn-tour:hover {
+    background: #ff2a2a;
+    color: #fff;
+  }
+  .tour-highlight {
+    position: relative;
+    z-index: 20001;
+    box-shadow: 0 0 0 5px #D4AF37, 0 0 30px #D4AF37;
+    background-color: #050505 !important;
+    border-radius: 8px;
+  }
+
   footer {
     position: relative;
     z-index: 1;
@@ -681,6 +738,15 @@
   <img src="phantom (1).gif" class="phantom-video-bg" alt="">
   <div class="video-overlay"></div>
   <div class="cyber-grid"></div>
+
+  <!-- ПУТЕВОДИТЕЛЬ -->
+  <div class="tour-overlay" id="tourOverlay">
+    <div class="tour-box">
+      <h3 id="tourTitle">Добро пожаловать!</h3>
+      <p id="tourText">Привет! Я Фантом. Давай покажу, что тут есть. Нажми «Далее», чтобы начать.</p>
+      <button class="btn-tour" id="tourNextBtn" onclick="nextTourStep()">Далее</button>
+    </div>
+  </div>
 
   <div class="work-banner">✨ Phantom уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" onclick="ym(113817574, 'reachGoal', 'click_download'); return true;">Скачать</a> ✨</div>
 
@@ -1439,6 +1505,53 @@
         card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
       });
     });
+
+    // --- ЛОГИКА ПУТЕВОДИТЕЛЯ ---
+    let tourStep = 0;
+    const tourSteps = [
+      { target: '#about', title: 'О студии', text: 'Здесь мы рассказываем, кто мы и чем занимаемся.' },
+      { target: '#games', title: 'Игры', text: 'Это наши проекты. Кликай на «Подробнее», чтобы узнать больше.' },
+      { target: '#devlog', title: 'Разработки', text: 'Дневник разработки. Смотри, как создается игра NWS: World Tour.' }
+    ];
+    let currentTarget = null;
+
+    // Проверяем, проходил ли пользователь тур
+    if (!localStorage.getItem('tourCompleted')) {
+      document.getElementById('tourOverlay').classList.add('active');
+    }
+
+    function nextTourStep() {
+      const overlay = document.getElementById('tourOverlay');
+      const title = document.getElementById('tourTitle');
+      const text = document.getElementById('tourText');
+      const nextBtn = document.getElementById('tourNextBtn');
+
+      // Убираем предыдущий подсвет
+      if (currentTarget) {
+        currentTarget.classList.remove('tour-highlight');
+      }
+
+      if (tourStep < tourSteps.length) {
+        const step = tourSteps[tourStep];
+        title.innerText = step.title;
+        text.innerText = step.text;
+        
+        currentTarget = document.querySelector(step.target);
+        if (currentTarget) {
+          currentTarget.classList.add('tour-highlight');
+        }
+
+        tourStep++;
+        nextBtn.innerText = (tourStep === tourSteps.length) ? 'Завершить' : 'Далее';
+      } else {
+        // Завершение тура
+        overlay.classList.remove('active');
+        if (currentTarget) currentTarget.classList.remove('tour-highlight');
+        localStorage.setItem('tourCompleted', 'true');
+        nextBtn.innerText = 'Далее';
+        tourStep = 0;
+      }
+    }
   </script>
 
 </body>
