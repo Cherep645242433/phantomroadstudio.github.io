@@ -84,9 +84,10 @@
     cursor: none !important;
   }
 
+  /* ЯРКИЙ ФАНТОМ */
   .custom-cursor {
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     background-image: url('phantom.png'); 
     background-size: contain;
     background-repeat: no-repeat;
@@ -96,13 +97,13 @@
     z-index: 10001;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out, filter 0.3s;
-    filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.2) drop-shadow(0 0 15px #ff2a2a) drop-shadow(0 0 35px #ff5e00);
+    filter: sepia(1) hue-rotate(-50deg) saturate(8) brightness(1.5) drop-shadow(0 0 20px #ff2a2a) drop-shadow(0 0 40px #ff5e00);
     animation: flameFloat 1.5s infinite alternate ease-in-out;
   }
 
   .custom-cursor.hover {
-    transform: translate(-50%, -50%) scale(1.4);
-    filter: sepia(1) hue-rotate(-50deg) saturate(5) brightness(1.5) drop-shadow(0 0 20px #ff5e00) drop-shadow(0 0 50px #ff2a2a);
+    transform: translate(-50%, -50%) scale(1.5);
+    filter: sepia(1) hue-rotate(-50deg) saturate(8) brightness(1.8) drop-shadow(0 0 30px #ff5e00) drop-shadow(0 0 60px #ff2a2a);
   }
 
   @keyframes flameFloat {
@@ -1515,7 +1516,6 @@
     ];
     let currentTarget = null;
 
-    // Проверяем, проходил ли пользователь тур
     if (!localStorage.getItem('tourCompleted')) {
       document.getElementById('tourOverlay').classList.add('active');
     }
@@ -1526,7 +1526,6 @@
       const text = document.getElementById('tourText');
       const nextBtn = document.getElementById('tourNextBtn');
 
-      // Убираем предыдущий подсвет
       if (currentTarget) {
         currentTarget.classList.remove('tour-highlight');
       }
@@ -1544,7 +1543,6 @@
         tourStep++;
         nextBtn.innerText = (tourStep === tourSteps.length) ? 'Завершить' : 'Далее';
       } else {
-        // Завершение тура
         overlay.classList.remove('active');
         if (currentTarget) currentTarget.classList.remove('tour-highlight');
         localStorage.setItem('tourCompleted', 'true');
