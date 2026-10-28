@@ -1,0 +1,54 @@
+name: Site Health Check
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Каждые 15 минут
+  workflow_dispatch: # Чтобы можно было запустить вручную
+
+jobs:
+  check_site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if site is alive
+        id: check
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://cherep645242433.github.io/phantomroadstudio.github.io/)
+          echo "HTTP Status: $STATUS"
+          if [ "$STATUS" -ne 200 ]; then
+            echo "SITE_IS_DOWN=true" >> $GITHUB_ENV
+          else
+            echo "SITE_IS_UP=true" >> $GITHUB_ENV
+          fi
+
+      - name: Checkout repository
+        if: env.SITE_IS_DOWN == 'true'
+        uses: actions/checkout@v3
+
+      - name: Put up a maintenance page
+        if: env.SITE_IS_DOWN == 'true'
+        run: |
+          echo "Сайт упал! Ставлю заглушку."
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="ru">
+          <head>
+          <meta charset="UTF-8">
+          <title>Технические работы</title>
+          <style>
+            body { background: #050505; color: #D4AF37; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; }
+            h1 { font-size: 48px; }
+          </style>
+          </head>
+          <body>
+            <div>
+              <h1>🚧 Сайт временно недоступен</h1>
+              <p style="color: #ccc;">Наши специалисты уже чинят проблему.</p>
+            </div>
+          </body>
+          </html>
+          EOF
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add index.html
+          git commit -m "Auto: Maintenance page (site is down)"
+          git push
