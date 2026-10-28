@@ -86,8 +86,8 @@
 
   /* ЯРКИЙ ФАНТОМ */
   .custom-cursor {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-image: url('phantom.png'); 
     background-size: contain;
     background-repeat: no-repeat;
@@ -97,13 +97,16 @@
     z-index: 10001;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out, filter 0.3s;
-    filter: sepia(1) hue-rotate(-50deg) saturate(8) brightness(1.5) drop-shadow(0 0 20px #ff2a2a) drop-shadow(0 0 40px #ff5e00);
+    
+    /* Инверсия для контраста + мощное свечение */
+    filter: invert(1) sepia(1) hue-rotate(-50deg) saturate(6) drop-shadow(0 0 20px #ff2a2a) drop-shadow(0 0 40px #ff5e00);
+    
     animation: flameFloat 1.5s infinite alternate ease-in-out;
   }
 
   .custom-cursor.hover {
-    transform: translate(-50%, -50%) scale(1.5);
-    filter: sepia(1) hue-rotate(-50deg) saturate(8) brightness(1.8) drop-shadow(0 0 30px #ff5e00) drop-shadow(0 0 60px #ff2a2a);
+    transform: translate(-50%, -50%) scale(1.4);
+    filter: invert(1) sepia(1) hue-rotate(-50deg) saturate(8) drop-shadow(0 0 25px #ff5e00) drop-shadow(0 0 50px #ff2a2a);
   }
 
   @keyframes flameFloat {
