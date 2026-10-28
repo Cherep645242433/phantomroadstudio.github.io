@@ -1,31 +1,42 @@
-name: Site Health Check
+name: Smart Site Health Check
 
 on:
   schedule:
     - cron: '*/15 * * * *' # Каждые 15 минут
-  workflow_dispatch: # Чтобы можно было запустить вручную
+  workflow_dispatch: # Ручной запуск
 
 jobs:
-  check_site:
+  check_and_fix:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if site is alive
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check site status and content
         id: check
         run: |
+          # Получаем HTTP статус
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://cherep645242433.github.io/phantomroadstudio.github.io/)
           echo "HTTP Status: $STATUS"
+          
+          # Скачиваем содержимое страницы
+          CONTENT=$(curl -s https://cherep645242433.github.io/phantomroadstudio.github.io/)
+          
+          # Проверяем, есть ли маркер заглушки
+          if echo "$CONTENT" | grep -q "MAINTENANCE_MODE"; then
+            echo "IS_MAINTENANCE=true" >> $GITHUB_ENV
+          else
+            echo "IS_MAINTENANCE=false" >> $GITHUB_ENV
+          fi
+          
           if [ "$STATUS" -ne 200 ]; then
             echo "SITE_IS_DOWN=true" >> $GITHUB_ENV
           else
             echo "SITE_IS_UP=true" >> $GITHUB_ENV
           fi
 
-      - name: Checkout repository
-        if: env.SITE_IS_DOWN == 'true'
-        uses: actions/checkout@v3
-
-      - name: Put up a maintenance page
-        if: env.SITE_IS_DOWN == 'true'
+      - name: Put up maintenance page (if site is down)
+        if: env.SITE_IS_DOWN == 'true' && env.IS_MAINTENANCE == 'false'
         run: |
           echo "Сайт упал! Ставлю заглушку."
           cat > index.html << 'EOF'
@@ -33,6 +44,7 @@ jobs:
           <html lang="ru">
           <head>
           <meta charset="UTF-8">
+          <!-- MAINTENANCE_MODE -->
           <title>Технические работы</title>
           <style>
             body { background: #050505; color: #D4AF37; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; }
@@ -52,3 +64,19 @@ jobs:
           git add index.html
           git commit -m "Auto: Maintenance page (site is down)"
           git push
+
+      - name: Remove maintenance page (if site is up and maintenance is active)
+        if: env.SITE_IS_UP == 'true' && env.IS_MAINTENANCE == 'true'
+        run: |
+          echo "Сайт ожил! Убираю заглушку."
+          # Ищем последний коммит с сообщением "Auto: Maintenance page"
+          LAST_MAINTENANCE_COMMIT=$(git log --grep="Auto: Maintenance page" -n 1 --format="%H")
+          
+          if [ -n "$LAST_MAINTENANCE_COMMIT" ]; then
+            echo "Найден коммит заглушки: $LAST_MAINTENANCE_COMMIT"
+            # Откатываем этот коммит
+            git revert --no-edit $LAST_MAINTENANCE_COMMIT
+            git push
+          else
+            echo "Коммит с заглушкой не найден, пропускаем."
+          fi
