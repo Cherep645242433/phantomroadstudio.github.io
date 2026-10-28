@@ -576,6 +576,61 @@
     letter-spacing: 1px;
   }
 
+  /* Кнопка Наверх */
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: #D4AF37;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    border: none;
+  }
+
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .back-to-top:hover {
+    background: #ff2a2a;
+    color: #fff;
+    box-shadow: 0 0 30px #ff2a2a;
+    transform: translateY(-5px);
+  }
+
+  /* Аудиоплеер */
+  .audio-player {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  }
+  .audio-player p {
+    color: #D4AF37;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .audio-player audio {
+    width: 100%;
+    outline: none;
+  }
+
   footer {
     position: relative;
     z-index: 1;
@@ -616,6 +671,7 @@
     .grid { grid-template-columns: 1fr; }
     .custom-cursor { display: none; } 
     a, button, .btn, .game-card, .faq-question, .screenshots img { cursor: auto !important; }
+    .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
   }
 </style>
 </head>
@@ -1044,7 +1100,15 @@
           <div class="title-row"><h3>NWS: World Tour OST</h3></div>
           <p class="genre">Саундтрек</p>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">28 треков для уличных гонок. Ночные города, скорость, адреналин.</p>
-          <button class="btn" onclick="alert('Плеер скоро будет добавлен.')">Слушать</button>
+          
+          <!-- АУДИОПЛЕЕР -->
+          <div class="audio-player">
+            <p>🎵 Слушать трек (демо)</p>
+            <audio controls>
+              <source src="eschevsky-kak-ty-tam.mp3" type="audio/mpeg">
+              Ваш браузер не поддерживает аудио.
+            </audio>
+          </div>
         </div>
       </div>
       <div class="game-card reveal">
@@ -1052,7 +1116,15 @@
           <div class="title-row"><h3>Проклятье замка OST</h3></div>
           <p class="genre">Саундтрек</p>
           <p style="color:#ccc; font-size:14px; margin-bottom:15px;">Атмосферные треки для хоррора. Тени, скрипы, напряжение.</p>
-          <button class="btn" onclick="alert('Плеер скоро будет добавлен.')">Слушать</button>
+          
+          <!-- АУДИОПЛЕЕР 2 -->
+          <div class="audio-player">
+            <p>🎵 Слушать трек (демо)</p>
+            <audio controls>
+              <source src="eschevsky-st1m-sargi-ustala.mp3" type="audio/mpeg">
+              Ваш браузер не поддерживает аудио.
+            </audio>
+          </div>
         </div>
       </div>
     </div>
@@ -1246,6 +1318,9 @@
     </p>
   </footer>
 
+  <!-- Кнопка Наверх -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img src="" alt="Просмотр">
   </div>
@@ -1283,7 +1358,21 @@
 
       const yearSpan = document.getElementById('year');
       if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+      // Кнопка Наверх
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTop.classList.add('show');
+        } else {
+          backToTop.classList.remove('show');
+        }
+      });
     });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     function toggleDetails(btn) {
       const details = btn.nextElementSibling;
