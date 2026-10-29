@@ -83,23 +83,18 @@
 
   /* БОКОВЫЕ НЕОНОВЫЕ ЛИНИИ */
   .side-line {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 4px; /* Толщина линии */
-    background-color: #D4AF37; /* Золотой цвет */
-    box-shadow: 0 0 15px #D4AF37, 0 0 30px #D4AF37; /* Неоновое свечение */
-    z-index: 99999; /* Поверх всего */
-    pointer-events: none;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 8px !important; /* Сделал толще */
+    background-color: #ff2a2a !important; /* Ярко-красный, чтобы точно заметить */
+    box-shadow: 0 0 20px #ff2a2a, 0 0 40px #ff2a2a, 0 0 60px #ff2a2a !important;
+    z-index: 9999999 !important; /* Максимальный приоритет */
+    pointer-events: none !important;
   }
 
-  .side-line.left {
-    left: 0;
-  }
-
-  .side-line.right {
-    right: 0;
-  }
+  .side-line.left { left: 0 !important; }
+  .side-line.right { right: 0 !important; }
 
   a, button, input, textarea, select, .game-card, .faq-question, .screenshots img, .btn {
     cursor: none !important;
@@ -753,7 +748,7 @@
     .custom-cursor { display: none; } 
     a, button, .btn, .game-card, .faq-question, .screenshots img { cursor: auto !important; }
     .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
-    .side-line { width: 2px; }
+    .side-line { width: 4px !important; }
   }
 </style>
 </head>
