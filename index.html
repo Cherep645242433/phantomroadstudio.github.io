@@ -834,6 +834,7 @@
       <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="current-password">
       <button id="loginBtn">Войти</button>
       <button id="registerBtn">Зарегистрироваться</button>
+      <button style="background: #444; color: #fff;" onclick="handleAnonymousLogin()">Войти как гость</button>
       <button class="close-btn" onclick="document.getElementById('authModal').classList.remove('open')">Закрыть</button>
     </div>
   </div>
@@ -1484,7 +1485,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBbdnwdaGN8k7QC4S_GTEyrPqqTjtI7gKk",
@@ -1533,12 +1534,24 @@
       }
     }
 
+    window.handleAnonymousLogin = async function() {
+      const errorDiv = document.getElementById('authError');
+      try {
+        await signInAnonymously(auth);
+        errorDiv.style.display = 'none';
+        document.getElementById('authModal').classList.remove('open');
+      } catch (error) {
+        errorDiv.textContent = "Ошибка: " + error.message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
     onAuthStateChanged(auth, (user) => {
       const btn = document.getElementById('auth-btn');
       if (user) {
         btn.textContent = 'Выйти';
         btn.onclick = () => signOut(auth);
-        console.log("Админ вошел:", user.email);
+        console.log("Пользователь вошел:", user.email || "Гость (Аноним)");
       } else {
         btn.textContent = 'Войти';
         btn.onclick = toggleAuth;
