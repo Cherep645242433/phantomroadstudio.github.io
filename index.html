@@ -81,18 +81,24 @@
     cursor: none;
   }
 
-  /* НЕОНОВАЯ ОКАНТОВКА САЙТА */
-  .site-frame {
+  /* БОКОВЫЕ НЕОНОВЫЕ ЛИНИИ */
+  .side-line {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 3px solid #D4AF37; /* Золотая рамка */
-    box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.4), 0 0 15px rgba(212, 175, 55, 0.2); /* Свечение */
-    pointer-events: none; /* Не мешает кликам */
+    bottom: 0;
+    width: 4px; /* Толщина линии */
+    background-color: #D4AF37; /* Золотой цвет */
+    box-shadow: 0 0 15px #D4AF37, 0 0 30px #D4AF37; /* Неоновое свечение */
     z-index: 99999; /* Поверх всего */
-    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .side-line.left {
+    left: 0;
+  }
+
+  .side-line.right {
+    right: 0;
   }
 
   a, button, input, textarea, select, .game-card, .faq-question, .screenshots img, .btn {
@@ -747,14 +753,15 @@
     .custom-cursor { display: none; } 
     a, button, .btn, .game-card, .faq-question, .screenshots img { cursor: auto !important; }
     .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
-    .site-frame { border-width: 2px; }
+    .side-line { width: 2px; }
   }
 </style>
 </head>
 <body>
 
-  <!-- НЕОНОВАЯ ОКАНТОВКА -->
-  <div class="site-frame"></div>
+  <!-- БОКОВЫЕ ЛИНИИ -->
+  <div class="side-line left"></div>
+  <div class="side-line right"></div>
 
   <div class="custom-cursor" id="cursor"></div>
   <img src="phantom.png" class="phantom-video-bg" alt="">
