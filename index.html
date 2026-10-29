@@ -7,16 +7,13 @@
 <title>Phantom Road Studio</title>
 <meta name="description" content="Phantom Road Studio — игры, музыка, технологии, каталоги. ИИ-ассистент Phantom, уличные гонки NWS: World Tour, хоррор, выживание.">
 <meta name="keywords" content="Phantom Road Studio, NWS, Need World Speed, World Tour, Квен, уличные гонки, Минск, Москва, Токио, Дубай, хоррор, Phantom">
-<!-- ИКОНКА САЙТА -->
 <link rel="icon" type="image/png" href="phantom.png">
 
-<!-- 🛡️ КИБЕР-ЗАЩИТА САЙТА -->
 <meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru; frame-ancestors 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mc.yandex.ru https://www.gstatic.com https://*.firebaseio.com https://*.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru https://*.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com; frame-ancestors 'none';">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
-<!-- 🚀 SEO: Микроразметка Schema.org для Организации -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,7 +28,6 @@
 }
 </script>
 
-<!-- 🚀 SEO: Микроразметка Schema.org для Игры -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -49,7 +45,6 @@
 }
 </script>
 
-<!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -61,7 +56,6 @@
     ym(113817574, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/113817574" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 
 <meta property="og:title" content="Phantom Road Studio">
 <meta property="og:description" content="Игры. Музыка. Технологии. Каталоги.">
@@ -81,15 +75,14 @@
     cursor: none;
   }
 
-  /* БОКОВЫЕ НЕОНОВЫЕ ЛИНИИ */
   .side-line {
     position: fixed !important;
     top: 0 !important;
     bottom: 0 !important;
-    width: 8px !important; /* Сделал толще */
-    background-color: #ff2a2a !important; /* Ярко-красный, чтобы точно заметить */
+    width: 8px !important;
+    background-color: #ff2a2a !important;
     box-shadow: 0 0 20px #ff2a2a, 0 0 40px #ff2a2a, 0 0 60px #ff2a2a !important;
-    z-index: 9999999 !important; /* Максимальный приоритет */
+    z-index: 9999999 !important;
     pointer-events: none !important;
   }
 
@@ -209,9 +202,9 @@
     font-weight: bold;
   }
 
-  header nav { display: flex; flex-wrap: wrap; }
+  header nav { display: flex; flex-wrap: wrap; align-items: center; }
 
-  header nav a {
+  header nav a, #auth-btn {
     color: #ccc;
     text-decoration: none;
     margin-left: 25px;
@@ -219,12 +212,83 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
   }
 
-  header nav a:hover {
+  header nav a:hover, #auth-btn:hover {
     color: #D4AF37;
     text-shadow: 0 0 10px #D4AF37;
   }
+
+  #auth-btn {
+    color: #D4AF37;
+    border: 1px solid #D4AF37;
+    padding: 5px 15px;
+    border-radius: 4px;
+  }
+  #auth-btn:hover {
+    background: #D4AF37;
+    color: #000;
+    text-shadow: none;
+  }
+
+  .auth-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 100000;
+    align-items: center;
+    justify-content: center;
+  }
+  .auth-modal.open { display: flex; }
+  .auth-box {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+  }
+  .auth-box h3 { color: #D4AF37; margin-bottom: 20px; }
+  .auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 6px;
+    cursor: text !important;
+  }
+  .auth-box input:focus { outline: none; border-color: #D4AF37; }
+  .auth-box button {
+    width: 100%;
+    padding: 10px;
+    background: #D4AF37;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer !important;
+    margin-bottom: 10px;
+  }
+  .auth-box button:hover { background: #ff2a2a; color: #fff; }
+  .auth-box .close-btn {
+    background: transparent;
+    color: #888;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer !important;
+    font-size: 14px;
+  }
+  .auth-box .close-btn:hover { color: #fff; }
+  .auth-error { color: #ff2a2a; font-size: 14px; margin-bottom: 10px; display: none; }
 
   .hero {
     position: relative;
@@ -740,7 +804,7 @@
   @media (max-width: 768px) {
     body { cursor: auto; } 
     header { flex-direction: column; padding: 10px; }
-    header nav a { margin: 5px 10px; font-size: 12px; }
+    header nav a, #auth-btn { margin: 5px 10px; font-size: 12px; }
     .hero h1 { font-size: 36px; letter-spacing: 6px; }
     .hero p { font-size: 16px; }
     section h2 { font-size: 28px; }
@@ -754,7 +818,6 @@
 </head>
 <body>
 
-  <!-- БОКОВЫЕ ЛИНИИ -->
   <div class="side-line left"></div>
   <div class="side-line right"></div>
 
@@ -762,6 +825,18 @@
   <img src="phantom.png" class="phantom-video-bg" alt="">
   <div class="video-overlay"></div>
   <div class="cyber-grid"></div>
+
+  <div class="auth-modal" id="authModal">
+    <div class="auth-box">
+      <h3>Вход в админку</h3>
+      <div class="auth-error" id="authError"></div>
+      <input type="email" id="emailInput" placeholder="Email" autocomplete="email">
+      <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="current-password">
+      <button id="loginBtn">Войти</button>
+      <button id="registerBtn">Зарегистрироваться</button>
+      <button class="close-btn" onclick="document.getElementById('authModal').classList.remove('open')">Закрыть</button>
+    </div>
+  </div>
 
   <div class="tour-overlay" id="tourOverlay">
     <div class="tour-box">
@@ -788,6 +863,7 @@
       <a href="#news">Новости</a>
       <a href="#faq">FAQ</a>
       <a href="#devlog">Разработки</a>
+      <button id="auth-btn" onclick="toggleAuth()">Войти</button>
     </nav>
   </header>
 
@@ -1406,7 +1482,72 @@
     <img src="" alt="Просмотр">
   </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBbdnwdaGN8k7QC4S_GTEyrPqqTjtI7gKk",
+      authDomain: "phantom-road-studio.firebaseapp.com",
+      projectId: "phantom-road-studio",
+      storageBucket: "phantom-road-studio.firebasestorage.app",
+      messagingSenderId: "738998325759",
+      appId: "1:738998325759:web:b70e8bf862c5fe93cd17ca",
+      measurementId: "G-KQ3M0QR409"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.toggleAuth = function() {
+      const modal = document.getElementById('authModal');
+      modal.classList.toggle('open');
+      document.getElementById('authError').style.display = 'none';
+    }
+
+    window.handleLogin = async function() {
+      const email = document.getElementById('emailInput').value;
+      const password = document.getElementById('passwordInput').value;
+      const errorDiv = document.getElementById('authError');
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        errorDiv.style.display = 'none';
+        document.getElementById('authModal').classList.remove('open');
+      } catch (error) {
+        errorDiv.textContent = "Ошибка: " + error.message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    window.handleRegister = async function() {
+      const email = document.getElementById('emailInput').value;
+      const password = document.getElementById('passwordInput').value;
+      const errorDiv = document.getElementById('authError');
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        errorDiv.style.display = 'none';
+        document.getElementById('authModal').classList.remove('open');
+      } catch (error) {
+        errorDiv.textContent = "Ошибка: " + error.message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      const btn = document.getElementById('auth-btn');
+      if (user) {
+        btn.textContent = 'Выйти';
+        btn.onclick = () => signOut(auth);
+        console.log("Админ вошел:", user.email);
+      } else {
+        btn.textContent = 'Войти';
+        btn.onclick = toggleAuth;
+      }
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', handleLogin);
+    document.getElementById('registerBtn').addEventListener('click', handleRegister);
+
     document.addEventListener('DOMContentLoaded', () => {
       const cursor = document.getElementById('cursor');
       
@@ -1450,30 +1591,30 @@
       });
     });
 
-    function scrollToTop() {
+    window.scrollToTop = function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleDetails(btn) {
+    window.toggleDetails = function(btn) {
       const details = btn.nextElementSibling;
       if (!details || !details.classList.contains('game-details')) return;
       details.classList.toggle('open');
       btn.textContent = details.classList.contains('open') ? 'Скрыть' : 'Подробнее';
     }
 
-    function toggleFaq(btn) {
+    window.toggleFaq = function(btn) {
       const item = btn.closest('.faq-item');
       if (!item) return;
       item.classList.toggle('open');
     }
 
-    function openLightbox(src) {
+    window.openLightbox = function(src) {
       const lb = document.getElementById('lightbox');
       if (!lb) return;
       lb.querySelector('img').src = src;
       lb.classList.add('open');
     }
-    function closeLightbox() {
+    window.closeLightbox = function() {
       const lb = document.getElementById('lightbox');
       if (!lb) return;
       lb.classList.remove('open');
@@ -1525,7 +1666,7 @@
       document.getElementById('tourOverlay').classList.add('active');
     }
 
-    function nextTourStep() {
+    window.nextTourStep = function() {
       const overlay = document.getElementById('tourOverlay');
       const title = document.getElementById('tourTitle');
       const text = document.getElementById('tourText');
