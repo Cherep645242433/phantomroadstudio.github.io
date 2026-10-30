@@ -75,7 +75,7 @@
     cursor: none;
   }
 
-   /* ПЛАМЯ И ФАНТОМ ПО БОКАМ */
+  /* ПЛАМЯ И ФАНТОМ ПО БОКАМ */
   .flame-side {
     position: fixed;
     top: 0;
@@ -123,6 +123,9 @@
 
   .side-line.left { left: 0 !important; }
   .side-line.right { right: 0 !important; }
+
+  a, button, input, textarea, select, .game-card, .faq-question, .screenshots img, .btn {
+    cursor: none !important;
   }
 
   .custom-cursor {
@@ -845,7 +848,7 @@
     a, button, .btn, .game-card, .faq-question, .screenshots img { cursor: auto !important; }
     .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
     .side-line { width: 4px !important; }
-    .flame-side { width: 60px; opacity: 0.3; background-size: 100% 100%, 40px auto; }
+    .flame-side { width: 60px; opacity: 0.3; background-size: 40px auto; }
   }
 </style>
 </head>
@@ -921,15 +924,15 @@
       <li style="padding:8px 0; color:#ccc; border-bottom:1px solid #1a1a1a;">🧠 <strong>Технологии</strong> — наш ИИ-ассистент <strong>Phantom</strong>, сборка и прокачка ПК.</li>
       <li style="padding:8px 0; color:#ccc;">👕 <strong>Мерч</strong> — брендированная одежда с логотипом студии.</li>
     </ul>
-    <p>Мы ценим качество, честность и делаем всё своими руками. Следите за новостями — впереди много интересного.</p>
+    <p
+          <p>Мы ценим качество, честность и делаем всё своими руками. Следите за новостями — впереди много интересного.</p>
   </section>
 
   <section id="games">
     <h2 class="reveal">Игры</h2>
     <div class="grid">
       <div class="game-card reveal">
-        <div class="cover"><img src="NWS
-                  <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
+        <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
         <div class="content">
           <div class="title-row">
             <h3>NWS: World Tour</h3>
@@ -1155,8 +1158,7 @@
 
     </div>
   </section>
-
-  <section id="team">
+    <section id="team">
     <h2 class="reveal">Команда</h2>
     <div class="grid">
 
@@ -1435,8 +1437,8 @@
       <div class="faq-answer">
         <p>Все актуальные релизы — в разделе <a href="#releases">Релизы</a>, а также на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" onclick="ym(113817574, 'reachGoal', 'click_download'); return true;">GitHub</a>.</p>
       </div>
-    </
-          </div>
+    </div>
+
   </section>
 
   <section id="devlog">
