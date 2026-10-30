@@ -75,6 +75,25 @@
     cursor: none;
   }
 
+  /* ПЛАМЯ И ФАНТОМ ПО БОКАМ */
+  .flame-side {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 180px; /* Ширина пламени */
+    background-image: url('flame.png'), url('phantom.png'); /* Пламя и Фантом */
+    background-size: 100% auto, 100px auto; /* Размер пламени и Фантома */
+    background-repeat: repeat-y, no-repeat;
+    background-position: center top, center center;
+    background-blend-mode: screen; /* Смешивание */
+    opacity: 0.45; /* Прозрачность */
+    z-index: 99998;
+    pointer-events: none;
+  }
+
+  .flame-side.left { left: 0; }
+  .flame-side.right { right: 0; }
+
   .side-line {
     position: fixed !important;
     top: 0 !important;
@@ -813,11 +832,17 @@
     a, button, .btn, .game-card, .faq-question, .screenshots img { cursor: auto !important; }
     .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
     .side-line { width: 4px !important; }
+    .flame-side { width: 60px; opacity: 0.3; background-size: 100% auto, 40px auto; }
   }
 </style>
 </head>
 <body>
 
+  <!-- ПЛАМЯ И ФАНТОМ ПО БОКАМ -->
+  <div class="flame-side left"></div>
+  <div class="flame-side right"></div>
+
+  <!-- КРАСНЫЕ ЛИНИИ -->
   <div class="side-line left"></div>
   <div class="side-line right"></div>
 
@@ -890,7 +915,7 @@
     <h2 class="reveal">Игры</h2>
     <div class="grid">
       <div class="game-card reveal">
-        <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
+                <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
         <div class="content">
           <div class="title-row">
             <h3>NWS: World Tour</h3>
@@ -1394,7 +1419,8 @@
     <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">Где скачать игры и Phantom? <span class="arrow">▼</span></button>
       <div class="faq-answer">
-        <p>Все актуальные релизы — в разделе <a href="#releases">Релизы</a>, а также на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" onclick="ym(113817574, 'reachGoal', 'click_download'); return true;">GitHub</a>.</p>
+        <p>Все актуальные релизы — в разделе <a href="#releases">Релизы</a>, а также на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" onclick="ym(
+          113817574, 'reachGoal', 'click_download'); return true;">GitHub</a>.</p>
       </div>
     </div>
 
@@ -1712,4 +1738,4 @@
   </script>
 
 </body>
-</html>
+</html>                                                                                
