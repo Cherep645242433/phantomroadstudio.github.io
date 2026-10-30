@@ -75,20 +75,36 @@
     cursor: none;
   }
 
-  /* ПЛАМЯ И ФАНТОМ ПО БОКАМ */
+   /* ПЛАМЯ И ФАНТОМ ПО БОКАМ */
   .flame-side {
     position: fixed;
     top: 0;
     bottom: 0;
     width: 150px;
-    background-image: url('flame.png'), url('phantom.png');
-    background-size: 100% 100%, 100px auto;
-    background-repeat: no-repeat, no-repeat;
-    background-position: center center, center center;
-    background-blend-mode: screen;
-    opacity: 0.6;
+    background-image: url('phantom.png');
+    background-size: 80px auto;
+    background-repeat: no-repeat;
+    background-position: center center;
     z-index: 99998;
     pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .flame-side::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #ff2a2a, #ff5e00, #ffcc00, transparent);
+    filter: blur(20px);
+    opacity: 0.8;
+    animation: fireFlicker 1.5s infinite alternate;
+    z-index: -1;
+  }
+
+  @keyframes fireFlicker {
+    0% { opacity: 0.6; transform: scaleY(1) translateY(0); }
+    50% { opacity: 0.9; transform: scaleY(1.05) translateY(-5px); }
+    100% { opacity: 0.7; transform: scaleY(0.95) translateY(5px); }
   }
 
   .flame-side.left { left: 0; }
@@ -107,9 +123,6 @@
 
   .side-line.left { left: 0 !important; }
   .side-line.right { right: 0 !important; }
-
-  a, button, input, textarea, select, .game-card, .faq-question, .screenshots img, .btn {
-    cursor: none !important;
   }
 
   .custom-cursor {
