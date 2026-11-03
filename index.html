@@ -160,6 +160,8 @@
             padding: 30px;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
         }
         .card:hover {
             transform: translateY(-10px);
@@ -179,6 +181,7 @@
             border-radius: 8px;
             margin-bottom: 15px;
             border: 1px solid rgba(212, 175, 55, 0.2);
+            background-color: #111; /* Если картинки нет, будет темный фон */
         }
 
         /* --- ПОДВАЛ --- */
@@ -255,8 +258,22 @@
             <!-- Проклятие замка -->
             <div class="card">
                 <h3>Проклятие замка</h3>
-                <img src="lock.jpg" alt="Проклятие замка">
+                <img src="castle.jpg" alt="Проклятие замка">
                 <p>Мистический хоррор, где вам предстоит разгадать тайны древнего замка и снять страшное проклятие.</p>
+            </div>
+
+            <!-- Проклятие замка: Перезагрузка -->
+            <div class="card">
+                <h3>Проклятие замка: Перезагрузка</h3>
+                <img src="castle_reboot.jpg" alt="Перезагрузка">
+                <p>Новая глава в истории проклятого замка. Улучшенная графика и еще более жуткая атмосфера.</p>
+            </div>
+
+            <!-- Проклятие замка: Демон -->
+            <div class="card">
+                <h3>Проклятие замка: Демон</h3>
+                <img src="castle_demon.jpg" alt="Демон">
+                <p>Финальная часть трилогии. Вам предстоит сразиться с самим демоном, заточенным в стенах замка.</p>
             </div>
 
             <!-- Сталкер 3 -->
