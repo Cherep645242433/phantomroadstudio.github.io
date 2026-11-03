@@ -1,273 +1,202 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom Road Studio</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; } /* Плавная прокрутка при клике на меню */
-        body {
-            background: #050505;
-            color: #fff;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            cursor: none;
-        }
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="SczOxO5MYCf1uJGB9Bjg2JnMP1PvV4vHDVcmYMM_9kQ" />
+<meta name="yandex-verification" content="b2bf46b0fd7c63aa" />
+<title>Phantom Road Studio</title>
+<meta name="description" content="Phantom Road Studio — игры, музыка, технологии, каталоги. ИИ-ассистент Phantom, уличные гонки NWS: World Tour, хоррор, выживание.">
+<link rel="icon" type="image/png" href="phantom.png">
 
-        /* --- АНИМАЦИИ --- */
-        @keyframes flicker {
-            0% { opacity: 0.85; filter: brightness(1); }
-            50% { opacity: 1; filter: brightness(1.2); }
-            100% { opacity: 0.9; filter: brightness(0.95); }
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #050505;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    padding-top: 35px;
+    cursor: none;
+  }
 
-        /* ФАНТОМ (На весь экран) */
-        .phantom-center {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('phantom (1).gif'); 
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center top;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.5;
-            animation: float 4s infinite ease-in-out;
-        }
+  .side-line {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 8px !important;
+    background-color: #ff2a2a !important;
+    box-shadow: 0 0 20px #ff2a2a, 0 0 40px #ff2a2a, 0 0 60px #ff2a2a !important;
+    z-index: 9999999 !important;
+    pointer-events: none !important;
+  }
+  .side-line.left { left: 0 !important; }
+  .side-line.right { right: 0 !important; }
 
-        /* ПЛАМЯ ПО БОКАМ */
-        .flame-side {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 150px;
-            background-image: url('flame.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 2;
-            pointer-events: none;
-            animation: flicker 2s infinite ease-in-out;
-        }
-        .flame-side.left { left: 0; }
-        .flame-side.right { right: 0; transform: scaleX(-1); }
+  .custom-cursor {
+    width: 50px;
+    height: 50px;
+    background-image: url('phantom.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+  }
 
-        /* Кастомный курсор */
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99999;
-            box-shadow: 0 0 10px #D4AF37;
-        }
+  /* ЗАДНИЙ ФОН С ФАНТОМОМ */
+  .phantom-video-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    z-index: -2;
+    opacity: 0.5;
+    pointer-events: none;
+    animation: smokePulse 4s infinite alternate ease-in-out;
+  }
 
-        /* ВЕРХНЯЯ ПЛАШКА */
-        .top-bar {
-            background: #D4AF37;
-            color: #050505;
-            text-align: center;
-            padding: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 10;
-        }
+  @keyframes smokePulse {
+    0% { filter: drop-shadow(0 0 20px #ff2a2a) blur(0px); transform: scale(1); }
+    100% { filter: drop-shadow(0 0 50px #ff5e00) blur(2px); transform: scale(1.05); }
+  }
 
-        /* ШАПКА САЙТА */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            position: fixed; /* Закрепляем шапку вверху */
-            top: 35px; /* Сдвиг из-за верхней плашки */
-            width: 100%;
-            z-index: 10;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid #333;
-        }
-        .logo { color: #D4AF37; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
-        nav { display: flex; gap: 15px; flex-wrap: wrap; }
-        nav a { color: #ccc; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
-        nav a:hover { color: #D4AF37; }
-        .btn-login {
-            background: transparent;
-            border: 2px solid #D4AF37;
-            color: #D4AF37;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        .btn-login:hover { background: #D4AF37; color: #000; }
+  .video-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.85) 100%);
+    z-index: -1;
+    pointer-events: none;
+  }
 
-        /* СЕКЦИИ (Блоки с контентом) */
-        section {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10; /* Текст поверх фантома и пламени */
-            min-height: 80vh; /* Чтобы было куда прокручивать */
-        }
+  .work-banner {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    background: #D4AF37;
+    color: #000;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+  }
+  .work-banner a { color: #000; text-decoration: underline; }
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .hero h1 {
-            color: #D4AF37;
-            font-size: 5rem;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-            margin-bottom: 20px;
-        }
-        .hero p {
-            color: #D4AF37;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-        }
+  header {
+    position: fixed;
+    top: 35px;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    border-bottom: 1px solid #D4AF37;
+    z-index: 100;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+  }
+  header .logo { font-size: 20px; letter-spacing: 4px; color: #D4AF37; text-transform: uppercase; font-weight: bold; }
+  header nav a, #auth-btn { color: #ccc; text-decoration: none; margin-left: 25px; font-size: 14px; text-transform: uppercase; transition: 0.3s; background: none; border: none; cursor: none; }
+  header nav a:hover, #auth-btn:hover { color: #D4AF37; text-shadow: 0 0 10px #D4AF37; }
 
-        h2 { color: #D4AF37; font-size: 3rem; margin-bottom: 30px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; }
-        p { font-size: 1.2rem; line-height: 1.6; color: #ccc; margin-bottom: 20px; }
+  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 20px; }
+  .hero h1 { font-size: 64px; letter-spacing: 12px; color: #D4AF37; text-shadow: 0 0 30px rgba(212, 175, 55, 0.6); margin-bottom: 20px; }
+  .hero p { font-size: 24px; color: #D4AF37; letter-spacing: 3px; opacity: 0.9; }
 
-        /* СТАРТОВЫЙ ЭКРАН (ВХОД) */
-        #start-screen {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 5, 5, 0.95);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            cursor: auto;
-        }
-        #start-screen h1 { color: #D4AF37; font-size: 3rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 5px; }
-        .btn-container { display: flex; gap: 20px; }
-        .btn { padding: 15px 40px; font-size: 1.2rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
-        .btn-user { background: #D4AF37; color: #000; border: 2px solid #D4AF37; }
-        .btn-user:hover { background: #b8962e; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
-        .btn-admin { background: transparent; color: #D4AF37; border: 2px solid #D4AF37; }
-        .btn-admin:hover { background: #D4AF37; color: #000; }
-    </style>
+  section { position: relative; z-index: 1; padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+  section h2 { font-size: 42px; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 40px; border-bottom: 1px solid #D4AF37; padding-bottom: 15px; background: linear-gradient(90deg, #D4AF37, #fff, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  section p { font-size: 18px; line-height: 1.8; color: #ccc; margin-bottom: 15px; }
+
+  .game-card { background: #0a0a0a; border: 1px solid #D4AF37; border-radius: 12px; overflow: hidden; margin-bottom: 20px; padding: 20px; }
+  .game-card h3 { color: #D4AF37; margin-bottom: 10px; }
+</style>
 </head>
 <body>
 
-    <div class="custom-cursor" id="cursor"></div>
-    
-    <!-- Фантом и Пламя на фоне -->
-    <div class="phantom-center"></div>
-    <div class="flame-side left"></div>
-    <div class="flame-side right"></div>
+  <!-- Красные линии по бокам -->
+  <div class="side-line left"></div>
+  <div class="side-line right"></div>
 
-    <!-- Верхняя плашка -->
-    <div class="top-bar">
-        ✨ Phantom уже доступен — <a href="#" style="color: #000; text-decoration: underline;">Скачать</a> ✨
+  <!-- Курсор -->
+  <div class="custom-cursor" id="cursor"></div>
+
+  <!-- ЗАДНИЙ ФОН: ФАНТОМ (GIF) -->
+  <img src="phantom (1).gif" class="phantom-video-bg" alt="Phantom">
+  
+  <!-- Затемнение, чтобы текст читался -->
+  <div class="video-overlay"></div>
+
+  <!-- Верхняя плашка -->
+  <div class="work-banner">
+    ✨ Phantom уже доступен — <a href="#">Скачать</a> ✨
+  </div>
+
+  <!-- Шапка -->
+  <header>
+    <div class="logo">PHANTOM ROAD STUDIO</div>
+    <nav>
+      <a href="#about">О студии</a>
+      <a href="#games">Игры</a>
+      <a href="#team">Команда</a>
+      <a href="#releases">Релизы</a>
+      <a href="#devlog">Разработки</a>
+    </nav>
+    <button id="auth-btn">Войти</button>
+  </header>
+
+  <!-- Главный экран -->
+  <div class="hero">
+    <h1>PHANTOM ROAD STUDIO</h1>
+    <p>Игры. Музыка. Технологии. Каталоги.</p>
+  </div>
+
+  <!-- Контент -->
+  <section id="about">
+    <h2>О студии</h2>
+    <p>Мы — творческое объединение Phantom Road Studio. Занимаемся разработкой игр, созданием музыки и технологических проектов.</p>
+  </section>
+
+  <section id="games">
+    <h2>Игры</h2>
+    <div class="game-card">
+      <h3>NWS: World Tour</h3>
+      <p>Наш флагманский проект. Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
     </div>
+  </section>
 
-    <!-- Шапка сайта (Закреплена) -->
-    <header>
-        <div class="logo">PHANTOM ROAD STUDIO</div>
-        <nav>
-            <a href="#about">О студии</a>
-            <a href="#games">Игры</a>
-            <a href="#team">Команда</a>
-            <a href="#releases">Релизы</a>
-            <a href="#devlog">Разработки</a>
-        </nav>
-        <button class="btn-login" onclick="showLogin()">Войти</button>
-    </header>
+  <section id="team">
+    <h2>Команда</h2>
+    <p>Здесь будет информация о нашей команде.</p>
+  </section>
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
-    <div class="hero">
-        <h1>PHANTOM ROAD STUDIO</h1>
-        <p>Игры. Музыка. Технологии. Каталоги.</p>
-    </div>
+  <section id="releases">
+    <h2>Релизы</h2>
+    <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
+  </section>
 
-    <!-- БЛОКИ КОНТЕНТА (Якоря) -->
-    <section id="about">
-        <h2>О студии</h2>
-        <p>Мы — творческое объединение Phantom Road Studio. Занимаемся разработкой игр, созданием музыки и технологических проектов.</p>
-    </section>
+  <section id="devlog">
+    <h2>Разработки</h2>
+    <p>Следите за процессом разработки в нашем блоге.</p>
+  </section>
 
-    <section id="games">
-        <h2>Игры</h2>
-        <p>Наш флагманский проект — <strong>NWS: World Tour</strong>. Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
-    </section>
+  <footer style="text-align: center; padding: 40px; border-top: 1px solid #D4AF37; color: #666;">
+    Phantom Road Studio © 2026
+  </footer>
 
-    <section id="team">
-        <h2>Команда</h2>
-        <p>Здесь будет информация о нашей команде.</p>
-    </section>
-
-    <section id="releases">
-        <h2>Релизы</h2>
-        <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
-    </section>
-
-    <section id="devlog">
-        <h2>Разработки</h2>
-        <p>Следите за процессом разработки в нашем блоге.</p>
-    </section>
-
-    <!-- Экран входа -->
-    <div id="start-screen">
-        <h1>Выберите режим</h1>
-        <div class="btn-container">
-            <button class="btn btn-user" onclick="login('user')">Войти как игрок</button>
-            <button class="btn btn-admin" onclick="login('admin')">Вход для разработчиков</button>
-        </div>
-    </div>
-
-    <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        function showLogin() {
-            document.getElementById('start-screen').style.display = 'flex';
-            document.body.style.cursor = 'auto';
-        }
-
-        function login(role) {
-            if (role === 'user') {
-                document.getElementById('start-screen').style.display = 'none';
-                document.body.style.cursor = 'none';
-                alert("Добро пожаловать, Игрок!");
-            } else if (role === 'admin') {
-                let pass = prompt("Введите пароль администратора:");
-                if (pass === "nws_admin_2026") {
-                    document.getElementById('start-screen').style.display = 'none';
-                    document.body.style.cursor = 'none';
-                    alert("Доступ разрешен. Добро пожаловать, разработчик!");
-                } else {
-                    alert("Неверный пароль!");
-                }
-            }
-        }
-    </script>
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
 </body>
 </html>
