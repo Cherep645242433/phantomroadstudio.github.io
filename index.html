@@ -6,7 +6,62 @@
 <meta name="yandex-verification" content="b2bf46b0fd7c63aa" />
 <title>Phantom Road Studio</title>
 <meta name="description" content="Phantom Road Studio — игры, музыка, технологии, каталоги. ИИ-ассистент Phantom, уличные гонки NWS: World Tour, хоррор, выживание.">
+<meta name="keywords" content="Phantom Road Studio, NWS, Need World Speed, World Tour, Квен, уличные гонки, Минск, Москва, Токио, Дубай, хоррор, Phantom">
 <link rel="icon" type="image/png" href="phantom.png">
+
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mc.yandex.ru https://www.gstatic.com https://*.firebaseio.com https://*.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru https://*.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com; frame-ancestors 'none';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Phantom Road Studio",
+  "url": "https://cherep645242433.github.io/phantomroadstudio.github.io/",
+  "logo": "https://cherep645242433.github.io/phantomroadstudio.github.io/cover.png",
+  "description": "Творческое объединение, которое работает на стыке игр, музыки и технологий.",
+  "sameAs": [
+    "https://github.com/Cherep645242433"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "NWS: World Tour",
+  "description": "Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай. Полицейские погони, тюнинг, команда «Феникс».",
+  "genre": ["Racing", "Open World"],
+  "gamePlatform": ["PC"],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Phantom Road Studio"
+  },
+  "image": "https://cherep645242433.github.io/phantomroadstudio.github.io/NWS.jpg",
+  "applicationCategory": "Game"
+}
+</script>
+
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113817574', 'ym');
+
+    ym(113817574, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113817574" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<meta property="og:title" content="Phantom Road Studio">
+<meta property="og:description" content="Игры. Музыка. Технологии. Каталоги.">
+<meta property="og:image" content="https://cherep645242433.github.io/phantomroadstudio.github.io/cover.png">
+<meta property="og:url" content="https://cherep645242433.github.io/phantomroadstudio.github.io/">
+<meta property="og:type" content="website">
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,8 +85,13 @@
     z-index: 9999999 !important;
     pointer-events: none !important;
   }
+
   .side-line.left { left: 0 !important; }
   .side-line.right { right: 0 !important; }
+
+  a, button, input, textarea, select, .game-card, .faq-question, .screenshots img, .btn {
+    cursor: none !important;
+  }
 
   .custom-cursor {
     width: 50px;
@@ -44,10 +104,21 @@
     pointer-events: none;
     z-index: 10001;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.1s ease-out, filter 0.3s;
+    filter: invert(1) sepia(1) hue-rotate(-50deg) saturate(6) drop-shadow(0 0 20px #ff2a2a) drop-shadow(0 0 40px #ff5e00);
+    animation: flameFloat 1.5s infinite alternate ease-in-out;
   }
 
-  /* ЗАДНИЙ ФОН С ФАНТОМОМ */
+  .custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.4);
+    filter: invert(1) sepia(1) hue-rotate(-50deg) saturate(8) drop-shadow(0 0 25px #ff5e00) drop-shadow(0 0 50px #ff2a2a);
+  }
+
+  @keyframes flameFloat {
+    0% { margin-top: 0px; margin-left: 0px; transform: translate(-50%, -50%) rotate(-5deg); }
+    100% { margin-top: -5px; margin-left: 2px; transform: translate(-50%, -50%) rotate(5deg); }
+  }
+
   .phantom-video-bg {
     position: fixed;
     top: 0; left: 0;
@@ -72,6 +143,23 @@
     background: radial-gradient(circle, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.85) 100%);
     z-index: -1;
     pointer-events: none;
+  }
+
+  .cyber-grid {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 10s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
   }
 
   .work-banner {
@@ -102,63 +190,687 @@
     align-items: center;
     justify-content: space-between;
     backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  header .logo { font-size: 20px; letter-spacing: 4px; color: #D4AF37; text-transform: uppercase; font-weight: bold; }
-  header nav a, #auth-btn { color: #ccc; text-decoration: none; margin-left: 25px; font-size: 14px; text-transform: uppercase; transition: 0.3s; background: none; border: none; cursor: none; }
-  header nav a:hover, #auth-btn:hover { color: #D4AF37; text-shadow: 0 0 10px #D4AF37; }
 
-  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 20px; }
-  .hero h1 { font-size: 64px; letter-spacing: 12px; color: #D4AF37; text-shadow: 0 0 30px rgba(212, 175, 55, 0.6); margin-bottom: 20px; }
-  .hero p { font-size: 24px; color: #D4AF37; letter-spacing: 3px; opacity: 0.9; }
+  header .logo {
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: #D4AF37;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
 
-  section { position: relative; z-index: 1; padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
-  section h2 { font-size: 42px; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 40px; border-bottom: 1px solid #D4AF37; padding-bottom: 15px; background: linear-gradient(90deg, #D4AF37, #fff, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  section p { font-size: 18px; line-height: 1.8; color: #ccc; margin-bottom: 15px; }
+  header nav { display: flex; flex-wrap: wrap; align-items: center; }
 
-  .game-card { background: #0a0a0a; border: 1px solid #D4AF37; border-radius: 12px; overflow: hidden; margin-bottom: 20px; padding: 20px; }
-  .game-card h3 { color: #D4AF37; margin-bottom: 10px; }
+  header nav a, #auth-btn {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  header nav a:hover, #auth-btn:hover {
+    color: #D4AF37;
+    text-shadow: 0 0 10px #D4AF37;
+  }
+
+  #auth-btn {
+    color: #D4AF37;
+    border: 1px solid #D4AF37;
+    padding: 5px 15px;
+    border-radius: 4px;
+  }
+  #auth-btn:hover {
+    background: #D4AF37;
+    color: #000;
+    text-shadow: none;
+  }
+
+  .auth-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 100000;
+    align-items: center;
+    justify-content: center;
+  }
+  .auth-modal.open { display: flex; }
+  .auth-box {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+  }
+  .auth-box h3 { color: #D4AF37; margin-bottom: 20px; }
+  .auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 6px;
+    cursor: text !important;
+  }
+  .auth-box input:focus { outline: none; border-color: #D4AF37; }
+  .auth-box button {
+    width: 100%;
+    padding: 10px;
+    background: #D4AF37;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer !important;
+    margin-bottom: 10px;
+  }
+  .auth-box button:hover { background: #ff2a2a; color: #fff; }
+  .auth-box .close-btn {
+    background: transparent;
+    color: #888;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer !important;
+    font-size: 14px;
+  }
+  .auth-box .close-btn:hover { color: #fff; }
+  .auth-error { color: #ff2a2a; font-size: 14px; margin-bottom: 10px; display: none; }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+  }
+
+  .hero h1 {
+    font-size: 64px;
+    letter-spacing: 12px;
+    color: #D4AF37;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 24px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+    opacity: 0.9;
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  section h2 {
+    font-size: 42px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #D4AF37;
+    padding-bottom: 15px;
+    background: linear-gradient(90deg, #D4AF37, #fff, #D4AF37);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+  }
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  section p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 15px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .game-card {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    transition: box-shadow 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .game-card:hover {
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
+    border-color: #ff2a2a;
+  }
+
+  .game-card .cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .game-card .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #D4AF37;
+  }
+
+  .game-card .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .game-card .title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .game-card h3 {
+    font-size: 20px;
+    color: #D4AF37;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .badge-18 {
+    background: #ff2a2a;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .badge-plan {
+    background: #444;
+    color: #D4AF37;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .badge-soon {
+    background: #D4AF37;
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .game-card .genre {
+    color: #888;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: auto;
+    padding: 10px 20px;
+    background: #D4AF37;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: 0.3s;
+    border: none;
+    font-family: inherit;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .btn:hover {
+    background: #ff2a2a;
+    color: #fff;
+    box-shadow: 0 0 20px #ff2a2a;
+  }
+
+  .game-details {
+    display: none;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .game-details.open {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .game-details h4 {
+    color: #D4AF37;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .game-details p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 8px;
+  }
+
+  .game-details ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 8px;
+  }
+
+  .game-details ul li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+    color: #ccc;
+    font-size: 13px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .game-details ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: #D4AF37;
+  }
+
+  .screenshots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .screenshots img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid #D4AF37;
+    border-radius: 6px;
+    transition: 0.3s;
+    background: #111;
+  }
+
+  .screenshots img:hover {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    transform: scale(1.03);
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 2px solid #D4AF37;
+    border-radius: 8px;
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.5);
+  }
+
+  .faq-item {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #D4AF37;
+    padding: 18px 22px;
+    text-align: left;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .faq-question:hover {
+    background: #111;
+  }
+
+  .faq-question .arrow {
+    color: #D4AF37;
+    font-size: 14px;
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-question .arrow {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 22px 18px;
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-answer {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .faq-answer a {
+    color: #D4AF37;
+    text-decoration: underline;
+  }
+
+  .faq-answer a:hover {
+    color: #fff;
+  }
+
+  .faq-answer ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0;
+  }
+
+  .faq-answer ul li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    color: #ccc;
+    font-size: 14px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .faq-answer ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: #D4AF37;
+  }
+
+  .faq-answer h5 {
+    color: #D4AF37;
+    font-size: 15px;
+    margin: 12px 0 8px;
+    letter-spacing: 1px;
+  }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: #D4AF37;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    border: none;
+  }
+
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .back-to-top:hover {
+    background: #ff2a2a;
+    color: #fff;
+    box-shadow: 0 0 30px #ff2a2a;
+    transform: translateY(-5px);
+  }
+
+  .audio-player {
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  }
+  .audio-player p {
+    color: #D4AF37;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .audio-player audio {
+    width: 100%;
+    outline: none;
+  }
+
+  .tour-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 20000;
+    justify-content: center;
+    align-items: center;
+  }
+  .tour-overlay.active { display: flex; }
+
+  .tour-box {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+    position: relative;
+    z-index: 20002;
+  }
+  .tour-box h3 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  .tour-box p {
+    color: #ccc;
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .tour-box .btn-tour {
+    padding: 10px 20px;
+    background: #D4AF37;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+  }
+  .tour-box .btn-tour:hover {
+    background: #ff2a2a;
+    color: #fff;
+  }
+  .tour-highlight {
+    position: relative;
+    z-index: 20001;
+    box-shadow: 0 0 0 5px #D4AF37, 0 0 30px #D4AF37;
+    background-color: #050505 !important;
+    border-radius: 8px;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid #D4AF37;
+    color: #666;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  footer a {
+    color: #888;
+    text-decoration: underline;
+  }
+
+  footer a:hover {
+    color: #D4AF37;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    body { cursor: auto; } 
+    header { flex-direction: column; padding: 10px; }
+    header nav a, #auth-btn { margin: 5px 10px; font-size: 12px; }
+    .hero h1 { font-size: 36px; letter-spacing: 6px; }
+    .hero p { font-size: 16px; }
+    section h2 { font-size: 28px; }
+    .grid { grid-template-columns: 1fr; }
+    .custom-cursor { display: none; } 
+    a, button, .btn, .game-card, .faq-question, .screenshots img { cursor: auto !important; }
+    .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
+    .side-line { width: 4px !important; }
+  }
 </style>
 </head>
 <body>
 
-  <!-- Красные линии по бокам -->
   <div class="side-line left"></div>
   <div class="side-line right"></div>
 
-  <!-- Курсор -->
   <div class="custom-cursor" id="cursor"></div>
-
-  <!-- ЗАДНИЙ ФОН: ФАНТОМ (GIF) -->
-  <img src="phantom (1).gif" class="phantom-video-bg" alt="Phantom">
   
-  <!-- Затемнение, чтобы текст читался -->
+  <!-- ЗАМЕНИЛ ЗДЕСЬ: БЫЛО phantom.png, СТАЛО phantom (1).gif -->
+  <img src="phantom (1).gif" class="phantom-video-bg" alt="">
+  
   <div class="video-overlay"></div>
+  <div class="cyber-grid"></div>
 
-  <!-- Верхняя плашка -->
-  <div class="work-banner">
-    ✨ Phantom уже доступен — <a href="#">Скачать</a> ✨
+  <div class="auth-modal" id="authModal">
+    <div class="auth-box">
+      <h3>Вход в админку</h3>
+      <div class="auth-error" id="authError"></div>
+      <input type="email" id="emailInput" placeholder="Email" autocomplete="email">
+      <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="current-password">
+      <button id="loginBtn">Войти</button>
+      <button id="registerBtn">Зарегистрироваться</button>
+      <button style="background: #444; color: #fff;" onclick="handleAnonymousLogin()">Войти как гость</button>
+      <button class="close-btn" onclick="document.getElementById('authModal').classList.remove('open')">Закрыть</button>
+    </div>
   </div>
 
-  <!-- Шапка -->
+  <!-- ОСТАЛЬНОЙ HTML (ЯКОРЯ, СЕКЦИИ, ИГРЫ) -->
+  <div class="work-banner">
+    ✨ Phantom уже доступен — <a href="#phantom">Скачать</a> ✨
+  </div>
+
   <header>
     <div class="logo">PHANTOM ROAD STUDIO</div>
     <nav>
       <a href="#about">О студии</a>
       <a href="#games">Игры</a>
       <a href="#team">Команда</a>
+      <a href="#phantom">Phantom</a>
       <a href="#releases">Релизы</a>
+      <a href="#computers">Компьютеры</a>
+      <a href="#music">Музыка</a>
+      <a href="#books">Книги</a>
+      <a href="#catalogs">Каталоги</a>
+      <a href="#news">Новости</a>
+      <a href="#faq">FAQ</a>
       <a href="#devlog">Разработки</a>
     </nav>
     <button id="auth-btn">Войти</button>
   </header>
 
-  <!-- Главный экран -->
   <div class="hero">
     <h1>PHANTOM ROAD STUDIO</h1>
     <p>Игры. Музыка. Технологии. Каталоги.</p>
   </div>
 
-  <!-- Контент -->
   <section id="about">
     <h2>О студии</h2>
     <p>Мы — творческое объединение Phantom Road Studio. Занимаемся разработкой игр, созданием музыки и технологических проектов.</p>
@@ -166,9 +878,27 @@
 
   <section id="games">
     <h2>Игры</h2>
-    <div class="game-card">
-      <h3>NWS: World Tour</h3>
-      <p>Наш флагманский проект. Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
+    <div class="grid">
+      <div class="game-card reveal">
+        <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
+        <div class="content">
+          <div class="title-row">
+            <h3>NWS: World Tour</h3>
+            <span class="badge-18">18+</span>
+          </div>
+          <div class="genre">Racing, Open World</div>
+          <p>Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай. Полицейские погони, тюнинг, команда «Феникс».</p>
+          <button class="btn" onclick="toggleDetails(this)">Подробнее</button>
+          <div class="game-details">
+             <h4>Возможности</h4>
+             <ul>
+               <li>Открытый мир</li>
+               <li>Тюнинг</li>
+               <li>Полицейские погони</li>
+             </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -179,24 +909,25 @@
 
   <section id="releases">
     <h2>Релизы</h2>
-    <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
+    <p>Все актуальные релизы — в разделе <a href="#releases" style="color:#D4AF37;">Релизы</a>, а также на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color:#D4AF37;">GitHub</a>.</p>
   </section>
 
   <section id="devlog">
-    <h2>Разработки</h2>
-    <p>Следите за процессом разработки в нашем блоге.</p>
+    <h2>Devlog</h2>
+    <p>Следите за процессом разработки.</p>
   </section>
 
-  <footer style="text-align: center; padding: 40px; border-top: 1px solid #D4AF37; color: #666;">
+  <footer>
     Phantom Road Studio © 2026
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-  </script>
-</body>
-</html>
+  <button class="back-to-top" id="backToTop">↑</button>
+
+  <!-- Твой скрипт Firebase (оставил как есть) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBbdnwdaGN8k7QC4S_GTEyrPqqTjtI7gKk",
+      // ...
