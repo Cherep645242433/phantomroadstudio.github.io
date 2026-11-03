@@ -20,43 +20,18 @@
             50% { opacity: 1; filter: brightness(1.2); }
             100% { opacity: 0.9; filter: brightness(0.95); }
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
 
-        /* ФАНТОМ ПО ЦЕНТРУ (как на скрине) */
-        .phantom-center {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px; /* Размер фантома */
-            height: 800px;
-            background-image: url('phantom.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 1; /* Позади пламени и текста */
-            pointer-events: none;
-            opacity: 0.4; /* Полупрозрачный, чтобы сливался с фоном */
-            /* Золотое свечение вокруг фантома */
-            filter: drop-shadow(0 0 15px #D4AF37) drop-shadow(0 0 30px #D4AF37);
-            animation: float 6s infinite ease-in-out;
-        }
-
-        /* ПЛАМЯ ПО БОКАМ */
+        /* ПЛАМЯ ПО БОКАМ (без белых полос) */
         .flame-side {
             position: fixed;
             top: 0;
             bottom: 0;
             width: 150px;
             background-image: url('flame.png');
-            background-size: cover;
+            background-size: cover; /* Растягиваем */
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 2; /* Перекрывает фантома */
+            z-index: 2;
             pointer-events: none;
             animation: flicker 2s infinite ease-in-out;
         }
@@ -113,7 +88,7 @@
         }
         .btn-login:hover { background: #D4AF37; color: #000; }
 
-        /* ГЛАВНЫЙ ЭКРАН */
+        /* ГЛАВНЫЙ ЭКРАН (Фантом как фон) */
         .hero {
             height: 80vh;
             display: flex;
@@ -123,7 +98,15 @@
             text-align: center;
             position: relative;
             z-index: 10;
+            
+            /* Вставляем фантома как фон, чтобы не было квадратов */
+            background-image: url('phantom.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: screen; /* Смешиваем с черным фоном */
         }
+
         .hero h1 {
             color: #D4AF37;
             font-size: 5rem;
@@ -131,11 +114,13 @@
             letter-spacing: 10px;
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
             margin-bottom: 20px;
+            z-index: 11;
         }
         .hero p {
             color: #D4AF37;
             font-size: 1.5rem;
             letter-spacing: 3px;
+            z-index: 11;
         }
 
         /* СТАРТОВЫЙ ЭКРАН (ВХОД) */
@@ -163,8 +148,7 @@
 
     <div class="custom-cursor" id="cursor"></div>
     
-    <!-- Фантом и Пламя -->
-    <div class="phantom-center"></div>
+    <!-- Пламя по бокам -->
     <div class="flame-side left"></div>
     <div class="flame-side right"></div>
 
@@ -193,7 +177,7 @@
         <button class="btn-login" onclick="showLogin()">Войти</button>
     </header>
 
-    <!-- Главный экран -->
+    <!-- Главный экран с фантомом -->
     <div class="hero">
         <h1>PHANTOM ROAD STUDIO</h1>
         <p>Игры. Музыка. Технологии. Каталоги.</p>
