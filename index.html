@@ -5,102 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phantom Road Studio</title>
     <style>
-        /* Базовые стили для всего сайта */
+        /* Базовые стили */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            cursor: none; /* Твой кастомный курсор */
         }
-
-        /* Стили для стартового экрана */
-        #start-screen {
+        
+        /* Твой кастомный курсор */
+        .custom-cursor {
             position: fixed;
-            inset: 0;
-            background-color: #0d0d0d;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        #start-screen h1 {
-            color: #ff3333;
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn-user {
-            background: #ff3333;
-            color: white;
+            width: 20px;
+            height: 20px;
             border: 2px solid #ff3333;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s ease;
         }
 
-        .btn-user:hover {
-            background: #cc0000;
-            border-color: #cc0000;
-            box-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
+        /* Пламя по бокам */
+        .flame-side {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 51, 51, 0.1), transparent);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
         }
+        .flame-side.left { left: 0; }
+        .flame-side.right { right: 0; }
 
-        .btn-admin {
-            background: transparent;
-            color: #ff3333;
-            border: 2px solid #ff3333;
-        }
-
-        .btn-admin:hover {
-            background: #ff3333;
-            color: white;
-            box-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
-        }
-
-        /* Стили для основного контента */
+        /* Основной контент */
         #main-site {
-            display: none;
+            display: none; /* Скрыт до входа */
+            position: relative;
+            z-index: 2;
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        header {
-            text-align: center;
-            padding: 50px 0;
-            border-bottom: 2px solid #ff3333;
-            margin-bottom: 30px;
-        }
+        header { text-align: center; padding: 50px 0; }
+        header h1 { color: #ff3333; font-size: 3rem; text-transform: uppercase; text-shadow: 0 0 10px rgba(255,51,51,0.5); }
+        header p { color: #ccc; margin-top: 10px; }
 
-        h2 {
-            color: #ff3333;
+        h2 { color: #ff3333; margin-bottom: 20px; border-bottom: 2px solid #ff3333; padding-bottom: 5px; }
+        section { margin-bottom: 50px; }
+
+        /* Карточки игр */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .game-card { background: #111; border: 1px solid #222; border-radius: 10px; overflow: hidden; transition: transform 0.3s; }
+        .game-card:hover { transform: translateY(-5px); border-color: #ff3333; }
+        .game-card .cover img { width: 100%; height: 200px; object-fit: cover; }
+        .game-card .content { padding: 20px; }
+        .game-card h3 { color: #fff; margin-bottom: 10px; }
+        .game-card p { color: #aaa; font-size: 0.9rem; }
+
+        /* Стартовый экран */
+        #start-screen {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: auto;
         }
+        #start-screen h1 { color: #ff3333; font-size: 3rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 5px; text-shadow: 0 0 20px rgba(255,51,51,0.5); }
+        
+        .btn-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .btn { padding: 15px 40px; font-size: 1.2rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        .btn-user { background: #ff3333; color: white; border: 2px solid #ff3333; }
+        .btn-user:hover { background: #cc0000; box-shadow: 0 0 15px rgba(255,51,51,0.6); }
+        .btn-admin { background: transparent; color: #ff3333; border: 2px solid #ff3333; }
+        .btn-admin:hover { background: #ff3333; color: white; box-shadow: 0 0 15px rgba(255,51,51,0.6); }
     </style>
 </head>
 <body>
 
-    <!-- СТАРТОВЫЙ ЭКРАН (Выбор роли) -->
+    <!-- Кастомный курсор -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Пламя по бокам -->
+    <div class="flame-side left"></div>
+    <div class="flame-side right"></div>
+
+    <!-- СТАРТОВЫЙ ЭКРАН -->
     <div id="start-screen">
-        <h1>Phantom Road Studio</h1>
+        <h1>PHANTOM ROAD STUDIO</h1>
         <div class="btn-container">
             <button class="btn btn-user" onclick="login('user')">Войти как игрок</button>
             <button class="btn btn-admin" onclick="login('admin')">Вход для разработчиков</button>
@@ -110,35 +110,67 @@
     <!-- ОСНОВНОЙ САЙТ -->
     <div id="main-site">
         <header>
-            <h1>Phantom Road Studio</h1>
+            <h1>PHANTOM ROAD STUDIO</h1>
             <p>Версия ИИ: <strong>1.6</strong></p>
         </header>
 
-        <!-- ========================================== -->
-        <!-- ВСТАВЬ СЮДА ВЕСЬ СВОЙ КОНТЕНТ САЙТА        -->
-        <!-- (Новости, описание игры, ссылки на скачивание и т.д.) -->
-        <!-- ========================================== -->
-        
-        <div style="text-align: center; padding: 50px;">
-            <h2>Добро пожаловать в Need World Speed!</h2>
-            <p>Здесь будет твой дизайн, скриншоты и кнопки скачивания.</p>
-        </div>
+        <section id="about">
+            <h2>О студии</h2>
+            <p style="color:#ccc; margin-bottom: 15px;">Мы создаем игры, технологии и мерч.</p>
+            <ul style="list-style: none; color: #ccc;">
+                <li style="padding:8px 0; border-bottom:1px solid #1a1a1a;">🧠 <strong>Технологии</strong> — наш ИИ-ассистент <strong>Phantom</strong>, сборка и прокачка ПК.</li>
+                <li style="padding:8px 0;">👕 <strong>Мерч</strong> — брендированная одежда с логотипом студии.</li>
+            </ul>
+            <p style="color:#ccc; margin-top: 15px;">Мы ценим качество, честность и делаем всё своими руками. Следите за новостями — впереди много интересного.</p>
+        </section>
 
-        <!-- ========================================== -->
+        <section id="games">
+            <h2>Игры</h2>
+            <div class="grid">
+                <div class="game-card">
+                    <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
+                    <div class="content">
+                        <h3>NWS: World Tour</h3>
+                        <p>Наш флагманский проект. Гонки по реальным городам мира.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <h2>Команда</h2>
+            <p style="color:#ccc;">Здесь будет информация о нашей команде.</p>
+        </section>
+
+        <section id="releases">
+            <h2>Релизы</h2>
+            <p style="color:#ccc;">Все актуальные релизы — на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color:#ff3333;">GitHub</a>.</p>
+        </section>
+
+        <section id="devlog">
+            <h2>Devlog</h2>
+            <p style="color:#ccc;">Следите за процессом разработки.</p>
+        </section>
     </div>
 
-    <!-- СКРИПТЫ -->
     <script>
+        // Кастомный курсор
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Логика входа
         function login(role) {
             if (role === 'user') {
                 document.getElementById('start-screen').style.display = 'none';
                 document.getElementById('main-site').style.display = 'block';
             } else if (role === 'admin') {
                 let pass = prompt("Введите пароль администратора:");
-                if (pass === "nws_admin_2026") { // Поменяй пароль на свой!
+                if (pass === "nws_admin_2026") { // Пароль
                     document.getElementById('start-screen').style.display = 'none';
                     document.getElementById('main-site').style.display = 'block';
-                    // Можно добавить вывод панели администратора
                     alert("Доступ разрешен. Добро пожаловать, разработчик!");
                 } else {
                     alert("Неверный пароль!");
@@ -146,6 +178,5 @@
             }
         }
     </script>
-
 </body>
 </html>
