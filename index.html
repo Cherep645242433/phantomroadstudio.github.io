@@ -28,22 +28,22 @@
             100% { transform: translate(-50%, -50%); }
         }
 
-        /* ФАНТОМ (GIF с анимацией парения) */
+        /* ФАНТОМ (Большой и красивый) */
         .phantom-center {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 400px; /* Уменьшили ширину */
-            height: 600px; /* Уменьшили высоту, чтобы голова была видна */
-            background-image: url('phantom (1).gif'); /* Твой GIF */
+            width: 700px; /* Увеличенный размер */
+            height: 850px; /* Достаточная высота для головы */
+            background-image: url('phantom (1).gif'); 
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 1; /* Позади текста и пламени */
+            z-index: 1; /* Позади текста */
             pointer-events: none;
-            opacity: 0.8; /* Немного прозрачный */
-            animation: float 4s infinite ease-in-out; /* Плавное парение */
+            opacity: 0.8; 
+            animation: float 4s infinite ease-in-out;
         }
 
         /* ПЛАМЯ ПО БОКАМ */
