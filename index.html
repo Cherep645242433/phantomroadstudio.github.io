@@ -2,17 +2,272 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>О студии - Phantom Road Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Road Studio</title>
     <style>
-        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 50px; }
-        h1 { color: #D4AF37; }
-        a { color: #D4AF37; text-decoration: none; font-size: 1.2rem; }
-        a:hover { text-decoration: underline; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; } /* Плавная прокрутка при клике на меню */
+        body {
+            background: #050505;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* --- АНИМАЦИИ --- */
+        @keyframes flicker {
+            0% { opacity: 0.85; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.2); }
+            100% { opacity: 0.9; filter: brightness(0.95); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ФАНТОМ (На весь экран) */
+        .phantom-center {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('phantom (1).gif'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center top;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        /* ПЛАМЯ ПО БОКАМ */
+        .flame-side {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 150px;
+            background-image: url('flame.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2;
+            pointer-events: none;
+            animation: flicker 2s infinite ease-in-out;
+        }
+        .flame-side.left { left: 0; }
+        .flame-side.right { right: 0; transform: scaleX(-1); }
+
+        /* Кастомный курсор */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+
+        /* ВЕРХНЯЯ ПЛАШКА */
+        .top-bar {
+            background: #D4AF37;
+            color: #050505;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ШАПКА САЙТА */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: fixed; /* Закрепляем шапку вверху */
+            top: 35px; /* Сдвиг из-за верхней плашки */
+            width: 100%;
+            z-index: 10;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid #333;
+        }
+        .logo { color: #D4AF37; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
+        nav { display: flex; gap: 15px; flex-wrap: wrap; }
+        nav a { color: #ccc; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        nav a:hover { color: #D4AF37; }
+        .btn-login {
+            background: transparent;
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-login:hover { background: #D4AF37; color: #000; }
+
+        /* СЕКЦИИ (Блоки с контентом) */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10; /* Текст поверх фантома и пламени */
+            min-height: 80vh; /* Чтобы было куда прокручивать */
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero h1 {
+            color: #D4AF37;
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        h2 { color: #D4AF37; font-size: 3rem; margin-bottom: 30px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; }
+        p { font-size: 1.2rem; line-height: 1.6; color: #ccc; margin-bottom: 20px; }
+
+        /* СТАРТОВЫЙ ЭКРАН (ВХОД) */
+        #start-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 5, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: auto;
+        }
+        #start-screen h1 { color: #D4AF37; font-size: 3rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 5px; }
+        .btn-container { display: flex; gap: 20px; }
+        .btn { padding: 15px 40px; font-size: 1.2rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        .btn-user { background: #D4AF37; color: #000; border: 2px solid #D4AF37; }
+        .btn-user:hover { background: #b8962e; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
+        .btn-admin { background: transparent; color: #D4AF37; border: 2px solid #D4AF37; }
+        .btn-admin:hover { background: #D4AF37; color: #000; }
     </style>
 </head>
 <body>
-    <a href="index.html">← Назад на главную</a>
-    <h1>О студии Phantom Road Studio</h1>
-    <p>Здесь будет подробный текст о нашей команде, наших целях и проектах.</p>
+
+    <div class="custom-cursor" id="cursor"></div>
+    
+    <!-- Фантом и Пламя на фоне -->
+    <div class="phantom-center"></div>
+    <div class="flame-side left"></div>
+    <div class="flame-side right"></div>
+
+    <!-- Верхняя плашка -->
+    <div class="top-bar">
+        ✨ Phantom уже доступен — <a href="#" style="color: #000; text-decoration: underline;">Скачать</a> ✨
+    </div>
+
+    <!-- Шапка сайта (Закреплена) -->
+    <header>
+        <div class="logo">PHANTOM ROAD STUDIO</div>
+        <nav>
+            <a href="#about">О студии</a>
+            <a href="#games">Игры</a>
+            <a href="#team">Команда</a>
+            <a href="#releases">Релизы</a>
+            <a href="#devlog">Разработки</a>
+        </nav>
+        <button class="btn-login" onclick="showLogin()">Войти</button>
+    </header>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <div class="hero">
+        <h1>PHANTOM ROAD STUDIO</h1>
+        <p>Игры. Музыка. Технологии. Каталоги.</p>
+    </div>
+
+    <!-- БЛОКИ КОНТЕНТА (Якоря) -->
+    <section id="about">
+        <h2>О студии</h2>
+        <p>Мы — творческое объединение Phantom Road Studio. Занимаемся разработкой игр, созданием музыки и технологических проектов.</p>
+    </section>
+
+    <section id="games">
+        <h2>Игры</h2>
+        <p>Наш флагманский проект — <strong>NWS: World Tour</strong>. Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
+    </section>
+
+    <section id="team">
+        <h2>Команда</h2>
+        <p>Здесь будет информация о нашей команде.</p>
+    </section>
+
+    <section id="releases">
+        <h2>Релизы</h2>
+        <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
+    </section>
+
+    <section id="devlog">
+        <h2>Разработки</h2>
+        <p>Следите за процессом разработки в нашем блоге.</p>
+    </section>
+
+    <!-- Экран входа -->
+    <div id="start-screen">
+        <h1>Выберите режим</h1>
+        <div class="btn-container">
+            <button class="btn btn-user" onclick="login('user')">Войти как игрок</button>
+            <button class="btn btn-admin" onclick="login('admin')">Вход для разработчиков</button>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        function showLogin() {
+            document.getElementById('start-screen').style.display = 'flex';
+            document.body.style.cursor = 'auto';
+        }
+
+        function login(role) {
+            if (role === 'user') {
+                document.getElementById('start-screen').style.display = 'none';
+                document.body.style.cursor = 'none';
+                alert("Добро пожаловать, Игрок!");
+            } else if (role === 'admin') {
+                let pass = prompt("Введите пароль администратора:");
+                if (pass === "nws_admin_2026") {
+                    document.getElementById('start-screen').style.display = 'none';
+                    document.body.style.cursor = 'none';
+                    alert("Доступ разрешен. Добро пожаловать, разработчик!");
+                } else {
+                    alert("Неверный пароль!");
+                }
+            }
+        }
+    </script>
 </body>
 </html>
