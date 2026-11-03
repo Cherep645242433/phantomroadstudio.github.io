@@ -14,58 +14,58 @@
             cursor: none;
         }
 
-        /* --- АНИМАЦИЯ ПЛАМЕНИ --- */
+        /* --- АНИМАЦИЯ МЕРЦАНИЯ ПЛАМЕНИ --- */
         @keyframes flicker {
-            0% { opacity: 0.8; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(1.02); }
-            100% { opacity: 0.9; transform: scaleY(0.98); }
+            0% { opacity: 0.85; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.2); }
+            100% { opacity: 0.9; filter: brightness(0.95); }
         }
 
-        /* --- АНИМАЦИЯ ФАНТОМА --- */
+        /* --- АНИМАЦИЯ ПАРЕНИЯ ФАНТОМА --- */
         @keyframes float {
-            0% { transform: translateY(0px) translateX(0px) scaleX(-1); }
-            50% { transform: translateY(-15px) translateX(-5px) scaleX(-1); }
-            100% { transform: translateY(0px) translateX(0px) scaleX(-1); }
+            0% { transform: translateY(0px) scaleX(-1); }
+            50% { transform: translateY(-20px) scaleX(-1); }
+            100% { transform: translateY(0px) scaleX(-1); }
         }
 
+        /* Пламя на весь экран */
         .flame-side {
             position: fixed;
             top: 0;
             bottom: 0;
             width: 150px;
             background-image: url('flame.png');
-            background-size: 100% auto;
-            background-repeat: repeat-y;
-            background-position: center top;
-            background-color: transparent;
+            background-size: cover; /* Растягиваем на весь экран */
+            background-position: center;
+            background-repeat: no-repeat; /* Убираем квадратики (повторы) */
             z-index: 1;
             pointer-events: none;
-            animation: flicker 1.5s infinite alternate ease-in-out; /* Мерцание */
+            animation: flicker 2s infinite ease-in-out;
         }
         .flame-side.left { left: 0; }
         .flame-side.right { right: 0; transform: scaleX(-1); }
 
-        /* --- ФАНТОМ --- */
+        /* Летающий фантом */
         .phantom-side {
             position: fixed;
             top: 50%;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background-image: url('phantom.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
         }
         .phantom-side.left {
-            left: 20px;
+            left: 15px;
             transform: translateY(-50%);
         }
         .phantom-side.right {
-            right: 20px;
+            right: 15px;
             transform: translateY(-50%) scaleX(-1);
-            animation: float 3s infinite ease-in-out; /* Парение */
+            animation: float 3s infinite ease-in-out; /* Анимация */
         }
 
         /* Кастомный курсор */
@@ -131,18 +131,12 @@
 </head>
 <body>
 
-    <!-- Кастомный курсор -->
     <div class="custom-cursor" id="cursor"></div>
-
-    <!-- Пламя по бокам -->
     <div class="flame-side left"></div>
     <div class="flame-side right"></div>
-
-    <!-- Фантомы по бокам -->
     <div class="phantom-side left"></div>
     <div class="phantom-side right"></div>
 
-    <!-- СТАРТОВЫЙ ЭКРАН -->
     <div id="start-screen">
         <h1>PHANTOM ROAD STUDIO</h1>
         <div class="btn-container">
@@ -151,7 +145,6 @@
         </div>
     </div>
 
-    <!-- ОСНОВНОЙ САЙТ -->
     <div id="main-site">
         <header>
             <h1>PHANTOM ROAD STUDIO</h1>
@@ -193,14 +186,12 @@
     </div>
 
     <script>
-        // Курсор
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Логика входа
         function login(role) {
             if (role === 'user') {
                 document.getElementById('start-screen').style.display = 'none';
