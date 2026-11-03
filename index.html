@@ -11,21 +11,23 @@
             color: #fff;
             font-family: 'Segoe UI', sans-serif;
             overflow-x: hidden;
-            cursor: none; /* Кастомный курсор */
+            cursor: none;
         }
 
-        /* Пламя и фантом по бокам (используем твои файлы) */
+        /* Пламя и фантом по бокам */
         .flame-side {
             position: fixed;
             top: 0;
             bottom: 0;
             width: 150px;
+            /* Подключаем твои картинки */
             background-image: url('flame.png'), url('phantom.png');
             background-size: 100% auto, 100px auto;
             background-repeat: repeat-y, no-repeat;
             background-position: center top, center center;
-            background-blend-mode: screen;
-            opacity: 0.6;
+            /* Магия, которая убирает черный/белый фон картинки */
+            mix-blend-mode: screen; 
+            opacity: 0.8;
             z-index: 1;
             pointer-events: none;
         }
