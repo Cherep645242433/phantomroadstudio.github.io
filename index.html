@@ -1,201 +1,290 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="google-site-verification" content="SczOxO5MYCf1uJGB9Bjg2JnMP1PvV4vHDVcmYMM_9kQ" />
-<meta name="yandex-verification" content="b2bf46b0fd7c63aa" />
-<title>Phantom Road Studio</title>
-<meta name="description" content="Phantom Road Studio — игры, музыка, технологии, каталоги. ИИ-ассистент Phantom, уличные гонки NWS: World Tour, хоррор, выживание.">
-<meta name="keywords" content="Phantom Road Studio, NWS, Need World Speed, World Tour, Квен, уличные гонки, Минск, Москва, Токио, Дубай, хоррор, Phantom">
-<link rel="icon" type="image/png" href="phantom.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Road Studio</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            cursor: none; /* Убираем стандартный курсор */
+        }
 
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: #050505;
-    color: #fff;
-    font-family: 'Segoe UI', sans-serif;
-    overflow-x: hidden;
-    padding-top: 35px;
-    cursor: none;
-  }
+        /* --- НОВЫЙ КУРСОР --- */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+        .cursor.hover { transform: scale(1.5); background: rgba(212, 175, 55, 0.2); }
 
-  .side-line {
-    position: fixed !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 8px !important;
-    background-color: #ff2a2a !important;
-    box-shadow: 0 0 20px #ff2a2a, 0 0 40px #ff2a2a, 0 0 60px #ff2a2a !important;
-    z-index: 9999999 !important;
-    pointer-events: none !important;
-  }
-  .side-line.left { left: 0 !important; }
-  .side-line.right { right: 0 !important; }
+        /* --- ФОН С ФАНТОМОМ --- */
+        .phantom-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            z-index: -2;
+            opacity: 0.4;
+            pointer-events: none;
+            animation: breathe 5s infinite alternate ease-in-out;
+        }
+        @keyframes breathe {
+            0% { transform: scale(1); filter: blur(0px); }
+            100% { transform: scale(1.03); filter: blur(1px); }
+        }
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, #050505 90%);
+            z-index: -1;
+            pointer-events: none;
+        }
 
-  .custom-cursor {
-    width: 50px;
-    height: 50px;
-    background-image: url('phantom.png'); 
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: fixed;
-    pointer-events: none;
-    z-index: 10001;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-out;
-  }
+        /* --- ВЕРХНЯЯ ПЛАШКА --- */
+        .top-banner {
+            background: #D4AF37;
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 1000;
+        }
+        .top-banner a { color: #000; text-decoration: underline; }
 
-  .phantom-video-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    z-index: -2;
-    opacity: 0.5;
-    pointer-events: none;
-    animation: smokePulse 4s infinite alternate ease-in-out;
-  }
+        /* --- ШАПКА --- */
+        header {
+            position: fixed;
+            top: 35px; left: 0; width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 999;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #D4AF37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        nav { display: flex; gap: 25px; }
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #D4AF37; }
 
-  @keyframes smokePulse {
-    0% { filter: drop-shadow(0 0 20px #ff2a2a) blur(0px); transform: scale(1); }
-    100% { filter: drop-shadow(0 0 50px #ff5e00) blur(2px); transform: scale(1.05); }
-  }
+        /* --- ГЛАВНЫЙ ЭКРАН --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: #ccc;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
 
-  .video-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.85) 100%);
-    z-index: -1;
-    pointer-events: none;
-  }
+        /* --- СЕКЦИИ (Карточки) --- */
+        section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        h2 {
+            font-size: 2.5rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+        }
+        p { font-size: 1.1rem; line-height: 1.8; color: #aaa; margin-bottom: 20px; }
 
-  .work-banner {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    background: #D4AF37;
-    color: #000;
-    text-align: center;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    z-index: 9999;
-    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
-  }
-  .work-banner a { color: #000; text-decoration: underline; }
+        /* Сетка для карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+        .card h3 {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
 
-  header {
-    position: fixed;
-    top: 35px;
-    width: 100%;
-    background: rgba(5, 5, 5, 0.95);
-    border-bottom: 1px solid #D4AF37;
-    z-index: 100;
-    padding: 15px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    backdrop-filter: blur(10px);
-  }
-  header .logo { font-size: 20px; letter-spacing: 4px; color: #D4AF37; text-transform: uppercase; font-weight: bold; }
-  header nav a { color: #ccc; text-decoration: none; margin-left: 25px; font-size: 14px; text-transform: uppercase; transition: 0.3s; }
-  header nav a:hover { color: #D4AF37; text-shadow: 0 0 10px #D4AF37; }
-
-  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 20px; }
-  .hero h1 { font-size: 64px; letter-spacing: 12px; color: #D4AF37; text-shadow: 0 0 30px rgba(212, 175, 55, 0.6); margin-bottom: 20px; }
-  .hero p { font-size: 24px; color: #D4AF37; letter-spacing: 3px; opacity: 0.9; }
-
-  section { position: relative; z-index: 1; padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
-  section h2 { font-size: 42px; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 40px; border-bottom: 1px solid #D4AF37; padding-bottom: 15px; background: linear-gradient(90deg, #D4AF37, #fff, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  section p { font-size: 18px; line-height: 1.8; color: #ccc; margin-bottom: 15px; }
-
-  .game-card { background: #0a0a0a; border: 1px solid #D4AF37; border-radius: 12px; overflow: hidden; margin-bottom: 20px; padding: 20px; }
-  .game-card h3 { color: #D4AF37; margin-bottom: 10px; }
-</style>
+        /* --- ПОДВАЛ --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Красные линии по бокам -->
-  <div class="side-line left"></div>
-  <div class="side-line right"></div>
+    <!-- Кастомный курсор -->
+    <div class="cursor" id="cursor"></div>
 
-  <!-- Курсор -->
-  <div class="custom-cursor" id="cursor"></div>
+    <!-- Фон с фантомом (GIF) -->
+    <img src="phantom (1).gif" class="phantom-bg" alt="Phantom Background">
+    <div class="overlay"></div>
 
-  <!-- ЗАДНИЙ ФОН: ФАНТОМ (GIF) -->
-  <img src="phantom (1).gif" class="phantom-video-bg" alt="Phantom">
-  
-  <!-- Затемнение, чтобы текст читался -->
-  <div class="video-overlay"></div>
-
-  <!-- Верхняя плашка -->
-  <div class="work-banner">
-    ✨ Phantom уже доступен — <a href="#">Скачать</a> ✨
-  </div>
-
-  <!-- Шапка (без кнопки Войти) -->
-  <header>
-    <div class="logo">PHANTOM ROAD STUDIO</div>
-    <nav>
-      <a href="#about">О студии</a>
-      <a href="#games">Игры</a>
-      <a href="#team">Команда</a>
-      <a href="#releases">Релизы</a>
-      <a href="#devlog">Разработки</a>
-    </nav>
-  </header>
-
-  <!-- Главный экран -->
-  <div class="hero">
-    <h1>PHANTOM ROAD STUDIO</h1>
-    <p>Игры. Музыка. Технологии. Каталоги.</p>
-  </div>
-
-  <!-- Контент -->
-  <section id="about">
-    <h2>О студии</h2>
-    <p>Мы — творческое объединение Phantom Road Studio. Занимаемся разработкой игр, созданием музыки и технологических проектов.</p>
-  </section>
-
-  <section id="games">
-    <h2>Игры</h2>
-    <div class="game-card">
-      <h3>NWS: World Tour</h3>
-      <p>Наш флагманский проект. Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
+    <!-- Верхняя плашка -->
+    <div class="top-banner">
+        ✨ Phantom уже доступен — <a href="#">Скачать</a> ✨
     </div>
-  </section>
 
-  <section id="team">
-    <h2>Команда</h2>
-    <p>Здесь будет информация о нашей команде.</p>
-  </section>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">Phantom Road</div>
+        <nav>
+            <a href="#about">О студии</a>
+            <a href="#games">Игры</a>
+            <a href="#team">Команда</a>
+            <a href="#releases">Релизы</a>
+            <a href="#devlog">Разработки</a>
+        </nav>
+    </header>
 
-  <section id="releases">
-    <h2>Релизы</h2>
-    <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
-  </section>
+    <!-- Главный экран -->
+    <div class="hero">
+        <h1>Phantom Road Studio</h1>
+        <p>Игры. Музыка. Технологии.</p>
+    </div>
 
-  <section id="devlog">
-    <h2>Разработки</h2>
-    <p>Следите за процессом разработки в нашем блоге.</p>
-  </section>
+    <!-- Контент -->
+    <section id="about">
+        <h2>О студии</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Кто мы</h3>
+                <p>Phantom Road Studio — это творческое объединение, которое создает игры, музыку и технологии. Мы не боимся экспериментов.</p>
+            </div>
+            <div class="card">
+                <h3>Наша цель</h3>
+                <p>Сделать Need World Speed и другие проекты, которые понравятся игрокам. Без доната и лишней шелухи.</p>
+            </div>
+        </div>
+    </section>
 
-  <footer style="text-align: center; padding: 40px; border-top: 1px solid #D4AF37; color: #666;">
-    Phantom Road Studio © 2026
-  </footer>
+    <section id="games">
+        <h2>Игры</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>NWS: World Tour</h3>
+                <img src="NWS.jpg" alt="NWS">
+                <p>Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай. Полицейские погони, тюнинг, команда «Феникс».</p>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-  </script>
+    <section id="team">
+        <h2>Команда</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Разработчики</h3>
+                <p>Здесь скоро появятся карточки нашей команды.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="releases">
+        <h2>Релизы</h2>
+        <div class="card">
+            <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Phantom Road Studio
+    </footer>
+
+    <script>
+        // Логика кастомного курсора
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Эффект увеличения курсора при наведении на ссылки и кнопки
+        const links = document.querySelectorAll('a, button, .card');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+    </script>
 </body>
 </html>
