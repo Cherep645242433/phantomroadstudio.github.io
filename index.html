@@ -13,7 +13,7 @@
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
-            cursor: none; /* Убираем стандартный курсор */
+            cursor: none;
         }
 
         /* --- НОВЫЙ КУРСОР --- */
@@ -128,7 +128,7 @@
             text-transform: uppercase;
         }
 
-        /* --- СЕКЦИИ (Карточки) --- */
+        /* --- СЕКЦИИ --- */
         section {
             padding: 100px 50px;
             max-width: 1200px;
@@ -174,6 +174,8 @@
         }
         .card img {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
             border-radius: 8px;
             margin-bottom: 15px;
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -239,13 +241,36 @@
         </div>
     </section>
 
+    <!-- ИГРЫ -->
     <section id="games">
         <h2>Игры</h2>
         <div class="grid">
+            <!-- NWS -->
             <div class="card">
                 <h3>NWS: World Tour</h3>
                 <img src="NWS.jpg" alt="NWS">
                 <p>Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай. Полицейские погони, тюнинг, команда «Феникс».</p>
+            </div>
+            
+            <!-- Проклятие замка -->
+            <div class="card">
+                <h3>Проклятие замка</h3>
+                <img src="lock.jpg" alt="Проклятие замка">
+                <p>Мистический хоррор, где вам предстоит разгадать тайны древнего замка и снять страшное проклятие.</p>
+            </div>
+
+            <!-- Сталкер 3 -->
+            <div class="card">
+                <h3>Сталкер 3</h3>
+                <img src="stalker.jpg" alt="Сталкер 3">
+                <p>Атмосферный шутер в зоне отчуждения. Выживание, аномалии и сталкерская романтика.</p>
+            </div>
+
+            <!-- Метро -->
+            <div class="card">
+                <h3>Метро</h3>
+                <img src="metro.jpg" alt="Метро">
+                <p>Постапокалиптическое выживание в туннелях метро. Опасности на каждом шагу и борьба за жизнь.</p>
             </div>
         </div>
     </section>
@@ -272,14 +297,12 @@
     </footer>
 
     <script>
-        // Логика кастомного курсора
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Эффект увеличения курсора при наведении на ссылки и кнопки
         const links = document.querySelectorAll('a, button, .card');
         links.forEach(link => {
             link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
