@@ -3,65 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom Road Studio</title>
+    <title>Phantom Road Studio - Технические работы</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #050505;
             color: #fff;
             font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
             cursor: none;
         }
-
-        /* --- АНИМАЦИИ --- */
-        @keyframes flicker {
-            0% { opacity: 0.85; filter: brightness(1); }
-            50% { opacity: 1; filter: brightness(1.2); }
-            100% { opacity: 0.9; filter: brightness(0.95); }
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* ФАНТОМ ПО ЦЕНТРУ С ЗОЛОТЫМ КОНТУРОМ */
-        .phantom-center {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 300px;
-            background-image: url('phantom.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 1; /* Позади пламени */
-            pointer-events: none;
-            mix-blend-mode: screen; /* Убирает шахматный/тёмный фон */
-            filter: drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 20px #D4AF37); /* Золотой контур */
-            animation: float 4s infinite ease-in-out;
-        }
-
-        /* ПЛАМЯ ПО БОКАМ (БЕЗ КВАДРАТОВ) */
-        .flame-side {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 150px;
-            background-image: url('flame.png');
-            background-size: cover; /* Растягиваем, чтобы не было стыков */
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 2; /* Перекрывает фантома */
-            pointer-events: none;
-            mix-blend-mode: screen; /* Убирает шахматный/белый фон */
-            animation: flicker 2s infinite ease-in-out;
-        }
-        .flame-side.left { left: 0; }
-        .flame-side.right { right: 0; transform: scaleX(-1); }
 
         /* Кастомный курсор */
         .custom-cursor {
@@ -73,140 +28,93 @@
             pointer-events: none;
             z-index: 99999;
             box-shadow: 0 0 10px #ff3333;
+            transition: transform 0.1s;
         }
 
-        /* СТАРТОВЫЙ ЭКРАН */
-        #start-screen {
-            position: fixed;
+        /* Контейнер с текстом */
+        .maintenance-box {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            border: 2px solid #ff3333;
+            border-radius: 15px;
+            background: rgba(10, 10, 10, 0.9);
+            box-shadow: 0 0 30px rgba(255, 51, 51, 0.2);
+            max-width: 600px;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(255, 51, 51, 0.2); }
+            100% { box-shadow: 0 0 40px rgba(255, 51, 51, 0.6); }
+        }
+
+        h1 {
+            color: #ff3333;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 51, 51, 0.8);
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 51, 51, 0.3);
+            border-top-color: #ff3333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Анимированный фон (простые частицы огня) */
+        .fire-bg {
+            position: absolute;
             inset: 0;
-            background: #050505;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            cursor: auto;
+            background: radial-gradient(circle at bottom, rgba(255, 51, 51, 0.15), transparent 60%);
+            z-index: 1;
+            pointer-events: none;
         }
-        #start-screen h1 { color: #ff3333; font-size: 3rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 5px; text-shadow: 0 0 20px rgba(255,51,51,0.5); }
-        
-        .btn-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .btn { padding: 15px 40px; font-size: 1.2rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; font-family: inherit; }
-        .btn-user { background: #ff3333; color: white; border: 2px solid #ff3333; }
-        .btn-user:hover { background: #cc0000; box-shadow: 0 0 15px rgba(255,51,51,0.6); }
-        .btn-admin { background: transparent; color: #ff3333; border: 2px solid #ff3333; }
-        .btn-admin:hover { background: #ff3333; color: white; box-shadow: 0 0 15px rgba(255,51,51,0.6); }
-
-        /* ОСНОВНОЙ САЙТ */
-        #main-site {
-            display: none;
-            position: relative;
-            z-index: 3;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 50px;
-        }
-
-        header { text-align: center; margin-bottom: 50px; }
-        header h1 { color: #ff3333; font-size: 3rem; text-transform: uppercase; text-shadow: 0 0 10px rgba(255,51,51,0.5); }
-        header p { color: #ccc; margin-top: 10px; }
-
-        h2 { color: #ff3333; margin-bottom: 20px; border-bottom: 2px solid #ff3333; padding-bottom: 5px; }
-        section { margin-bottom: 60px; }
-
-        /* Карточки */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .game-card { background: #111; border: 1px solid #222; border-radius: 10px; overflow: hidden; transition: transform 0.3s; }
-        .game-card:hover { transform: translateY(-5px); border-color: #ff3333; box-shadow: 0 5px 15px rgba(255,51,51,0.2); }
-        .game-card .cover img { width: 100%; height: 200px; object-fit: cover; }
-        .game-card .content { padding: 20px; }
-        .game-card h3 { color: #fff; margin-bottom: 10px; }
-        .game-card p { color: #aaa; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <div class="custom-cursor" id="cursor"></div>
-    
-    <!-- Фантом по центру с золотым свечением -->
-    <div class="phantom-center"></div>
-    
-    <!-- Пламя по бокам -->
-    <div class="flame-side left"></div>
-    <div class="flame-side right"></div>
+    <div class="fire-bg"></div>
 
-    <div id="start-screen">
+    <div class="maintenance-box">
         <h1>PHANTOM ROAD STUDIO</h1>
-        <div class="btn-container">
-            <button class="btn btn-user" onclick="login('user')">Войти как игрок</button>
-            <button class="btn btn-admin" onclick="login('admin')">Вход для разработчиков</button>
-        </div>
-    </div>
-
-    <div id="main-site">
-        <header>
-            <h1>PHANTOM ROAD STUDIO</h1>
-            <p>Версия ИИ: <strong>1.6</strong></p>
-        </header>
-
-        <section id="about">
-            <h2>О студии</h2>
-            <p style="color:#ccc; margin-bottom: 15px;">Мы создаем игры, технологии и мерч.</p>
-            <ul style="list-style: none; color: #ccc;">
-                <li style="padding:8px 0; border-bottom:1px solid #1a1a1a;">🧠 <strong>Технологии</strong> — наш ИИ-ассистент <strong>Phantom</strong>, сборка и прокачка ПК.</li>
-                <li style="padding:8px 0;">👕 <strong>Мерч</strong> — брендированная одежда с логотипом студии.</li>
-            </ul>
-            <p style="color:#ccc; margin-top: 15px;">Мы ценим качество, честность и делаем всё своими руками. Следите за новостями — впереди много интересного.</p>
-        </section>
-
-        <section id="games">
-            <h2>Игры</h2>
-            <div class="grid">
-                <div class="game-card">
-                    <div class="cover"><img src="NWS.jpg" alt="NWS: World Tour"></div>
-                    <div class="content">
-                        <h3>NWS: World Tour</h3>
-                        <p>Наш флагманский проект. Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай. Полицейские погони, тюнинг, команда «Феникс».</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="releases">
-            <h2>Релизы</h2>
-            <p style="color:#ccc;">Все актуальные релизы — на <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color:#ff3333;">GitHub</a>.</p>
-        </section>
-
-        <section id="devlog">
-            <h2>Devlog</h2>
-            <p style="color:#ccc;">Следите за процессом разработки.</p>
-        </section>
+        <h2>🛠️ Ведутся плановые работы</h2>
+        <p>Мы обновляем наш сайт, чтобы сделать его еще быстрее и красивее. Пожалуйста, зайдите чуть позже!</p>
+        <div class="loader"></div>
     </div>
 
     <script>
+        // Курсор
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        function login(role) {
-            if (role === 'user') {
-                document.getElementById('start-screen').style.display = 'none';
-                document.getElementById('main-site').style.display = 'block';
-                document.body.style.cursor = 'none';
-            } else if (role === 'admin') {
-                let pass = prompt("Введите пароль администратора:");
-                if (pass === "nws_admin_2026") {
-                    document.getElementById('start-screen').style.display = 'none';
-                    document.getElementById('main-site').style.display = 'block';
-                    document.body.style.cursor = 'none';
-                    alert("Доступ разрешен. Добро пожаловать, разработчик!");
-                } else {
-                    alert("Неверный пароль!");
-                }
-            }
-        }
     </script>
 </body>
 </html>
