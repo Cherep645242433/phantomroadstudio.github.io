@@ -14,27 +14,50 @@
             cursor: none;
         }
 
-        /* --- АНИМАЦИЯ МЕРЦАНИЯ --- */
+        /* --- АНИМАЦИИ --- */
         @keyframes flicker {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.9; }
+            0% { opacity: 0.85; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.2); }
+            100% { opacity: 0.9; filter: brightness(0.95); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* Пламя по бокам (берет твою целую картинку) */
+        /* ФАНТОМ ПО ЦЕНТРУ С ЗОЛОТЫМ КОНТУРОМ */
+        .phantom-center {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px; /* Размер фантома */
+            height: 300px;
+            background-image: url('phantom.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 1; /* Позади пламени */
+            pointer-events: none;
+            opacity: 0.8;
+            /* Вот тот самый золотой контур (свечение) */
+            filter: drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 20px #D4AF37);
+            animation: float 4s infinite ease-in-out;
+        }
+
+        /* ПЛАМЯ ПО БОКАМ (БЕЗ КВАДРАТОВ) */
         .flame-side {
             position: fixed;
             top: 0;
             bottom: 0;
             width: 150px;
-            /* Твоя картинка. Если она называется flame.png, оставляй так */
-            background-image: url('flame.png'); 
-            background-size: 100% 100%; /* Растягиваем на всю высоту без повторений */
+            background-image: url('flame.png');
+            background-size: cover; /* Растягиваем без повторов */
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 1;
+            z-index: 2; /* Перекрывает фантома */
             pointer-events: none;
-            opacity: 0.9;
             animation: flicker 2s infinite ease-in-out;
         }
         .flame-side.left { left: 0; }
@@ -77,7 +100,7 @@
         #main-site {
             display: none;
             position: relative;
-            z-index: 2;
+            z-index: 3;
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
@@ -105,7 +128,10 @@
 
     <div class="custom-cursor" id="cursor"></div>
     
-    <!-- Только пламя, никаких отдельных фантомов -->
+    <!-- Фантом по центру с золотым свечением -->
+    <div class="phantom-center"></div>
+    
+    <!-- Пламя по бокам -->
     <div class="flame-side left"></div>
     <div class="flame-side right"></div>
 
