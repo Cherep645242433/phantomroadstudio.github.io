@@ -14,28 +14,36 @@
             cursor: none;
         }
 
-        /* --- АНИМАЦИЯ ПЛАМЕНИ --- */
+        /* --- АНИМАЦИИ --- */
         @keyframes flicker {
             0% { opacity: 0.85; filter: brightness(1); }
             50% { opacity: 1; filter: brightness(1.2); }
             100% { opacity: 0.9; filter: brightness(0.95); }
         }
+        
+        /* Анимация парения фантома */
+        @keyframes float {
+            0% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -50%); }
+        }
 
-        /* ФАНТОМ (Анимированный GIF) */
+        /* ФАНТОМ (GIF с анимацией парения) */
         .phantom-center {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px; 
-            height: 800px;
+            width: 400px; /* Уменьшили ширину */
+            height: 600px; /* Уменьшили высоту, чтобы голова была видна */
             background-image: url('phantom (1).gif'); /* Твой GIF */
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 1; /* Позади пламени и текста */
+            z-index: 1; /* Позади текста и пламени */
             pointer-events: none;
-            opacity: 0.7; /* Немного прозрачности, чтобы текст читался */
+            opacity: 0.8; /* Немного прозрачный */
+            animation: float 4s infinite ease-in-out; /* Плавное парение */
         }
 
         /* ПЛАМЯ ПО БОКАМ */
