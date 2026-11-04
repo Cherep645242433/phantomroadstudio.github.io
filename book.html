@@ -1,125 +1,495 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Книги — Phantom Road Studio</title>
-<link rel="icon" href="phantom-icon.ico" type="image/x-icon">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding-top: 35px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Road Studio</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-  .work-banner {
-    position: fixed; top: 0; left: 0; width: 100%;
-    background: #D4AF37; color: #000; text-align: center;
-    padding: 8px 15px; font-size: 14px; font-weight: bold;
-    letter-spacing: 1px; z-index: 9999;
-  }
-  .work-banner a { color: #000; text-decoration: underline; }
+        /* --- КУРСОР --- */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+        .cursor.hover { transform: scale(1.5); background: rgba(212, 175, 55, 0.2); }
 
-  header {
-    position: fixed; top: 35px; width: 100%;
-    background: rgba(5,5,5,0.95); border-bottom: 1px solid #D4AF37;
-    z-index: 100; padding: 15px 40px;
-    display: flex; align-items: center; justify-content: space-between;
-    backdrop-filter: blur(10px);
-  }
-  header .logo { font-size: 20px; letter-spacing: 4px; color: #D4AF37; text-transform: uppercase; font-weight: bold; }
-  header nav a {
-    color: #ccc; text-decoration: none; margin-left: 25px;
-    font-size: 14px; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s;
-  }
-  header nav a:hover, header nav a.active { color: #D4AF37; text-shadow: 0 0 10px #D4AF37; }
+        /* --- ФОН --- */
+        .phantom-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            z-index: -2;
+            opacity: 0.4;
+            pointer-events: none;
+            animation: breathe 5s infinite alternate ease-in-out;
+        }
+        @keyframes breathe {
+            0% { transform: scale(1); filter: blur(0px); }
+            100% { transform: scale(1.03); filter: blur(1px); }
+        }
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, #050505 90%);
+            z-index: -1;
+            pointer-events: none;
+        }
 
-  section { max-width: 900px; margin: 0 auto; padding: 140px 40px 80px; }
+        /* --- ВЕРХНЯЯ ПЛАШКА --- */
+        .top-banner {
+            background: #D4AF37;
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 1000;
+        }
+        .top-banner a { color: #000; text-decoration: underline; }
 
-  section h2 {
-    font-size: 42px; color: #D4AF37; letter-spacing: 6px;
-    text-transform: uppercase; margin-bottom: 40px;
-    border-bottom: 1px solid #D4AF37; padding-bottom: 15px;
-  }
+        /* --- ШАПКА --- */
+        header {
+            position: fixed;
+            top: 35px; left: 0; width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 999;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #D4AF37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #D4AF37; }
 
-  .book-card {
-    background: #0a0a0a; border: 1px solid #D4AF37; border-radius: 12px;
-    overflow: hidden; box-shadow: 0 0 20px rgba(212,175,55,0.15);
-  }
+        /* --- ГЛАВНЫЙ ЭКРАН --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: #ccc;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
 
-  .book-card .cover {
-    width: 100%; height: 420px; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    background: #0a0a0a;
-    border-bottom: 1px solid #D4AF37;
-  }
-  .book-card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* --- СЕКЦИИ --- */
+        section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        h2 {
+            font-size: 2.5rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+        }
+        p { font-size: 1.1rem; line-height: 1.8; color: #aaa; margin-bottom: 20px; }
 
-  .book-card .content { padding: 30px; }
+        /* Сетка для карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+        .card h3 {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background-color: #111;
+        }
+        
+        /* --- 3D КНИГА --- */
+        .book-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0;
+            perspective: 1500px;
+        }
 
-  .book-card h3 {
-    font-size: 28px; color: #D4AF37; letter-spacing: 3px;
-    text-transform: uppercase; margin-bottom: 8px;
-  }
-  .book-card .genre {
-    color: #888; font-size: 13px; letter-spacing: 2px;
-    text-transform: uppercase; margin-bottom: 24px;
-  }
+        .book-3d {
+            position: relative;
+            width: 240px;
+            height: 360px;
+            transform-style: preserve-3d;
+            transform: rotateY(-30deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+            box-shadow: 20px 20px 40px rgba(0,0,0,0.8);
+        }
 
-  .btn {
-    display: inline-block; padding: 12px 28px;
-    background: #D4AF37; color: #000;
-    font-weight: bold; letter-spacing: 2px; text-transform: uppercase;
-    border-radius: 6px; transition: 0.3s; border: none; cursor: pointer;
-    font-family: inherit; font-size: 14px; text-decoration: none;
-  }
-  .btn:hover { background: #ff2a2a; color: #fff; box-shadow: 0 0 20px #ff2a2a; }
+        .book-3d:hover {
+            transform: rotateY(-15deg) rotateX(5deg) scale(1.05);
+        }
 
-  footer {
-    text-align: center; padding: 40px 20px; border-top: 1px solid #D4AF37;
-    color: #666; font-size: 14px; letter-spacing: 2px; margin-top: 80px;
-  }
+        .book-front {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('book-nws.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 2px 5px 5px 2px;
+            box-shadow: inset 4px 0 10px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
 
-  @media (max-width: 768px) {
-    header { flex-direction: column; padding: 10px; }
-    header nav a { margin: 5px 10px; font-size: 12px; }
-    section h2 { font-size: 28px; }
-    .book-card .cover { height: 280px; }
-  }
-</style>
+        .book-spine {
+            position: absolute;
+            top: 0; left: 0;
+            width: 40px; height: 100%;
+            background: linear-gradient(to right, #111, #333);
+            transform: rotateY(-90deg) translateX(-20px);
+            transform-origin: left;
+            border-radius: 5px 0 0 5px;
+            z-index: 1;
+            box-shadow: inset -2px 0 5px rgba(0,0,0,0.8);
+        }
+
+        .book-pages {
+            position: absolute;
+            top: 5px; right: 0;
+            width: 20px; height: 350px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #eee,
+                #eee 2px,
+                #ccc 2px,
+                #ccc 4px
+            );
+            transform: rotateY(90deg) translateX(10px);
+            transform-origin: right;
+            border-radius: 0 5px 5px 0;
+            z-index: 1;
+        }
+
+        /* Аудио-плеер */
+        .game-media {
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+        .game-media audio {
+            width: 100%;
+            height: 30px;
+            outline: none;
+        }
+
+        /* --- КНОПКА НАВЕРХ --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #D4AF37;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            border: none;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: #ff2a2a;
+            color: #fff;
+            box-shadow: 0 0 30px #ff2a2a;
+            transform: translateY(-5px);
+        }
+
+        /* --- ПОДВАЛ --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
 
-<div class="work-banner">✨ Phantom v1.4 уже доступен — <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank">Скачать</a> ✨</div>
+    <div class="cursor" id="cursor"></div>
 
-<header>
-  <div class="logo">Phantom Road Studio</div>
-  <nav>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#about">О студии</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#games">Игры</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#team">Команда</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#tech">Phantom</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#music">Музыка</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/books.html" class="active">Книги</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#catalog">Каталоги</a>
-    <a href="https://cherep645242433.github.io/phantomroadstudio.github.io/#contacts">Контакты</a>
-  </nav>
-</header>
+    <img src="phantom (1).gif" class="phantom-bg" alt="Phantom Background">
+    <div class="overlay"></div>
 
-<section>
-  <h2>Книги</h2>
-
-  <div class="book-card">
-    <div class="cover"><img src="book-nws.png" alt="NWS"></div>
-    <div class="content">
-      <h3>NWS (Need World Speed)</h3>
-      <p class="genre">Уличные гонки · Книга</p>
-      <a class="btn" href="https://cherep645242433.github.io/phantomroadstudio.github.io/NeedWorldSpeed1.docx" target="_blank">⬇ Скачать книгу</a>
+    <div class="top-banner">
+        ✨ Phantom уже доступен — <a href="#">Скачать</a> ✨
     </div>
-  </div>
 
-</section>
+    <header>
+        <div class="logo">Phantom Road</div>
+        <nav>
+            <a href="#about">О студии</a>
+            <a href="#games">Игры</a>
+            <a href="#computers">Компьютеры</a>
+            <a href="#books">Книги</a>
+            <a href="#team">Команда</a>
+            <a href="#releases">Релизы</a>
+        </nav>
+    </header>
 
-<footer>
-  © 2026 Phantom Road Studio. Все права защищены.
-</footer>
+    <div class="hero">
+        <h1>Phantom Road Studio</h1>
+        <p>Игры. Музыка. Технологии.</p>
+    </div>
 
+    <section id="about">
+        <h2>О студии</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Кто мы</h3>
+                <p>Phantom Road Studio — это творческое объединение, которое создает игры, музыку и технологии. Мы не боимся экспериментов.</p>
+            </div>
+            <div class="card">
+                <h3>Наша цель</h3>
+                <p>Сделать Need World Speed и другие проекты, которые понравятся игрокам. Без доната и лишней шелухи.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="games">
+        <h2>Игры</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>NWS: World Tour</h3>
+                <img src="NWS.jpg" alt="NWS">
+                <p>Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
+                <div class="game-media">
+                    <audio controls><source src="NWS_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Проклятие замка</h3>
+                <img src="lock1.png" alt="Проклятие замка">
+                <p>Мистический хоррор, где вам предстоит разгадать тайны древнего замка.</p>
+                <div class="game-media">
+                    <audio controls><source src="lock1_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Проклятие замка: Перезагрузка</h3>
+                <img src="lock2.jpg" alt="Перезагрузка">
+                <p>Новая глава в истории проклятого замка. Улучшенная графика.</p>
+                <div class="game-media">
+                    <audio controls><source src="lock2_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Проклятие замка: Демон</h3>
+                <img src="lock3.jpg" alt="Демон">
+                <p>Финальная часть трилогии. Сражение с самим демоном.</p>
+                <div class="game-media">
+                    <audio controls><source src="lock3_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Сталкер 3</h3>
+                <img src="stalker3.png" alt="Сталкер 3">
+                <p>Атмосферный шутер в зоне отчуждения. Выживание и аномалии.</p>
+                <div class="game-media">
+                    <audio controls><source src="stalker_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Метро</h3>
+                <img src="metro-the-new-era.png" alt="Метро">
+                <p>Постапокалиптическое выживание в туннелях метро.</p>
+                <div class="game-media">
+                    <audio controls><source src="metro_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="computers">
+        <h2>Компьютеры</h2>
+        <p>Для нас техника — это не просто железо. Мы (команда Phantom Road Studio и наш ИИ-напарник) помогаем с подбором комплектующих и собираем <strong>стационарные компьютеры</strong> для наших проектов и не только.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>Сборка стационарных ПК</h3>
+                <p>Поможем подобрать комплектующие под ваши задачи и бюджет. Вы покупаете детали, а мы профессионально собираем и настраиваем систему.</p>
+            </div>
+            <div class="card">
+                <h3>Апгрейд ПК</h3>
+                <p>Хотите больше FPS на стационарном компьютере? Подскажем, какие детали заменить, и установим их.</p>
+            </div>
+            <div class="card">
+                <h3>Замена старых деталей</h3>
+                <p>Старые комплектующие в вашем ПК выходят из строя? Поможем с выбором новых и заменим их.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- РАЗДЕЛ: КНИГИ (3D-книга) -->
+    <section id="books">
+        <h2>Книги</h2>
+        
+        <div class="book-wrapper">
+            <a href="book.html" style="text-decoration: none;">
+                <div class="book-3d">
+                    <div class="book-spine"></div>
+                    <div class="book-front"></div>
+                    <div class="book-pages"></div>
+                </div>
+            </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <h3 style="color: #D4AF37; font-size: 1.8rem; margin-bottom: 10px;">Need World Speed</h3>
+            <p style="color: #aaa; margin-bottom: 20px;">Официальная новеллизация</p>
+            <a href="book.pdf" download class="btn-download" style="display: inline-block; padding: 10px 20px; background: transparent; border: 1px solid #D4AF37; color: #D4AF37; text-decoration: none; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s;">Скачать</a>
+        </div>
+    </section>
+
+    <section id="team">
+        <h2>Команда</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Разработчики</h3>
+                <p>Здесь скоро появятся карточки нашей команды.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="releases">
+        <h2>Релизы</h2>
+        <div class="card">
+            <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Phantom Road Studio
+    </footer>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const links = document.querySelectorAll('a, button, .card');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
