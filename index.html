@@ -183,7 +183,7 @@
             border: 1px solid rgba(212, 175, 55, 0.2);
             background-color: #111;
         }
-        .card .btn-read {
+        .card .btn-download {
             display: inline-block;
             margin-top: auto;
             padding: 10px 20px;
@@ -198,7 +198,7 @@
             transition: 0.3s;
             margin-top: 15px;
         }
-        .card .btn-read:hover {
+        .card .btn-download:hover {
             background: #D4AF37;
             color: #000;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
@@ -377,15 +377,16 @@
         </div>
     </section>
 
-    <!-- РАЗДЕЛ: КНИГИ С ТВОЕЙ ОБЛОЖКОЙ -->
+    <!-- РАЗДЕЛ: КНИГИ С КНОПКОЙ СКАЧАТЬ -->
     <section id="books">
         <h2>Книги</h2>
         <div class="grid">
             <div class="card">
                 <img src="book-nws.png" alt="Обложка книги" style="height: 300px; object-fit: contain; background: #111;">
-                <h3>Название книги</h3> <!-- Впиши сюда название -->
-                <p>Краткое описание книги. О чем она, кто герои и почему стоит прочитать.</p> <!-- Впиши описание -->
-                <a href="book.html" class="btn-read">Читать</a> <!-- Кнопка ведет на твою страницу book.html -->
+                <h3>Название книги</h3>
+                <p>Краткое описание книги.</p>
+                <!-- Замени book.pdf на реальное имя файла книги -->
+                <a href="book.pdf" download class="btn-download">Скачать</a>
             </div>
         </div>
     </section>
