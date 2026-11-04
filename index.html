@@ -90,7 +90,7 @@
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
-        nav { display: flex; gap: 25px; }
+        nav { display: flex; gap: 20px; flex-wrap: wrap; }
         nav a {
             color: #ccc;
             text-decoration: none;
@@ -259,6 +259,7 @@
             <a href="#about">О студии</a>
             <a href="#games">Игры</a>
             <a href="#computers">Компьютеры</a>
+            <a href="#books">Книги</a>
             <a href="#team">Команда</a>
             <a href="#releases">Релизы</a>
         </nav>
@@ -286,7 +287,6 @@
     <section id="games">
         <h2>Игры</h2>
         <div class="grid">
-            <!-- NWS -->
             <div class="card">
                 <h3>NWS: World Tour</h3>
                 <img src="NWS.jpg" alt="NWS">
@@ -295,8 +295,6 @@
                     <audio controls><source src="NWS_ost.mp3" type="audio/mpeg"></audio>
                 </div>
             </div>
-            
-            <!-- Проклятие замка -->
             <div class="card">
                 <h3>Проклятие замка</h3>
                 <img src="lock1.png" alt="Проклятие замка">
@@ -305,8 +303,6 @@
                     <audio controls><source src="lock1_ost.mp3" type="audio/mpeg"></audio>
                 </div>
             </div>
-
-            <!-- Проклятие замка: Перезагрузка -->
             <div class="card">
                 <h3>Проклятие замка: Перезагрузка</h3>
                 <img src="lock2.jpg" alt="Перезагрузка">
@@ -315,8 +311,6 @@
                     <audio controls><source src="lock2_ost.mp3" type="audio/mpeg"></audio>
                 </div>
             </div>
-
-            <!-- Проклятие замка: Демон -->
             <div class="card">
                 <h3>Проклятие замка: Демон</h3>
                 <img src="lock3.jpg" alt="Демон">
@@ -325,8 +319,6 @@
                     <audio controls><source src="lock3_ost.mp3" type="audio/mpeg"></audio>
                 </div>
             </div>
-
-            <!-- Сталкер 3 -->
             <div class="card">
                 <h3>Сталкер 3</h3>
                 <img src="stalker3.png" alt="Сталкер 3">
@@ -335,8 +327,6 @@
                     <audio controls><source src="stalker_ost.mp3" type="audio/mpeg"></audio>
                 </div>
             </div>
-
-            <!-- Метро -->
             <div class="card">
                 <h3>Метро</h3>
                 <img src="metro-the-new-era.png" alt="Метро">
@@ -348,7 +338,6 @@
         </div>
     </section>
 
-    <!-- РАЗДЕЛ: КОМПЬЮТЕРЫ (ИСПРАВЛЕННЫЙ ТЕКСТ) -->
     <section id="computers">
         <h2>Компьютеры</h2>
         <p>Для нас техника — это не просто железо. Мы собираем, апгрейдим и ремонтируем компьютеры для наших проектов и не только.</p>
@@ -364,6 +353,17 @@
             <div class="card">
                 <h3>Замена старых деталей</h3>
                 <p>Старые комплектующие выходят из строя? Заменим их на новые. Проведем диагностику и дадим совет по улучшению системы.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- НОВЫЙ РАЗДЕЛ: КНИГИ -->
+    <section id="books">
+        <h2>Книги</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Скоро...</h3>
+                <p>Здесь появятся наши книги и литературные проекты. Следите за обновлениями!</p>
             </div>
         </div>
     </section>
@@ -389,11 +389,9 @@
         © 2026 Phantom Road Studio
     </footer>
 
-    <!-- Кнопка Наверх -->
     <button class="back-to-top" id="backToTop">↑</button>
 
     <script>
-        // Курсор
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
@@ -406,9 +404,7 @@
             link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
 
-        // Кнопка "Наверх"
         const backToTop = document.getElementById('backToTop');
-        
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
                 backToTop.classList.add('show');
@@ -418,10 +414,7 @@
         });
 
         backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
