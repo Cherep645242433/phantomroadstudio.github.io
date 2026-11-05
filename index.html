@@ -277,7 +277,7 @@
     </div>
 
     <script>
-        // Ссылка на твой сервер Render (пока не используется, но пусть будет)
+        // Ссылка на твой сервер Render (пока не используется)
         // const SERVER_URL = "https://phantom-server-560m.onrender.com/api/chat";
 
         const cursor = document.getElementById('cursor');
@@ -309,26 +309,22 @@
                 chatInput.value = '';
                 
                 setTimeout(() => {
-                    let botResponse = "Я пока учусь, но могу подсказать по сайту! Спроси про игры, компьютеры, книги или Phantom.";
+                    let botResponse = "Интересный вопрос! Я пока учусь, но могу подсказать по нашему сайту. Спроси про игры, компьютеры или книги.";
                     const lowerText = text.toLowerCase();
 
                     // --- ЛОГИКА КОНСУЛЬТАЦИИ ---
                     if (consultMode === 'waiting_for_task') {
-                        if (lowerText.includes('игр') || lowerText.includes('играть')) {
-                            botResponse = "Отлично! Для игр я бы рекомендовал сборку на базе Ryzen 5 5600 и RTX 4060. Это оптимальный вариант по цене/качеству. Напиши свой бюджет (например, '50 тысяч'), и я подберу точнее!";
+                        if (lowerText.includes('игр') || lowerText.includes('играть') || lowerText.includes('монтаж')) {
+                            botResponse = "Отлично! Для игр и монтажа я бы рекомендовал сборку на базе Ryzen 5 5600 и RTX 4060. Это оптимальный вариант по цене/качеству. Напиши свой бюджет (например, '50 тысяч'), и я подберу точнее!";
                             consultMode = 'waiting_for_budget';
                         } else if (lowerText.includes('работ') || lowerText.includes('офис')) {
                             botResponse = "Для работы подойдет сборка на базе Intel Core i5 и встроенной графики. Это сэкономит бюджет. Напиши свой бюджет, и я подберу точнее!";
-                            consultMode = 'waiting_for_budget';
-                        } else if (lowerText.includes('монтаж') || lowerText.includes('видео')) {
-                            botResponse = "Для монтажа нужен мощный процессор и много памяти. Рекомендую Ryzen 7 и 32 ГБ ОЗУ. Напиши свой бюджет, и я подберу точнее!";
                             consultMode = 'waiting_for_budget';
                         } else {
                             botResponse = "Извини, я не совсем понял задачу. Напиши: 'Игры', 'Работа' или 'Монтаж'.";
                         }
                     } 
                     else if (consultMode === 'waiting_for_budget') {
-                        // Простая логика подбора под бюджет (заготовки)
                         if (lowerText.includes('50') || lowerText.includes('пятьдесят')) {
                             botResponse = "За 50 000 ₽ я рекомендую: Ryzen 5 5600, RTX 3060 12GB, 16 ГБ ОЗУ, 512 ГБ SSD. Этого хватит для игр в Full HD на высоких настройках. Если хочешь, напиши в VK, и мы соберем!";
                         } else if (lowerText.includes('30') || lowerText.includes('тридцать')) {
@@ -336,7 +332,7 @@
                         } else {
                             botResponse = "Я пока не могу точно подобрать под этот бюджет, но могу дать общие советы. Напиши сумму цифрами (например, '50000'), и я постараюсь помочь!";
                         }
-                        consultMode = null; // Сбрасываем режим
+                        consultMode = null;
                     }
                     else {
                         // Обычные ответы
@@ -351,7 +347,7 @@
                         }
                         else if (lowerText.includes('компьютер') || lowerText.includes('пк') || lowerText.includes('сборка') || lowerText.includes('апгрейд')) {
                             botResponse = "Отлично! Я могу помочь с подбором ПК. Для каких задач нужен компьютер? (Игры / Работа / Монтаж)";
-                            consultMode = 'waiting_for_task'; // Включаем режим консультации
+                            consultMode = 'waiting_for_task';
                         }
                         else if (lowerText.includes('консультация') || lowerText.includes('консультацию')) {
                             botResponse = "Конечно! Я могу проконсультировать по сборке ПК. Для каких задач нужен компьютер? (Игры / Работа / Монтаж)";
