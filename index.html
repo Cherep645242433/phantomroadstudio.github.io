@@ -249,6 +249,115 @@
             transform: translateY(-5px);
         }
 
+        /* --- ЧАТ С ИИ --- */
+        .chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #D4AF37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            border: none;
+            transition: transform 0.3s;
+        }
+        .chat-button:hover { transform: scale(1.1); }
+
+        .chat-window {
+            position: fixed;
+            bottom: 160px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            display: none;
+            flex-direction: column;
+            z-index: 10000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .chat-window.open { display: flex; }
+
+        .chat-header {
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header span { color: #D4AF37; font-weight: bold; }
+        .chat-header .close-btn {
+            background: none;
+            border: none;
+            color: #ff2a2a;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .message.bot {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #fff;
+            align-self: flex-start;
+        }
+        .message.user {
+            background: #333;
+            color: #fff;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: #fff;
+            outline: none;
+            cursor: text !important;
+        }
+        .chat-input button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background: #D4AF37;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer !important;
+        }
+
         /* --- ПОДВАЛ --- */
         footer {
             text-align: center;
@@ -424,7 +533,6 @@
         </div>
     </section>
 
-    <!-- НОВЫЙ РАЗДЕЛ: РАЗРАБОТЧИКАМ -->
     <section id="dev">
         <h2>Разработчикам</h2>
         <div class="grid">
@@ -449,9 +557,28 @@
         © 2026 Phantom Road Studio
     </footer>
 
+    <!-- Кнопка Наверх -->
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <!-- Кнопка и Окно Чата -->
+    <button class="chat-button" id="chatButton">💬</button>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Phantom AI</span>
+            <button class="close-btn" id="closeChat">✖</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">Привет! Я Phantom, ИИ-ассистент студии. Чем могу помочь?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Напишите сообщение...">
+            <button id="sendMessage">➤</button>
+        </div>
+    </div>
+
     <script>
+        // Курсор
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
@@ -464,6 +591,7 @@
             link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
 
+        // Кнопка Наверх
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -472,10 +600,62 @@
                 backToTop.classList.remove('show');
             }
         });
-
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // Логика чата
+        const chatButton = document.getElementById('chatButton');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessage = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatButton.addEventListener('click', () => {
+            chatWindow.classList.add('open');
+            document.body.style.cursor = 'auto'; // Включаем курсор для ввода
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatWindow.classList.remove('open');
+            document.body.style.cursor = 'none'; // Возвращаем кастомный курсор
+        });
+
+        sendMessage.addEventListener('click', () => {
+            const text = chatInput.value.trim();
+            if (text !== '') {
+                addMessage(text, 'user');
+                chatInput.value = '';
+                
+                // Имитация ответа ИИ
+                setTimeout(() => {
+                    let botResponse = "Я еще учусь, но скоро смогу ответить на любые вопросы!";
+                    if (text.toLowerCase().includes('привет')) {
+                        botResponse = "Привет! Рад тебя видеть. Я Phantom, ИИ-ассистент студии.";
+                    } else if (text.toLowerCase().includes('кто ты') || text.toLowerCase().includes('что ты')) {
+                        botResponse = "Я Phantom — искусственный интеллект, созданный в Phantom Road Studio. Помогаю с разработкой и технологиями.";
+                    } else if (text.toLowerCase().includes('игра') || text.toLowerCase().includes('nws')) {
+                        botResponse = "Need World Speed — наша флагманская игра! Уличные гонки по реальным городам мира.";
+                    } else if (text.toLowerCase().includes('сайт')) {
+                        botResponse = "Этот сайт создан нашей командой. Если найдешь баг — пиши в VK!";
+                    }
+                    addMessage(botResponse, 'bot');
+                }, 1000);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage.click();
+        });
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', sender);
+            msgDiv.textContent = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     </script>
 </body>
 </html>
