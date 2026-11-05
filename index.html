@@ -16,7 +16,7 @@
             cursor: none;
         }
 
-        /* --- КРАСИВЫЙ СКРОЛЛБАР ДЛЯ ВСЕГО САЙТА --- */
+        /* --- НЕОНОВЫЙ СКРОЛЛБАР --- */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -27,9 +27,12 @@
             background: #D4AF37;
             border-radius: 5px;
             border: 2px solid #0a0a0a;
+            /* Неоновое свечение */
+            box-shadow: 0 0 10px #D4AF37, 0 0 20px #D4AF37;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #ff2a2a;
+            box-shadow: 0 0 15px #ff2a2a, 0 0 30px #ff2a2a;
         }
 
         /* --- КУРСОР --- */
@@ -330,11 +333,18 @@
             gap: 10px;
         }
 
-        /* Красивый скроллбар внутри чата (дублируем для надежности) */
+        /* Красивый неоновый скроллбар внутри чата */
         .chat-messages::-webkit-scrollbar { width: 6px; }
         .chat-messages::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 10px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
-        .chat-messages::-webkit-scrollbar-thumb:hover { background: #ff2a2a; }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #ff2a2a;
+            box-shadow: 0 0 15px #ff2a2a;
+        }
 
         .message {
             padding: 10px 15px;
@@ -674,6 +684,12 @@
                     }
                     else if (lowerText.includes('помощь') || lowerText.includes('помочь') || lowerText.includes('помоги')) {
                         botResponse = "Я могу подсказать по разделам сайта: Игры, Компьютеры, Книги, Phantom, Разработчикам. Просто спроси!";
+                    }
+                    else if (lowerText.includes('консультация') || lowerText.includes('консультацию')) {
+                        botResponse = "Да, мы можем проконсультировать по сборке ПК и подбору комплектующих. Напиши в VK, и мы поможем!";
+                    }
+                    else if (lowerText.includes('спасибо')) {
+                        botResponse = "Всегда пожалуйста! Рад был помочь.";
                     }
                     else if (lowerText.includes('пока') || lowerText.includes('до свидания')) {
                         botResponse = "До встречи! Если что, я всегда здесь. 👋";
