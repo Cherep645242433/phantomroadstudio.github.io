@@ -1,3 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Road Studio</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* --- КУРСОР --- */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+        .cursor.hover { transform: scale(1.5); background: rgba(212, 175, 55, 0.2); }
+
+        /* --- ФОН --- */
+        .phantom-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            z-index: -2;
+            opacity: 0.4;
+            pointer-events: none;
+            animation: breathe 5s infinite alternate ease-in-out;
+        }
+        @keyframes breathe {
+            0% { transform: scale(1); filter: blur(0px); }
+            100% { transform: scale(1.03); filter: blur(1px); }
+        }
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, #050505 90%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- ВЕРХНЯЯ ПЛАШКА --- */
+        .top-banner {
+            background: #D4AF37;
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 1000;
+        }
+        .top-banner a { color: #000; text-decoration: underline; }
+
+        /* --- ШАПКА --- */
+        header {
+            position: fixed;
+            top: 35px; left: 0; width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 999;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #D4AF37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #D4AF37; }
+
+        /* --- ГЛАВНЫЙ ЭКРАН --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: #ccc;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* --- СЕКЦИИ --- */
+        section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        h2 {
+            font-size: 2.5rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+        }
+        p { font-size: 1.1rem; line-height: 1.8; color: #aaa; margin-bottom: 20px; }
+
+        /* Сетка для карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+        .card h3 {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background-color: #111;
+        }
+        .card .btn-download {
+            display: inline-block;
+            margin-top: auto;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+        .card .btn-download:hover {
+            background: #D4AF37;
+            color: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Аудио-плеер */
+        .game-media {
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+        .game-media audio {
+            width: 100%;
+            height: 30px;
+            outline: none;
+        }
+
+        /* --- КНОПКА НАВЕРХ --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #D4AF37;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            border: none;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: #ff2a2a;
+            color: #fff;
+            box-shadow: 0 0 30px #ff2a2a;
+            transform: translateY(-5px);
+        }
+
+        /* --- ЧАТ С ИИ --- */
+        .chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #D4AF37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            border: none;
+            transition: transform 0.3s;
+        }
+        .chat-button:hover { transform: scale(1.1); }
+
+        .chat-window {
+            position: fixed;
+            bottom: 160px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            display: none;
+            flex-direction: column;
+            z-index: 10000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .chat-window.open { display: flex; }
+
+        .chat-header {
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header span { color: #D4AF37; font-weight: bold; }
+        .chat-header .close-btn {
+            background: none;
+            border: none;
+            color: #ff2a2a;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .message.bot {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #fff;
+            align-self: flex-start;
+        }
+        .message.user {
+            background: #333;
+            color: #fff;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: #fff;
+            outline: none;
+            cursor: text !important;
+        }
+        .chat-input button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background: #D4AF37;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer !important;
+        }
+
+        /* --- ПОДВАЛ --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor" id="cursor"></div>
+
+    <img src="phantom (1).gif" class="phantom-bg" alt="Phantom Background">
+    <div class="overlay"></div>
+
+    <div class="top-banner">
+        ✨ Phantom уже доступен — <a href="#">Скачать</a> ✨
+    </div>
+
+    <header>
+        <div class="logo">Phantom Road</div>
+        <nav>
+            <a href="#about">О студии</a>
+            <a href="#games">Игры</a>
+            <a href="#computers">Компьютеры</a>
+            <a href="#books">Книги</a>
+            <a href="#phantom">Phantom</a>
+            <a href="#team">Команда</a>
+            <a href="#releases">Релизы</a>
+            <a href="#dev">Разработчикам</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Phantom Road Studio</h1>
+        <p>Игры. Музыка. Технологии.</p>
+    </div>
+
+    <section id="about">
+        <h2>О студии</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Кто мы</h3>
+                <p>Phantom Road Studio — это творческое объединение, которое создает игры, музыку и технологии. Мы не боимся экспериментов.</p>
+            </div>
+            <div class="card">
+                <h3>Наша цель</h3>
+                <p>Сделать Need World Speed и другие проекты, которые понравятся игрокам. Без доната и лишней шелухи.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="games">
+        <h2>Игры</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>NWS: World Tour</h3>
+                <img src="NWS.jpg" alt="NWS">
+                <p>Уличные гонки с мировым турне: Минск, Москва, Токио, Дубай.</p>
+                <div class="game-media">
+                    <audio controls><source src="NWS_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Проклятие замка</h3>
+                <img src="lock1.png" alt="Проклятие замка">
+                <p>Мистический хоррор, где вам предстоит разгадать тайны древнего замка.</p>
+                <div class="game-media">
+                    <audio controls><source src="lock1_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Проклятие замка: Перезагрузка</h3>
+                <img src="lock2.jpg" alt="Перезагрузка">
+                <p>Новая глава в истории проклятого замка. Улучшенная графика.</p>
+                <div class="game-media">
+                    <audio controls><source src="lock2_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Проклятие замка: Демон</h3>
+                <img src="lock3.jpg" alt="Демон">
+                <p>Финальная часть трилогии. Сражение с самим демоном.</p>
+                <div class="game-media">
+                    <audio controls><source src="lock3_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Сталкер 3</h3>
+                <img src="stalker3.png" alt="Сталкер 3">
+                <p>Атмосферный шутер в зоне отчуждения. Выживание и аномалии.</p>
+                <div class="game-media">
+                    <audio controls><source src="stalker_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Метро</h3>
+                <img src="metro-the-new-era.png" alt="Метро">
+                <p>Постапокалиптическое выживание в туннелях метро.</p>
+                <div class="game-media">
+                    <audio controls><source src="metro_ost.mp3" type="audio/mpeg"></audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="computers">
+        <h2>Компьютеры</h2>
+        <p>Для нас техника — это не просто железо. Мы (команда Phantom Road Studio и наш ИИ-напарник) помогаем с подбором комплектующих и собираем <strong>стационарные компьютеры</strong> для наших проектов и не только.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>Сборка стационарных ПК</h3>
+                <p>Поможем подобрать комплектующие под ваши задачи и бюджет. Вы покупаете детали, а мы профессионально собираем и настраиваем систему.</p>
+            </div>
+            <div class="card">
+                <h3>Апгрейд ПК</h3>
+                <p>Хотите больше FPS на стационарном компьютере? Подскажем, какие детали заменить, и установим их.</p>
+            </div>
+            <div class="card">
+                <h3>Замена старых деталей</h3>
+                <p>Старые комплектующие в вашем ПК выходят из строя? Поможем с выбором новых и заменим их.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="books">
+        <h2>Книги</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="book-nws.png" alt="Обложка книги Need World Speed" style="height: 300px; object-fit: contain; background: #111;">
+                <h3>Need World Speed</h3>
+                <p>Официальная новеллизация игры. Узнайте больше о мире уличных гонок, команде «Феникс» и истории, которая разворачивается за пределами трассы. Погрузитесь в атмосферу NWS.</p>
+                <a href="book.pdf" download class="btn-download">Скачать</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="phantom">
+        <h2>Phantom AI</h2>
+        <div class="card" style="text-align: center; padding: 50px; background: rgba(20,20,20,0.9); border: 1px solid #D4AF37;">
+            <h3 style="font-size: 2rem; color: #D4AF37; margin-bottom: 20px;">Наш ИИ-ассистент</h3>
+            <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Phantom — это наш умный помощник, который помогает с разработкой игр, поиском информации и решением технических задач. Скачайте полный пакет с последней версией ИИ (v1.6) и попробуйте его в деле!
+            </p>
+            <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" class="btn-download" style="display: inline-block; padding: 15px 40px; background: #D4AF37; color: #000; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 6px; transition: 0.3s; font-size: 1.2rem;">
+                ⬇ Скачать пакет Phantom (v1.6)
+            </a>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">
+                Файлы доступны на GitHub. В пакет входят: исполняемый файл, инструкция и настройки.
+            </p>
+        </div>
+    </section>
+
+    <section id="team">
+        <h2>Команда</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Разработчики</h3>
+                <p>Здесь скоро появятся карточки нашей команды.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="releases">
+        <h2>Релизы</h2>
+        <div class="card">
+            <p>Все актуальные релизы доступны на нашем <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" style="color: #D4AF37;">GitHub</a>.</p>
+        </div>
+    </section>
+
+    <section id="dev">
+        <h2>Разработчикам</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Исходный код</h3>
+                <p>Мы открыты для сотрудничества. Весь исходный код нашего сайта и игровых прототипов доступен на GitHub.</p>
+                <a href="https://github.com/Cherep645242433" target="_blank" class="btn-download">GitHub Репозиторий</a>
+            </div>
+            <div class="card">
+                <h3>Технологии</h3>
+                <p>Сайт написан на чистом HTML/CSS/JS. Игры разрабатываются на Unity (URP/HDRP). ИИ-ассистент Phantom — на базе современных LLM.</p>
+            </div>
+            <div class="card">
+                <h3>Связаться с нами</h3>
+                <p>Хотите предложить идею, найти баг или предложить сотрудничество? Пишите нам в сообщество ВКонтакте.</p>
+                <a href="https://vk.ru/phantomroadstudio" target="_blank" class="btn-download">Написать в VK</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Phantom Road Studio
+    </footer>
+
+    <!-- Кнопка Наверх -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- Кнопка и Окно Чата -->
+    <button class="chat-button" id="chatButton">💬</button>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Phantom AI</span>
+            <button class="close-btn" id="closeChat">✖</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">Привет! Я Phantom, ИИ-ассистент студии. Чем могу помочь?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Напишите сообщение...">
+            <button id="sendMessage">➤</button>
+        </div>
+    </div>
+
+    <script>
+        // Курсор
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const links = document.querySelectorAll('a, button, .card');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Кнопка Наверх
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         // Логика чата
         const chatButton = document.getElementById('chatButton');
         const chatWindow = document.getElementById('chatWindow');
@@ -8,12 +614,12 @@
 
         chatButton.addEventListener('click', () => {
             chatWindow.classList.add('open');
-            document.body.style.cursor = 'auto';
+            document.body.style.cursor = 'auto'; // Включаем курсор для ввода
         });
 
         closeChat.addEventListener('click', () => {
             chatWindow.classList.remove('open');
-            document.body.style.cursor = 'none';
+            document.body.style.cursor = 'none'; // Возвращаем кастомный курсор
         });
 
         sendMessage.addEventListener('click', () => {
@@ -22,6 +628,7 @@
                 addMessage(text, 'user');
                 chatInput.value = '';
                 
+                // Имитация ответа ИИ
                 setTimeout(() => {
                     let botResponse = "Я еще учусь, но скоро смогу ответить на любые вопросы!";
                     if (text.toLowerCase().includes('привет')) {
@@ -49,3 +656,6 @@
             chatMessages.appendChild(msgDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+    </script>
+</body>
+</html>
