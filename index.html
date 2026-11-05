@@ -314,21 +314,11 @@
             gap: 10px;
         }
 
-        /* --- КРАСИВЫЙ СКРОЛЛБАР --- */
-        .chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-messages::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-        }
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #D4AF37;
-            border-radius: 10px;
-        }
-        .chat-messages::-webkit-scrollbar-thumb:hover {
-            background: #ff2a2a;
-        }
+        /* Красивый скроллбар */
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 10px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: #ff2a2a; }
 
         .message {
             padding: 10px 15px;
@@ -642,24 +632,43 @@
                 chatInput.value = '';
                 
                 setTimeout(() => {
-                    let botResponse = "Я еще учусь, но скоро смогу ответить на любые вопросы!";
+                    let botResponse = "Я пока учусь, но могу подсказать по сайту! Спроси про игры, компьютеры, книги или Phantom.";
                     const lowerText = text.toLowerCase();
-                    
+
+                    // Приветствие
                     if (lowerText.includes('привет')) {
-                        botResponse = "Привет! Рад тебя видеть. Я Phantom, ИИ-ассистент студии.";
-                    } else if (lowerText.includes('кто ты') || lowerText.includes('что ты')) {
-                        botResponse = "Я Phantom — искусственный интеллект, созданный в Phantom Road Studio. Помогаю с разработкой и технологиями.";
-                    } else if (lowerText.includes('игра') || lowerText.includes('nws') || lowerText.includes('гонк')) {
-                        botResponse = "Need World Speed — наша флагманская игра! Уличные гонки по реальным городам мира. Скоро выйдет!";
-                    } else if (lowerText.includes('сайт')) {
-                        botResponse = "Этот сайт создан нашей командой. Если найдешь баг — пиши в VK!";
-                    } else if (lowerText.includes('компьютер') || lowerText.includes('пк') || lowerText.includes('сборка')) {
-                        botResponse = "Мы помогаем с подбором комплектующих и собираем стационарные ПК. Пиши в VK, если нужна помощь!";
-                    } else if (lowerText.includes('книга') || lowerText.includes('книгу')) {
-                        botResponse = "У нас есть книга по Need World Speed! Её можно скачать в разделе «Книги».";
-                    } else if (lowerText.includes('помощь') || lowerText.includes('помоги')) {
-                        botResponse = "Я могу рассказать про наши игры, компьютеры или сайт. Спроси что-нибудь конкретное!";
-                    } else if (lowerText.includes('пока') || lowerText.includes('до свидания')) {
+                        botResponse = "Привет! Я Phantom. Чем могу помочь? Могу рассказать про наши игры, компьютеры, книги или сайт.";
+                    } 
+                    // Кто ты
+                    else if (lowerText.includes('кто ты') || lowerText.includes('что ты')) {
+                        botResponse = "Я Phantom — ИИ-ассистент студии. Я помогаю с разработкой, подбором ПК и отвечаю на вопросы о наших проектах.";
+                    }
+                    // Игры / NWS
+                    else if (lowerText.includes('игра') || lowerText.includes('nws') || lowerText.includes('гонк') || lowerText.includes('need world')) {
+                        botResponse = "Need World Speed — наша главная игра. Уличные гонки по реальным городам. Подробнее в разделе <a href='#games' style='color: #D4AF37;'>Игры</a>.";
+                    }
+                    // Компьютеры
+                    else if (lowerText.includes('компьютер') || lowerText.includes('пк') || lowerText.includes('сборка') || lowerText.includes('апгрейд')) {
+                        botResponse = "Мы помогаем с подбором комплектующих и собираем стационарные ПК. Подробнее в разделе <a href='#computers' style='color: #D4AF37;'>Компьютеры</a> или пиши в VK.";
+                    }
+                    // Книга
+                    else if (lowerText.includes('книга') || lowerText.includes('книгу') || lowerText.includes('новеллизация')) {
+                        botResponse = "У нас есть книга по NWS! Её можно скачать в разделе <a href='#books' style='color: #D4AF37;'>Книги</a>.";
+                    }
+                    // Phantom / ИИ
+                    else if (lowerText.includes('phantom') || lowerText.includes('ии') || lowerText.includes('ассистент')) {
+                        botResponse = "Phantom — это наш ИИ. Скачать последнюю версию можно в разделе <a href='#phantom' style='color: #D4AF37;'>Phantom</a>.";
+                    }
+                    // Разработчикам
+                    else if (lowerText.includes('разработ') || lowerText.includes('github') || lowerText.includes('код')) {
+                        botResponse = "Мы открыты для разработчиков! Наш код на GitHub, а связаться можно в VK. Подробнее в разделе <a href='#dev' style='color: #D4AF37;'>Разработчикам</a>.";
+                    }
+                    // Помощь
+                    else if (lowerText.includes('помощь') || lowerText.includes('помочь') || lowerText.includes('помоги')) {
+                        botResponse = "Я могу подсказать по разделам сайта: Игры, Компьютеры, Книги, Phantom, Разработчикам. Просто спроси!";
+                    }
+                    // Пока
+                    else if (lowerText.includes('пока') || lowerText.includes('до свидания')) {
                         botResponse = "До встречи! Если что, я всегда здесь. 👋";
                     }
                     
@@ -675,7 +684,7 @@
         function addMessage(text, sender) {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', sender);
-            msgDiv.textContent = text;
+            msgDiv.innerHTML = text; // Используем innerHTML для ссылок
             chatMessages.appendChild(msgDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
