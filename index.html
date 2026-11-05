@@ -313,6 +313,23 @@
             flex-direction: column;
             gap: 10px;
         }
+
+        /* --- КРАСИВЫЙ СКРОЛЛБАР --- */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 10px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #ff2a2a;
+        }
+
         .message {
             padding: 10px 15px;
             border-radius: 10px;
@@ -557,10 +574,8 @@
         © 2026 Phantom Road Studio
     </footer>
 
-    <!-- Кнопка Наверх -->
     <button class="back-to-top" id="backToTop">↑</button>
-
-    <!-- Кнопка и Окно Чата -->
+    
     <button class="chat-button" id="chatButton">💬</button>
     
     <div class="chat-window" id="chatWindow">
@@ -578,7 +593,6 @@
     </div>
 
     <script>
-        // Курсор
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
@@ -591,7 +605,6 @@
             link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
 
-        // Кнопка Наверх
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -614,12 +627,12 @@
 
         chatButton.addEventListener('click', () => {
             chatWindow.classList.add('open');
-            document.body.style.cursor = 'auto'; // Включаем курсор для ввода
+            document.body.style.cursor = 'auto';
         });
 
         closeChat.addEventListener('click', () => {
             chatWindow.classList.remove('open');
-            document.body.style.cursor = 'none'; // Возвращаем кастомный курсор
+            document.body.style.cursor = 'none';
         });
 
         sendMessage.addEventListener('click', () => {
@@ -628,18 +641,28 @@
                 addMessage(text, 'user');
                 chatInput.value = '';
                 
-                // Имитация ответа ИИ
                 setTimeout(() => {
                     let botResponse = "Я еще учусь, но скоро смогу ответить на любые вопросы!";
-                    if (text.toLowerCase().includes('привет')) {
+                    const lowerText = text.toLowerCase();
+                    
+                    if (lowerText.includes('привет')) {
                         botResponse = "Привет! Рад тебя видеть. Я Phantom, ИИ-ассистент студии.";
-                    } else if (text.toLowerCase().includes('кто ты') || text.toLowerCase().includes('что ты')) {
+                    } else if (lowerText.includes('кто ты') || lowerText.includes('что ты')) {
                         botResponse = "Я Phantom — искусственный интеллект, созданный в Phantom Road Studio. Помогаю с разработкой и технологиями.";
-                    } else if (text.toLowerCase().includes('игра') || text.toLowerCase().includes('nws')) {
-                        botResponse = "Need World Speed — наша флагманская игра! Уличные гонки по реальным городам мира.";
-                    } else if (text.toLowerCase().includes('сайт')) {
+                    } else if (lowerText.includes('игра') || lowerText.includes('nws') || lowerText.includes('гонк')) {
+                        botResponse = "Need World Speed — наша флагманская игра! Уличные гонки по реальным городам мира. Скоро выйдет!";
+                    } else if (lowerText.includes('сайт')) {
                         botResponse = "Этот сайт создан нашей командой. Если найдешь баг — пиши в VK!";
+                    } else if (lowerText.includes('компьютер') || lowerText.includes('пк') || lowerText.includes('сборка')) {
+                        botResponse = "Мы помогаем с подбором комплектующих и собираем стационарные ПК. Пиши в VK, если нужна помощь!";
+                    } else if (lowerText.includes('книга') || lowerText.includes('книгу')) {
+                        botResponse = "У нас есть книга по Need World Speed! Её можно скачать в разделе «Книги».";
+                    } else if (lowerText.includes('помощь') || lowerText.includes('помоги')) {
+                        botResponse = "Я могу рассказать про наши игры, компьютеры или сайт. Спроси что-нибудь конкретное!";
+                    } else if (lowerText.includes('пока') || lowerText.includes('до свидания')) {
+                        botResponse = "До встречи! Если что, я всегда здесь. 👋";
                     }
+                    
                     addMessage(botResponse, 'bot');
                 }, 1000);
             }
