@@ -316,9 +316,8 @@
                             city = match[1].trim();
                         }
                         
-                        // Получаем погоду с wttr.in
-                        const weatherRes = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=3`);
-                        const weatherText = await weatherRes.text();
+                       // Получаем погоду через прокси (чтобы обойти CORS)
+const weatherRes = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://wttr.in/${encodeURIComponent(city)}?format=3`)}`);
                         
                         finalPrompt = `Пользователь спросил про погоду. Вот данные: ${weatherText}. Ответь ему красиво и кратко.`;
                     }
