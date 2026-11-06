@@ -305,10 +305,28 @@
                 const loadingMsg = addMessage("Phantom думает...", 'bot');
                 
                 try {
-                    // Используем бесплатный API Pollinations (без ключа)
-                    const response = await fetch(`https://text.pollinations.ai/Ты%20-%20Phantom,%20ИИ-ассистент%20студии%20Phantom%20Road%20Studio.%20Отвечай%20кратко%20и%20дружелюбно.%20Вопрос:%20${encodeURIComponent(text)}`);
-                    
+                    let finalPrompt = text;
+
+                    // Проверка на вопрос о погоде
+                    if (text.toLowerCase().includes('погода') || text.toLowerCase().includes('погоду')) {
+                        // Извлекаем город (после слова "в")
+                        let city = "Минск"; 
+                        const match = text.match(/в\s+([А-Яа-яЁё\s]+)/);
+                        if (match && match[1]) {
+                            city = match[1].trim();
+                        }
+                        
+                        // Получаем погоду с wttr.in
+                        const weatherRes = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=3`);
+                        const weatherText = await weatherRes.text();
+                        
+                        finalPrompt = `Пользователь спросил про погоду. Вот данные: ${weatherText}. Ответь ему красиво и кратко.`;
+                    }
+
+                    // Отправляем запрос в Pollinations
+                    const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(finalPrompt)}`);
                     const data = await response.text();
+                    
                     loadingMsg.remove();
                     
                     if (data) {
