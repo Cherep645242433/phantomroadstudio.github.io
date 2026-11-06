@@ -47,17 +47,33 @@
         @keyframes breathe { 0% { transform: scale(1); filter: blur(0px); } 100% { transform: scale(1.03); filter: blur(1px); } }
         .overlay { position: fixed; inset: 0; background: radial-gradient(circle at center, transparent 0%, #050505 90%); z-index: -1; pointer-events: none; }
 
-        /* --- ВЕРХНЯЯ ПЛАШКА --- */
+        /* --- АНОНС (ВЕРХНЯЯ ПЛАШКА) --- */
         .top-banner {
-            background: #D4AF37; color: #000; text-align: center; padding: 8px;
-            font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: #D4AF37; 
+            color: #000; 
+            text-align: center; 
+            padding: 10px;
+            font-weight: bold; 
+            font-size: 0.9rem; 
+            letter-spacing: 1px;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 1000;
+            animation: pulse 2s infinite;
         }
-        .top-banner a { color: #000; text-decoration: underline; }
+        .top-banner a { color: #000; text-decoration: underline; cursor: pointer; }
+        
+        @keyframes pulse {
+            0% { background-color: #D4AF37; }
+            50% { background-color: #ff2a2a; color: #fff; }
+            100% { background-color: #D4AF37; }
+        }
 
         /* --- ШАПКА --- */
         header {
-            position: fixed; top: 35px; left: 0; width: 100%; padding: 15px 50px;
+            position: fixed; top: 40px; left: 0; width: 100%; padding: 15px 50px;
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2); z-index: 999;
@@ -192,7 +208,10 @@
     <img src="phantom (1).gif" class="phantom-bg" alt="Phantom Background">
     <div class="overlay"></div>
 
-    <div class="top-banner">✨ Phantom уже доступен — <a href="#">Скачать</a> ✨</div>
+    <!-- АНОНС -->
+    <div class="top-banner">
+        ✨ У нас появился Phantom AI! Задайте вопрос о ПК или погоде в чате справа. ✨
+    </div>
 
     <header>
         <div class="logo">Phantom Road</div>
@@ -218,6 +237,19 @@
         <div class="grid">
             <div class="card"><h3>Кто мы</h3><p>Phantom Road Studio — это творческое объединение, которое создает игры, музыку и технологии. Мы не боимся экспериментов.</p></div>
             <div class="card"><h3>Наша цель</h3><p>Сделать Need World Speed и другие проекты, которые понравятся игрокам. Без доната и лишней шелухи.</p></div>
+        </div>
+    </section>
+
+    <!-- НОВЫЙ БЛОК: НОВОСТИ -->
+    <section id="news">
+        <h2>Новости</h2>
+        <div class="grid">
+            <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.1);">
+                <h3>🤖 Запуск Phantom AI!</h3>
+                <p>Мы рады сообщить, что наш ИИ-ассистент <strong>Phantom</strong> теперь работает прямо на сайте! Он может консультировать по сборке ПК, подбирать комплектующие, рассказывать о погоде (на сегодня и завтра) и отвечать на любые вопросы о наших проектах.</p>
+                <p style="font-size: 0.9rem; color: #888;">Попробуйте прямо сейчас — просто напишите ему в чат в правом нижнем углу!</p>
+                <a href="#phantom" class="btn-download" style="text-align: center;">Узнать больше</a>
+            </div>
         </div>
     </section>
 
@@ -347,23 +379,19 @@
             "париж": { lat: 48.8566, lon: 2.3522 }
         };
 
-        // --- ЗАЩИТА ОТ СПАМА (ЛИМИТ 45 СЕКУНД) ---
         let lastRequestTime = 0;
-        const COOLDOWN = 45000; // 45 секунд
+        const COOLDOWN = 45000;
 
         sendMessage.addEventListener('click', async () => {
             const text = chatInput.value.trim();
             if (text === '') return;
 
-            // Проверка на лимит
             const now = Date.now();
             if (now - lastRequestTime < COOLDOWN) {
                 const remaining = Math.ceil((COOLDOWN - (now - lastRequestTime)) / 1000);
                 addMessage(`Подожди ${remaining} секунд, прежде чем задать следующий вопрос. Phantom отдыхает. ⏳`, 'bot');
                 return;
             }
-
-            // Обновляем время последнего запроса
             lastRequestTime = now;
 
             addMessage(text, 'user');
@@ -384,8 +412,6 @@
                     }
                     
                     const coords = cities[cityName];
-                    
-                    // Запрос к Open-Meteo (текущая погода + прогноз на 3 дня)
                     const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
                     const weatherData = await weatherRes.json();
                     
