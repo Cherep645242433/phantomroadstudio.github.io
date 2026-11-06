@@ -277,9 +277,6 @@
     </div>
 
     <script>
-        // Ссылка на твой сервер Back4App
-        const SERVER_URL = "https://phantomserver-zs7278b2.back4.app/api/chat";
-
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
         const links = document.querySelectorAll('a, button, .card');
@@ -308,17 +305,14 @@
                 const loadingMsg = addMessage("Phantom думает...", 'bot');
                 
                 try {
-                    const response = await fetch(SERVER_URL, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ message: text })
-                    });
-
-                    const data = await response.json();
+                    // Используем бесплатный API Pollinations (без ключа)
+                    const response = await fetch(`https://text.pollinations.ai/Ты%20-%20Phantom,%20ИИ-ассистент%20студии%20Phantom%20Road%20Studio.%20Отвечай%20кратко%20и%20дружелюбно.%20Вопрос:%20${encodeURIComponent(text)}`);
+                    
+                    const data = await response.text();
                     loadingMsg.remove();
                     
-                    if (data.reply) {
-                        addMessage(data.reply, 'bot');
+                    if (data) {
+                        addMessage(data, 'bot');
                     } else {
                         addMessage("Извини, я не смог ответить.", 'bot');
                     }
