@@ -124,7 +124,7 @@
         .chat-button:hover { transform: scale(1.1); }
 
         .chat-window {
-            position: fixed; bottom: 160px; right: 30px; width: 380px; /* Сделали чуть шире */
+            position: fixed; bottom: 160px; right: 30px; width: 380px;
             height: 480px; 
             background: rgba(10, 10, 10, 0.95); border: 1px solid #D4AF37;
             border-radius: 15px; display: none; flex-direction: column; z-index: 10000;
@@ -152,7 +152,7 @@
             padding: 12px 18px; 
             border-radius: 10px; 
             max-width: 85%; 
-            font-size: 1.1rem; /* Увеличили шрифт */
+            font-size: 1.1rem;
             line-height: 1.5; 
         }
         .message.bot { background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.5); color: #fff; align-self: flex-start; }
@@ -255,12 +255,29 @@
         </div>
     </section>
 
+    <!-- ОБНОВЛЕННЫЙ РАЗДЕЛ PHANTOM AI -->
     <section id="phantom">
         <h2>Phantom AI</h2>
         <div class="card" style="text-align: center; padding: 50px; background: rgba(20,20,20,0.9); border: 1px solid #D4AF37;">
             <h3 style="font-size: 2rem; color: #D4AF37; margin-bottom: 20px;">Наш ИИ-ассистент</h3>
-            <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">Phantom — это наш умный помощник, который помогает с разработкой игр, поиском информации и решением технических задач. Скачайте полный пакет с последней версией ИИ (v1.6) и попробуйте его в деле!</p>
-            <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" class="btn-download" style="display: inline-block; padding: 15px 40px; background: #D4AF37; color: #000; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 6px; transition: 0.3s; font-size: 1.2rem;">⬇ Скачать пакет Phantom (v1.6)</a>
+            <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Phantom — это наш умный помощник, который работает прямо на сайте. Он не просто отвечает на вопросы, а реально помогает!
+            </p>
+            
+            <!-- СПИСОК УМЕНИЙ -->
+            <div style="text-align: left; max-width: 600px; margin: 0 auto 40px; color: #ccc; font-size: 1.1rem; line-height: 1.8;">
+                <p><strong>Что умеет Phantom:</strong></p>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">✅ <strong>Консультирует по сборке ПК</strong> — подбирает комплектующие под бюджет и задачи (игры, монтаж, работа).</li>
+                    <li style="margin-bottom: 10px;">✅ <strong>Знает погоду</strong> — получает актуальные данные в реальном времени (через Open-Meteo).</li>
+                    <li style="margin-bottom: 10px;">✅ <strong>Отвечает на вопросы</strong> о наших играх, книгах и сайте.</li>
+                    <li style="margin-bottom: 10px;">✅ <strong>Работает 24/7</strong> — и абсолютно бесплатно.</li>
+                </ul>
+            </div>
+
+            <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" class="btn-download" style="display: inline-block; padding: 15px 40px; background: #D4AF37; color: #000; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 6px; transition: 0.3s; font-size: 1.2rem;">
+                ⬇ Скачать пакет Phantom (v1.6)
+            </a>
             <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">Файлы доступны на GitHub. В пакет входят: исполняемый файл, инструкция и настройки.</p>
         </div>
     </section>
@@ -323,7 +340,6 @@
         chatButton.addEventListener('click', () => { chatWindow.classList.add('open'); document.body.style.cursor = 'auto'; });
         closeChat.addEventListener('click', () => { chatWindow.classList.remove('open'); document.body.style.cursor = 'none'; });
 
-        // --- БАЗА КООРДИНАТ ГОРОДОВ ДЛЯ ПОГОДЫ ---
         const cities = {
             "минск": { lat: 53.9, lon: 27.5667 },
             "москва": { lat: 55.7558, lon: 37.6173 },
@@ -344,9 +360,8 @@
                 try {
                     let finalPrompt = text;
 
-                    // Если спрашивают про погоду
                     if (text.toLowerCase().includes('погода') || text.toLowerCase().includes('погоду')) {
-                        let cityName = "минск"; // По умолчанию
+                        let cityName = "минск";
                         for (const city in cities) {
                             if (text.toLowerCase().includes(city)) {
                                 cityName = city;
@@ -355,8 +370,6 @@
                         }
                         
                         const coords = cities[cityName];
-                        
-                        // Запрос к Open-Meteo (бесплатно, без ключей)
                         const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`);
                         const weatherData = await weatherRes.json();
                         
@@ -366,7 +379,6 @@
                         finalPrompt = `Пользователь спросил про погоду в городе ${cityName}. Вот данные: температура ${temp}°C, ветер ${wind} км/ч. Ответь красиво и по-русски.`;
                     }
 
-                    // Отправляем запрос в Pollinations
                     const prompt = encodeURIComponent("Ты — Phantom, ИИ-ассистент студии Phantom Road Studio. Отвечай на русском языке, кратко и дружелюбно. " + finalPrompt);
                     const response = await fetch(`https://text.pollinations.ai/${prompt}?model=openai`);
                     
