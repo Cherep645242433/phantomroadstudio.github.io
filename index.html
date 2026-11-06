@@ -100,56 +100,55 @@
         
         /* --- ПОДСВЕТКА ДЛЯ РАЗНЫХ БЛОКОВ --- */
         
-        /* 1. О студии (Золотая подсветка) */
         #about .card:hover {
             transform: translateY(-10px);
             border-color: #D4AF37;
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
         }
         
-        /* 2. Новости (Зеленая подсветка) */
         #news .card:hover {
             transform: translateY(-10px);
             border-color: #00ff88;
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
         }
         
-        /* 3. Игры (Красная подсветка) */
         #games .card:hover {
             transform: translateY(-10px);
             border-color: #ff2a2a;
             box-shadow: 0 0 30px rgba(255, 42, 42, 0.4);
         }
         
-        /* 4. Компьютеры (Синяя подсветка) */
         #computers .card:hover {
             transform: translateY(-10px);
             border-color: #2a7aff;
             box-shadow: 0 0 30px rgba(42, 122, 255, 0.4);
         }
         
-        /* 5. Книги (Фиолетовая подсветка) */
         #books .card:hover {
             transform: translateY(-10px);
             border-color: #b82aff;
             box-shadow: 0 0 30px rgba(184, 42, 255, 0.4);
         }
         
-        /* 6. Phantom (Оранжевая подсветка) */
         #phantom .card:hover {
             transform: translateY(-10px);
             border-color: #ff8c00;
             box-shadow: 0 0 30px rgba(255, 140, 0, 0.4);
         }
         
-        /* 7. Команда (Бирюзовая подсветка) */
+        /* Новый блок: Партнеры (Розовая подсветка) */
+        #partners .card:hover {
+            transform: translateY(-10px);
+            border-color: #ff2a8e;
+            box-shadow: 0 0 30px rgba(255, 42, 142, 0.4);
+        }
+        
         #team .card:hover {
             transform: translateY(-10px);
             border-color: #00ffff;
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
         }
         
-        /* 8. Разработчикам (Серебристая подсветка) */
         #dev .card:hover {
             transform: translateY(-10px);
             border-color: #cccccc;
@@ -273,6 +272,7 @@
             <a href="#computers">Компьютеры</a>
             <a href="#books">Книги</a>
             <a href="#phantom">Phantom</a>
+            <a href="#partners">Партнёры</a> <!-- НОВАЯ ССЫЛКА -->
             <a href="#team">Команда</a>
             <a href="#releases">Релизы</a>
             <a href="#dev">Разработчикам</a>
@@ -343,7 +343,6 @@
     <section id="phantom">
         <h2>Phantom AI</h2>
         <div class="grid">
-            <!-- Карточка 1: Анонс чата -->
             <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.1);">
                 <h3>💬 Phantom в чате</h3>
                 <p>Наш ИИ-ассистент теперь работает прямо на сайте! Он может:</p>
@@ -356,12 +355,23 @@
                 <button onclick="openChat()" class="btn-download" style="text-align: center; cursor: pointer; background: #D4AF37; color: #000; border: none;">Открыть чат</button>
             </div>
 
-            <!-- Карточка 2: Скачивание -->
             <div class="card">
                 <h3>📦 Скачать пакет</h3>
                 <p>Скачайте полный пакет с последней версией ИИ (v1.6) и попробуйте его в деле!</p>
                 <p style="font-size: 0.9rem; color: #888;">В пакет входят: исполняемый файл, инструкция и настройки.</p>
                 <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" class="btn-download">⬇ Скачать Phantom (v1.6)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- НОВЫЙ РАЗДЕЛ: ПАРТНЁРЫ -->
+    <section id="partners">
+        <h2>Наши партнёры</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🎵 Эсчевский</h3>
+                <p><strong>Партнёр по музыке.</strong> Эсчевский создает музыкальное сопровождение для наших проектов, включая Need World Speed. Его треки добавляют атмосферу и драйв в игру.</p>
+                <p style="font-size: 0.9rem; color: #888;">Следите за его творчеством и новыми релизами.</p>
             </div>
         </div>
     </section>
