@@ -287,28 +287,30 @@
         </div>
     </section>
 
+    <!-- РАЗДЕЛ PHANTOM: ДВЕ КАРТОЧКИ -->
     <section id="phantom">
         <h2>Phantom AI</h2>
-        <div class="card" style="text-align: center; padding: 50px; background: rgba(20,20,20,0.9); border: 1px solid #D4AF37;">
-            <h3 style="font-size: 2rem; color: #D4AF37; margin-bottom: 20px;">Наш ИИ-ассистент</h3>
-            <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Phantom — это наш умный помощник, который работает прямо на сайте. Он не просто отвечает на вопросы, а реально помогает!
-            </p>
-            
-            <div style="text-align: left; max-width: 600px; margin: 0 auto 40px; color: #ccc; font-size: 1.1rem; line-height: 1.8;">
-                <p><strong>Что умеет Phantom:</strong></p>
-                <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 10px;">✅ <strong>Консультирует по сборке ПК</strong> — подбирает комплектующие под бюджет и задачи (игры, монтаж, работа).</li>
-                    <li style="margin-bottom: 10px;">✅ <strong>Знает погоду</strong> — получает актуальные данные в реальном времени (через Open-Meteo).</li>
-                    <li style="margin-bottom: 10px;">✅ <strong>Отвечает на вопросы</strong> о наших играх, книгах и сайте.</li>
-                    <li style="margin-bottom: 10px;">✅ <strong>Работает 24/7</strong> — и абсолютно бесплатно.</li>
+        <div class="grid">
+            <!-- Карточка 1: Анонс чата -->
+            <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.1);">
+                <h3>💬 Phantom в чате</h3>
+                <p>Наш ИИ-ассистент теперь работает прямо на сайте! Он может:</p>
+                <ul style="list-style-type: none; padding-left: 0; color: #ccc; line-height: 1.8; margin-bottom: 20px;">
+                    <li>✅ Консультировать по сборке ПК.</li>
+                    <li>✅ Подбирать комплектующие под бюджет.</li>
+                    <li>✅ Рассказывать о погоде (сегодня и завтра).</li>
+                    <li>✅ Отвечать на вопросы о наших играх.</li>
                 </ul>
+                <button onclick="openChat()" class="btn-download" style="text-align: center; cursor: pointer; background: #D4AF37; color: #000; border: none;">Открыть чат</button>
             </div>
 
-            <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" class="btn-download" style="display: inline-block; padding: 15px 40px; background: #D4AF37; color: #000; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 6px; transition: 0.3s; font-size: 1.2rem;">
-                ⬇ Скачать пакет Phantom (v1.6)
-            </a>
-            <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">Файлы доступны на GitHub. В пакет входят: исполняемый файл, инструкция и настройки.</p>
+            <!-- Карточка 2: Скачивание -->
+            <div class="card">
+                <h3>📦 Скачать пакет</h3>
+                <p>Скачайте полный пакет с последней версией ИИ (v1.6) и попробуйте его в деле!</p>
+                <p style="font-size: 0.9rem; color: #888;">В пакет входят: исполняемый файл, инструкция и настройки.</p>
+                <a href="https://github.com/Cherep645242433/phantomroadstudio.github.io/releases/latest" target="_blank" class="btn-download">⬇ Скачать Phantom (v1.6)</a>
+            </div>
         </div>
     </section>
 
