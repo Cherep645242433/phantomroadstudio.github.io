@@ -210,7 +210,7 @@
 
     <!-- АНОНС -->
     <div class="top-banner">
-        ✨ У нас появился Phantom AI! Задайте вопрос о ПК или погоде в чате справа. ✨
+        ✨ Phantom AI теперь в чате! Спросите его о ПК или погоде. ✨
     </div>
 
     <header>
@@ -240,15 +240,15 @@
         </div>
     </section>
 
-    <!-- НОВЫЙ БЛОК: НОВОСТИ -->
+    <!-- БЛОК НОВОСТИ С АНОНСОМ -->
     <section id="news">
         <h2>Новости</h2>
         <div class="grid">
             <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.1);">
-                <h3>🤖 Запуск Phantom AI!</h3>
-                <p>Мы рады сообщить, что наш ИИ-ассистент <strong>Phantom</strong> теперь работает прямо на сайте! Он может консультировать по сборке ПК, подбирать комплектующие, рассказывать о погоде (на сегодня и завтра) и отвечать на любые вопросы о наших проектах.</p>
+                <h3>🤖 Phantom теперь в чате!</h3>
+                <p>Наш ИИ-ассистент <strong>Phantom</strong> теперь работает прямо на сайте! Он может консультировать по сборке ПК, подбирать комплектующие, рассказывать о погоде (на сегодня и завтра) и отвечать на любые вопросы о наших проектах.</p>
                 <p style="font-size: 0.9rem; color: #888;">Попробуйте прямо сейчас — просто напишите ему в чат в правом нижнем углу!</p>
-                <a href="#phantom" class="btn-download" style="text-align: center;">Узнать больше</a>
+                <button onclick="openChat()" class="btn-download" style="text-align: center; cursor: pointer;">Открыть чат</button>
             </div>
         </div>
     </section>
@@ -369,6 +369,13 @@
 
         chatButton.addEventListener('click', () => { chatWindow.classList.add('open'); document.body.style.cursor = 'auto'; });
         closeChat.addEventListener('click', () => { chatWindow.classList.remove('open'); document.body.style.cursor = 'none'; });
+
+        // Функция для кнопки анонса
+        function openChat() {
+            chatWindow.classList.add('open');
+            document.body.style.cursor = 'auto';
+            chatInput.focus();
+        }
 
         const cities = {
             "минск": { lat: 53.9, lon: 27.5667 },
