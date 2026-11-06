@@ -368,13 +368,20 @@
                         }
                         
                         const coords = cities[cityName];
-                        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`);
+                        
+                        // Запрос к Open-Meteo (получаем текущую погоду и прогноз на 3 дня)
+                        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
                         const weatherData = await weatherRes.json();
                         
-                        const temp = weatherData.current_weather.temperature;
-                        const wind = weatherData.current_weather.windspeed;
+                        const tempToday = weatherData.current_weather.temperature;
+                        const windToday = weatherData.current_weather.windspeed;
+                        const tempMaxTomorrow = weatherData.daily.temperature_2m_max[1];
+                        const tempMinTomorrow = weatherData.daily.temperature_2m_min[1];
                         
-                        finalPrompt = `Пользователь спросил про погоду в городе ${cityName}. Вот данные: температура ${temp}°C, ветер ${wind} км/ч. Ответь красиво и по-русски.`;
+                        finalPrompt = `Пользователь спросил про погоду в городе ${cityName}. 
+                        Сегодня: температура ${tempToday}°C, ветер ${windToday} км/ч. 
+                        Завтра: максимум ${tempMaxTomorrow}°C, минимум ${tempMinTomorrow}°C. 
+                        Ответь красиво и по-русски. Если пользователь спросил про "завтра", используй данные на завтра.`;
                     }
 
                     // ОБНОВЛЕННЫЙ ПРОМПТ: Запрет на приветствие без повода
