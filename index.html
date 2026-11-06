@@ -255,7 +255,6 @@
         </div>
     </section>
 
-    <!-- ОБНОВЛЕННЫЙ РАЗДЕЛ PHANTOM AI -->
     <section id="phantom">
         <h2>Phantom AI</h2>
         <div class="card" style="text-align: center; padding: 50px; background: rgba(20,20,20,0.9); border: 1px solid #D4AF37;">
@@ -264,7 +263,6 @@
                 Phantom — это наш умный помощник, который работает прямо на сайте. Он не просто отвечает на вопросы, а реально помогает!
             </p>
             
-            <!-- СПИСОК УМЕНИЙ -->
             <div style="text-align: left; max-width: 600px; margin: 0 auto 40px; color: #ccc; font-size: 1.1rem; line-height: 1.8;">
                 <p><strong>Что умеет Phantom:</strong></p>
                 <ul style="list-style-type: none; padding-left: 0;">
@@ -379,7 +377,8 @@
                         finalPrompt = `Пользователь спросил про погоду в городе ${cityName}. Вот данные: температура ${temp}°C, ветер ${wind} км/ч. Ответь красиво и по-русски.`;
                     }
 
-                    const prompt = encodeURIComponent("Ты — Phantom, ИИ-ассистент студии Phantom Road Studio. Отвечай на русском языке, кратко и дружелюбно. " + finalPrompt);
+                    // ОБНОВЛЕННЫЙ ПРОМПТ: Запрет на приветствие без повода
+                    const prompt = encodeURIComponent("Ты — Phantom, ИИ-ассистент студии Phantom Road Studio. Отвечай на русском языке, кратко и дружелюбно. НЕ ЗДОРОВАЙСЯ, если пользователь не поздоровался. Отвечай сразу по существу. " + finalPrompt);
                     const response = await fetch(`https://text.pollinations.ai/${prompt}?model=openai`);
                     
                     const data = await response.text();
