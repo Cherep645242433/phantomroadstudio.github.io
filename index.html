@@ -108,7 +108,7 @@
         #partners .card:hover { transform: translateY(-10px); border-color: #ff2a8e; box-shadow: 0 0 30px rgba(255, 42, 142, 0.4); }
         #team .card:hover { transform: translateY(-10px); border-color: #00ffff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); }
         #dev .card:hover { transform: translateY(-10px); border-color: #cccccc; box-shadow: 0 0 30px rgba(204, 204, 204, 0.4); }
-        #software .card:hover { transform: translateY(-10px); border-color: #00ffff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); } /* Для нового раздела */
+        #software .card:hover { transform: translateY(-10px); border-color: #00ffff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); }
 
         .card h3 { color: #D4AF37; font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase; }
         .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(212, 175, 55, 0.2); background-color: #111; }
@@ -224,7 +224,7 @@
         <nav>
             <a href="#about">О студии</a>
             <a href="#games">Игры</a>
-            <a href="#software">Софт</a> <!-- Новая ссылка -->
+            <a href="#software">Софт</a>
             <a href="#computers">Компьютеры</a>
             <a href="#books">Книги</a>
             <a href="#phantom">Phantom</a>
@@ -248,11 +248,9 @@
         </div>
     </section>
 
-    <!-- БЛОК НОВОСТИ С АНОНСОМ -->
     <section id="news">
         <h2>Новости</h2>
         <div class="grid">
-            <!-- Новость 1: Phantom в чате -->
             <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.1);">
                 <h3>🤖 Phantom теперь в чате!</h3>
                 <p>Наш ИИ-ассистент <strong>Phantom</strong> теперь работает прямо на сайте! Он может консультировать по сборке ПК, подбирать комплектующие, рассказывать о погоде (на сегодня и завтра) и отвечать на любые вопросы о наших проектах.</p>
@@ -260,7 +258,6 @@
                 <button onclick="openChat()" class="btn-download" style="text-align: center; cursor: pointer;">Открыть чат</button>
             </div>
 
-            <!-- Новость 2: Книга набрала 710 читателей -->
             <div class="card" style="border-color: #b82aff; background: rgba(184, 42, 255, 0.1);">
                 <h3>📚 Нашу книгу читают 710 человек!</h3>
                 <p>Новеллизация <strong>Need World Speed</strong> набрала уже <strong>710 читателей</strong>! Это отличный результат для нашего проекта. Спасибо всем, кто уже прочитал и поддержал нас!</p>
@@ -286,10 +283,8 @@
     <section id="software">
         <h2>Наш софт</h2>
         <div class="grid">
-            <!-- Карточка PhantomRFID -->
             <div class="card" style="border-color: #00ffff; background: rgba(0, 255, 255, 0.05);">
                 <h3>👻 PhantomRFID</h3>
-                <img src="PhantomRFID.ico" alt="PhantomRFID" style="height: 150px; object-fit: contain; background: #111; padding: 20px;">
                 <p>Надежное приложение для хранения цифровых ключей от домофонов. Шифрование данных, защита от взлома и стильный интерфейс.</p>
                 <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">
                     <strong>Версия:</strong> 1.0<br>
@@ -322,7 +317,6 @@
         </div>
     </section>
 
-    <!-- РАЗДЕЛ PHANTOM: ДВЕ КАРТОЧКИ -->
     <section id="phantom">
         <h2>Phantom AI</h2>
         <div class="grid">
@@ -347,7 +341,6 @@
         </div>
     </section>
 
-    <!-- НОВЫЙ РАЗДЕЛ: ПАРТНЁРЫ -->
     <section id="partners">
         <h2>Наши партнёры</h2>
         <div class="grid">
