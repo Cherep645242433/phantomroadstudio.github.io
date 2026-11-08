@@ -462,4 +462,5 @@
 
                 if (text.toLowerCase().includes('погода') || text.toLowerCase().includes('погоду')) {
                     let cityName = "минск";
-                    for (const city
+                    for (const city in cities) {
+                        if (
