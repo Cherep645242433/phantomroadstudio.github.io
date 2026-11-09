@@ -427,4 +427,160 @@
     <!-- Форма обратной связи -->
     <section id="contact">
         <h2>Напиши нам идею</h2>
-        <div class="card" style="border-color: #D4AF37;
+        <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.05);">
+            <p>Есть идея для проекта, хочешь помочь с ключом или предложить сотрудничество? Напиши нам!</p>
+            <form onsubmit="sendMessage(event)" style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
+                <input type="text" id="contactName" placeholder="Твоё имя" required style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem;">
+                <input type="text" id="contactEmail" placeholder="Твоя почта (или Telegram)" required style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem;">
+                <textarea id="contactMessage" placeholder="Твоё сообщение..." required rows="4" style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem; resize: vertical;"></textarea>
+                <button type="submit" class="btn-download" style="cursor: pointer; background: #D4AF37; color: #000; border: none;">Отправить</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>© 2026 Phantom Road Studio</footer>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+    <button class="chat-button" id="chatButton">💬</button>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Phantom AI</span>
+            <button class="close-btn" id="closeChat">✖</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">Привет! Я Phantom, ИИ-ассистент студии. Чем могу помочь?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Напишите сообщение...">
+            <button id="sendMessage">➤</button>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+        const links = document.querySelectorAll('a, button, .card');
+        links.forEach(link => { link.addEventListener('mouseenter', () => cursor.classList.add('hover')); link.addEventListener('mouseleave', () => cursor.classList.remove('hover')); });
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => { if (window.scrollY > 300) backToTop.classList.add('show'); else backToTop.classList.remove('show'); });
+        backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        const chatButton = document.getElementById('chatButton');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessage = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatButton.addEventListener('click', () => { chatWindow.classList.add('open'); document.body.style.cursor = 'auto'; });
+        closeChat.addEventListener('click', () => { chatWindow.classList.remove('open'); document.body.style.cursor = 'none'; });
+
+        function openChat() {
+            chatWindow.classList.add('open');
+            document.body.style.cursor = 'auto';
+            chatInput.focus();
+        }
+
+        const cities = {
+            "минск": { lat: 53.9, lon: 27.5667 },
+            "москва": { lat: 55.7558, lon: 37.6173 },
+            "токио": { lat: 35.6895, lon: 139.6917 },
+            "дубай": { lat: 25.2048, lon: 55.2708 },
+            "лондон": { lat: 51.5074, lon: -0.1278 },
+            "париж": { lat: 48.8566, lon: 2.3522 }
+        };
+
+        let lastRequestTime = 0;
+        const COOLDOWN = 45000;
+
+        sendMessage.addEventListener('click', async () => {
+            const text = chatInput.value.trim();
+            if (text === '') return;
+
+            const now = Date.now();
+            if (now - lastRequestTime < COOLDOWN) {
+                const remaining = Math.ceil((COOLDOWN - (now - lastRequestTime)) / 1000);
+                addMessage(`Подожди ${remaining} секунд, прежде чем задать следующий вопрос. Phantom отдыхает. ⏳`, 'bot');
+                return;
+            }
+            lastRequestTime = now;
+
+            addMessage(text, 'user');
+            chatInput.value = '';
+            
+            const loadingMsg = addMessage("Phantom думает...", 'bot');
+            
+            try {
+                let finalPrompt = text;
+
+                if (text.toLowerCase().includes('погода') || text.toLowerCase().includes('погоду')) {
+                    let cityName = "минск";
+                    for (const city in cities) {
+                        if (text.toLowerCase().includes(city)) {
+                            cityName = city;
+                            break;
+                        }
+                    }
+                    
+                    const coords = cities[cityName];
+                    const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
+                    const weatherData = await weatherRes.json();
+                    
+                    const tempToday = weatherData.current_weather.temperature;
+                    const windToday = weatherData.current_weather.windspeed;
+                    const tempMaxTomorrow = weatherData.daily.temperature_2m_max[1];
+                    const tempMinTomorrow = weatherData.daily.temperature_2m_min[1];
+                    
+                    finalPrompt = `Пользователь спросил про погоду в городе ${cityName}. 
+                    Сегодня: температура ${tempToday}°C, ветер ${windToday} км/ч. 
+                    Завтра: максимум ${tempMaxTomorrow}°C, минимум ${tempMinTomorrow}°C. 
+                    Ответь красиво и по-русски. Если пользователь спросил про "завтра", используй данные на завтра.`;
+                }
+
+                const prompt = encodeURIComponent("Ты — Phantom, ИИ-ассистент студии Phantom Road Studio. Отвечай на русском языке, кратко и дружелюбно. НЕ ЗДОРОВАЙСЯ, если пользователь не поздоровался. Отвечай сразу по существу. " + finalPrompt);
+                const response = await fetch(`https://text.pollinations.ai/${prompt}?model=openai`);
+                
+                const data = await response.text();
+                loadingMsg.remove();
+                
+                if (data) {
+                    addMessage(data, 'bot');
+                } else {
+                    addMessage("Извини, я не смог ответить.", 'bot');
+                }
+            } catch (error) {
+                loadingMsg.remove();
+                addMessage("Ошибка соединения с ИИ. Попробуй позже.", 'bot');
+                console.error(error);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage.click(); });
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', sender);
+            msgDiv.innerHTML = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return msgDiv; 
+        }
+
+        // Функция для формы обратной связи
+        function sendMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            const text = `Привет! Меня зовут ${name}. Моя почта/Telegram: ${email}. Сообщение: ${message}`;
+            const encodedText = encodeURIComponent(text);
+            
+            // Открываем Telegram с готовым сообщением
+            window.open(`https://t.me/phantomroadstudio?text=${encodedText}`, '_blank');
+        }
+    </script>
+</body>
+</html>
