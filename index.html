@@ -206,6 +206,8 @@
 
         /* --- ПОДВАЛ --- */
         footer { text-align: center; padding: 40px; border-top: 1px solid rgba(212, 175, 55, 0.2); color: #666; font-size: 0.9rem; letter-spacing: 2px; position: relative; z-index: 10; }
+        footer a { color: #D4AF37; text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: #ff2a2a; }
     </style>
 </head>
 <body>
@@ -438,7 +440,7 @@
         </div>
     </section>
 
-    <footer>© 2026 Phantom Road Studio</footer>
+    <footer>© 2026 Phantom Road Studio | <a href="https://vk.ru/phantomroadstudio" target="_blank">ВКонтакте</a></footer>
 
     <button class="back-to-top" id="backToTop">↑</button>
     <button class="chat-button" id="chatButton">💬</button>
@@ -576,10 +578,17 @@
             const message = document.getElementById('contactMessage').value;
             
             const text = `Привет! Меня зовут ${name}. Моя почта/Telegram: ${email}. Сообщение: ${message}`;
-            const encodedText = encodeURIComponent(text);
             
-            // Открываем Telegram с готовым сообщением (ваш канал)
-            window.open(`https://t.me/c/4313321552?text=${encodedText}`, '_blank');
+            // Копируем текст в буфер обмена
+            navigator.clipboard.writeText(text).then(() => {
+                // Открываем ВК
+                window.open('https://vk.ru/phantomroadstudio', '_blank');
+                alert('Текст сообщения скопирован! Вставьте его в ВК и отправьте нам.');
+            }).catch(() => {
+                // Если буфер недоступен, показываем текст
+                alert('Скопируйте текст вручную:\n\n' + text);
+                window.open('https://vk.ru/phantomroadstudio', '_blank');
+            });
         }
     </script>
 </body>
