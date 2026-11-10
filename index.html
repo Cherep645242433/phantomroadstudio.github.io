@@ -368,9 +368,43 @@
         </div>
     </section>
 
+    <!-- РАЗДЕЛ: КОМПЬЮТЕРЫ (с калькулятором) -->
     <section id="computers">
         <h2>Компьютеры</h2>
         <p>Для нас техника — это не просто железо. Мы (команда Phantom Road Studio и наш ИИ-напарник) помогаем с подбором комплектующих и собираем <strong>стационарные компьютеры</strong> для наших проектов и не только.</p>
+        
+        <!-- Калькулятор сборки ПК -->
+        <div class="card" style="border-color: #2a7aff; background: rgba(42, 122, 255, 0.05); margin-bottom: 30px;">
+            <h3>💰 Калькулятор сборки ПК</h3>
+            <p>Выбери комплектующие, и мы примерно посчитаем стоимость сборки.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+                <label style="color: #ccc;">Процессор:
+                    <select id="cpu" style="width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px;">
+                        <option value="15000">Intel Core i3 (15 000 руб.)</option>
+                        <option value="25000">Intel Core i5 (25 000 руб.)</option>
+                        <option value="40000">Intel Core i7 (40 000 руб.)</option>
+                    </select>
+                </label>
+                <label style="color: #ccc;">Видеокарта:
+                    <select id="gpu" style="width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px;">
+                        <option value="0">Встроенная (0 руб.)</option>
+                        <option value="20000">NVIDIA GTX 1650 (20 000 руб.)</option>
+                        <option value="50000">NVIDIA RTX 3060 (50 000 руб.)</option>
+                    </select>
+                </label>
+                <label style="color: #ccc;">Оперативная память:
+                    <select id="ram" style="width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px;">
+                        <option value="3000">8 ГБ (3 000 руб.)</option>
+                        <option value="6000">16 ГБ (6 000 руб.)</option>
+                        <option value="12000">32 ГБ (12 000 руб.)</option>
+                    </select>
+                </label>
+                <button onclick="calculatePC()" class="btn-download" style="margin-top: 10px; cursor: pointer; background: #2a7aff; color: #fff; border: none;">Рассчитать стоимость</button>
+                <p id="pcResult" style="font-size: 1.2rem; color: #2a7aff; font-weight: bold; margin-top: 10px;"></p>
+            </div>
+        </div>
+
         <div class="grid">
             <div class="card"><h3>Сборка стационарных ПК</h3><p>Поможем подобрать комплектующие под твои задачи и бюджет. Ты покупаешь детали, а мы профессионально собираем и настраиваем систему.</p></div>
             <div class="card"><h3>Апгрейд ПК</h3><p>Хочешь больше FPS на стационарном компьютере? Подскажем, какие детали заменить, и установим их.</p></div>
@@ -614,6 +648,17 @@
                 alert('📋 Скопируй текст вручную:\n\n' + text + '\n\nИ отправь на: bayarovich2018@mail.ru');
                 window.open('https://mail.ru', '_blank');
             });
+        }
+
+        // Калькулятор сборки ПК
+        function calculatePC() {
+            const cpu = parseInt(document.getElementById('cpu').value);
+            const gpu = parseInt(document.getElementById('gpu').value);
+            const ram = parseInt(document.getElementById('ram').value);
+            
+            const total = cpu + gpu + ram;
+            
+            document.getElementById('pcResult').innerText = `Примерная стоимость: ${total.toLocaleString()} руб.`;
         }
     </script>
 </body>
