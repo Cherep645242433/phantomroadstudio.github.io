@@ -751,7 +751,7 @@
             });
         }
 
-        // Калькулятор сборки ПК (пересчитан в BYN)
+        // Калькулятор сборки ПК (textContent вместо innerText)
         function calculatePC() {
             const cpu = parseInt(document.getElementById('cpu').value);
             const motherboard = parseInt(document.getElementById('motherboard').value);
@@ -768,7 +768,7 @@
             
             const total = cpu + motherboard + psu + case_ + gpu + cooler + ram + storage + sound + extra + peripheral + software;
             
-            document.getElementById('pcResult').innerText = `Примерная стоимость: ${total.toLocaleString()} BYN`;
+            document.getElementById('pcResult').textContent = `Примерная стоимость: ${total.toLocaleString()} BYN`;
         }
     </script>
 </body>
