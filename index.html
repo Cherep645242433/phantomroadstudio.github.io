@@ -207,6 +207,18 @@
         footer { text-align: center; padding: 40px; border-top: 1px solid rgba(212, 175, 55, 0.2); color: #666; font-size: 0.9rem; letter-spacing: 2px; position: relative; z-index: 10; }
         footer a { color: #D4AF37; text-decoration: none; transition: color 0.3s; }
         footer a:hover { color: #ff2a2a; }
+        
+        /* --- СТИЛИ ДЛЯ КАЛЬКУЛЯТОРА --- */
+        .calc-select {
+            width: 100%; 
+            padding: 8px; 
+            margin-top: 5px; 
+            background: #111; 
+            color: #fff; 
+            border: 1px solid #D4AF37; 
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -599,19 +611,6 @@
             <button id="sendMessage">➤</button>
         </div>
     </div>
-
-    <style>
-        .calc-select {
-            width: 100%; 
-            padding: 8px; 
-            margin-top: 5px; 
-            background: #111; 
-            color: #fff; 
-            border: 1px solid #D4AF37; 
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 
     <script>
         const backToTop = document.getElementById('backToTop');
