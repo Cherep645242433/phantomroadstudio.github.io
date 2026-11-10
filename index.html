@@ -107,6 +107,7 @@
         #dev .card:hover { transform: translateY(-10px); border-color: #cccccc; box-shadow: 0 0 30px rgba(204, 204, 204, 0.4); }
         #software .card:hover { transform: translateY(-10px); border-color: #00ffff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); }
         #reviews .card:hover { transform: translateY(-10px); border-color: #ffd700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+        #subscribe .card:hover { transform: translateY(-10px); border-color: #00ff88; box-shadow: 0 0 30px rgba(0, 255, 136, 0.4); }
 
         .card h3 { color: #D4AF37; font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase; }
         .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(212, 175, 55, 0.2); background-color: #111; }
@@ -342,7 +343,7 @@
         </div>
     </section>
 
-    <!-- НОВЫЙ РАЗДЕЛ: ОТЗЫВЫ -->
+    <!-- РАЗДЕЛ: ОТЗЫВЫ -->
     <section id="reviews">
         <h2>Отзывы</h2>
         <div class="grid">
@@ -352,6 +353,18 @@
                 <p style="font-size: 0.9rem; color: #888;">Ваш отзыв поможет нам стать лучше!</p>
                 <a href="#contact" class="btn-download" style="text-align: center; border-color: #D4AF37; color: #D4AF37;">Оставить отзыв</a>
             </div>
+        </div>
+    </section>
+
+    <!-- РАЗДЕЛ: ПОДПИСКА -->
+    <section id="subscribe">
+        <h2>Подпишись на новости</h2>
+        <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.05);">
+            <p>Хочешь узнавать о новых играх, софте и обновлениях первым? Оставь свою почту или Telegram!</p>
+            <form onsubmit="sendSubscribeForm(event)" style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
+                <input type="text" id="subEmail" placeholder="Твоя почта или Telegram" required style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem;">
+                <button type="submit" class="btn-download" style="cursor: pointer; background: #D4AF37; color: #000; border: none;">Подписаться</button>
+            </form>
         </div>
     </section>
 
@@ -569,7 +582,7 @@
             return msgDiv; 
         }
 
-        // Функция для формы обратной связи (переименована в sendContactForm)
+        // Функция для формы обратной связи
         function sendContactForm(event) {
             event.preventDefault();
             const name = document.getElementById('contactName').value;
@@ -578,11 +591,25 @@
             
             const text = `Привет! Меня зовут ${name}. Моя почта/Telegram: ${email}. Сообщение: ${message}`;
             
-            // Копируем текст в буфер обмена
             navigator.clipboard.writeText(text).then(() => {
-                // Открываем Mail.ru
                 window.open('https://mail.ru', '_blank');
                 alert('✅ Текст скопирован! Вставь его в письмо и отправь на bayarovich2018@mail.ru');
+            }).catch(() => {
+                alert('📋 Скопируй текст вручную:\n\n' + text + '\n\nИ отправь на: bayarovich2018@mail.ru');
+                window.open('https://mail.ru', '_blank');
+            });
+        }
+
+        // Функция для формы подписки
+        function sendSubscribeForm(event) {
+            event.preventDefault();
+            const email = document.getElementById('subEmail').value;
+            
+            const text = `Привет! Я хочу подписаться на новости Phantom Road Studio. Моя почта/Telegram: ${email}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                window.open('https://mail.ru', '_blank');
+                alert('✅ Текст скопирован! Отправь его на bayarovich2018@mail.ru, и мы добавим тебя в рассылку.');
             }).catch(() => {
                 alert('📋 Скопируй текст вручную:\n\n' + text + '\n\nИ отправь на: bayarovich2018@mail.ru');
                 window.open('https://mail.ru', '_blank');
