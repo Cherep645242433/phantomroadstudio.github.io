@@ -491,9 +491,9 @@
                     </select>
                 </label>
                 
-                <!-- ПО -->
+                <!-- ПО (переименовали id с software на soft) -->
                 <label style="color: #ccc;">ПО:
-                    <select id="software" class="calc-select">
+                    <select id="soft" class="calc-select">
                         <option value="0">Бесплатное (0 BYN)</option>
                         <option value="150">Windows + офис (150 BYN)</option>
                         <option value="300">Профессиональное (300 BYN)</option>
@@ -751,7 +751,7 @@
             });
         }
 
-        // Калькулятор сборки ПК (textContent вместо innerText)
+        // Калькулятор сборки ПК (исправлен id: soft вместо software)
         function calculatePC() {
             const cpu = parseInt(document.getElementById('cpu').value);
             const motherboard = parseInt(document.getElementById('motherboard').value);
@@ -764,9 +764,9 @@
             const sound = parseInt(document.getElementById('sound').value);
             const extra = parseInt(document.getElementById('extra').value);
             const peripheral = parseInt(document.getElementById('peripheral').value);
-            const software = parseInt(document.getElementById('software').value);
+            const soft = parseInt(document.getElementById('soft').value);
             
-            const total = cpu + motherboard + psu + case_ + gpu + cooler + ram + storage + sound + extra + peripheral + software;
+            const total = cpu + motherboard + psu + case_ + gpu + cooler + ram + storage + sound + extra + peripheral + soft;
             
             document.getElementById('pcResult').textContent = `Примерная стоимость: ${total.toLocaleString()} BYN`;
         }
