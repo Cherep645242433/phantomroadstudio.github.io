@@ -19,7 +19,6 @@
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
-            /* cursor: none; — убрали, чтобы вернуть обычный курсор */
         }
 
         /* --- НЕОНОВЫЙ СКРОЛЛБАР --- */
@@ -422,7 +421,7 @@
         <h2>Напиши нам идею</h2>
         <div class="card" style="border-color: #D4AF37; background: rgba(212, 175, 55, 0.05);">
             <p>Есть идея для проекта, хочешь помочь с ключом или предложить сотрудничество? Напиши нам!</p>
-            <form onsubmit="sendMessage(event)" style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
+            <form onsubmit="sendContactForm(event)" style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
                 <input type="text" id="contactName" placeholder="Твое имя" required style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem;">
                 <input type="text" id="contactEmail" placeholder="Твоя почта (или Telegram)" required style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem;">
                 <textarea id="contactMessage" placeholder="Твое сообщение..." required rows="4" style="padding: 12px; background: #111; border: 1px solid #D4AF37; border-radius: 5px; color: #fff; font-size: 1rem; resize: vertical;"></textarea>
@@ -459,7 +458,7 @@
         const chatWindow = document.getElementById('chatWindow');
         const closeChat = document.getElementById('closeChat');
         const chatInput = document.getElementById('chatInput');
-        const sendMessage = document.getElementById('sendMessage');
+        const sendMessageBtn = document.getElementById('sendMessage');
         const chatMessages = document.getElementById('chatMessages');
 
         chatButton.addEventListener('click', () => { chatWindow.classList.add('open'); });
@@ -482,7 +481,7 @@
         let lastRequestTime = 0;
         const COOLDOWN = 45000;
 
-        sendMessage.addEventListener('click', async () => {
+        sendMessageBtn.addEventListener('click', async () => {
             const text = chatInput.value.trim();
             if (text === '') return;
 
@@ -544,7 +543,7 @@
             }
         });
 
-        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage.click(); });
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessageBtn.click(); });
 
         function addMessage(text, sender) {
             const msgDiv = document.createElement('div');
@@ -555,8 +554,8 @@
             return msgDiv; 
         }
 
-        // Функция для формы обратной связи
-        function sendMessage(event) {
+        // Функция для формы обратной связи (переименована в sendContactForm)
+        function sendContactForm(event) {
             event.preventDefault();
             const name = document.getElementById('contactName').value;
             const email = document.getElementById('contactEmail').value;
