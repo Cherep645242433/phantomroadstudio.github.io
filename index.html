@@ -378,31 +378,120 @@
             <h3>💰 Калькулятор сборки ПК</h3>
             <p>Выбери комплектующие, и мы примерно посчитаем стоимость сборки.</p>
             
-            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                
+                <!-- Процессор -->
                 <label style="color: #ccc;">Процессор:
-                    <select id="cpu" style="width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px;">
+                    <select id="cpu" class="calc-select">
                         <option value="15000">Intel Core i3 (15 000 руб.)</option>
                         <option value="25000">Intel Core i5 (25 000 руб.)</option>
                         <option value="40000">Intel Core i7 (40 000 руб.)</option>
                     </select>
                 </label>
-                <label style="color: #ccc;">Видеокарта:
-                    <select id="gpu" style="width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px;">
-                        <option value="0">Встроенная (0 руб.)</option>
-                        <option value="20000">NVIDIA GTX 1650 (20 000 руб.)</option>
-                        <option value="50000">NVIDIA RTX 3060 (50 000 руб.)</option>
+                
+                <!-- Мат. плата -->
+                <label style="color: #ccc;">Мат. плата:
+                    <select id="motherboard" class="calc-select">
+                        <option value="5000">Бюджетная (5 000 руб.)</option>
+                        <option value="10000">Средняя (10 000 руб.)</option>
+                        <option value="20000">Топовая (20 000 руб.)</option>
                     </select>
                 </label>
+                
+                <!-- Блок питания -->
+                <label style="color: #ccc;">Блок питания:
+                    <select id="psu" class="calc-select">
+                        <option value="3000">500 Вт (3 000 руб.)</option>
+                        <option value="5000">700 Вт (5 000 руб.)</option>
+                        <option value="8000">1000 Вт (8 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- Корпус -->
+                <label style="color: #ccc;">Корпус:
+                    <select id="case" class="calc-select">
+                        <option value="2000">Простой (2 000 руб.)</option>
+                        <option value="5000">С подсветкой (5 000 руб.)</option>
+                        <option value="10000">Премиум (10 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- Видеокарта -->
+                <label style="color: #ccc;">Видеокарта:
+                    <select id="gpu" class="calc-select">
+                        <option value="0">Встроенная (0 руб.)</option>
+                        <option value="20000">GTX 1650 (20 000 руб.)</option>
+                        <option value="50000">RTX 3060 (50 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- Охлаждение -->
+                <label style="color: #ccc;">Охлаждение:
+                    <select id="cooler" class="calc-select">
+                        <option value="1000">Башенный (1 000 руб.)</option>
+                        <option value="3000">Водяное (3 000 руб.)</option>
+                        <option value="6000">СЖО (6 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- ОЗУ -->
                 <label style="color: #ccc;">Оперативная память:
-                    <select id="ram" style="width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px;">
+                    <select id="ram" class="calc-select">
                         <option value="3000">8 ГБ (3 000 руб.)</option>
                         <option value="6000">16 ГБ (6 000 руб.)</option>
                         <option value="12000">32 ГБ (12 000 руб.)</option>
                     </select>
                 </label>
-                <button onclick="calculatePC()" class="btn-download" style="margin-top: 10px; cursor: pointer; background: #2a7aff; color: #fff; border: none;">Рассчитать стоимость</button>
-                <p id="pcResult" style="font-size: 1.2rem; color: #2a7aff; font-weight: bold; margin-top: 10px;"></p>
+                
+                <!-- Накопители -->
+                <label style="color: #ccc;">Накопители (SSD/HDD):
+                    <select id="storage" class="calc-select">
+                        <option value="2000">HDD 1 ТБ (2 000 руб.)</option>
+                        <option value="5000">SSD 512 ГБ (5 000 руб.)</option>
+                        <option value="10000">SSD 1 ТБ (10 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- Звуковая карта -->
+                <label style="color: #ccc;">Звуковая карта:
+                    <select id="sound" class="calc-select">
+                        <option value="0">Встроенная (0 руб.)</option>
+                        <option value="3000">Внешняя (3 000 руб.)</option>
+                        <option value="8000">Профессиональная (8 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- Доп. детали -->
+                <label style="color: #ccc;">Доп. детали:
+                    <select id="extra" class="calc-select">
+                        <option value="0">Нет (0 руб.)</option>
+                        <option value="2000">Вентиляторы (2 000 руб.)</option>
+                        <option value="5000">Подсветка + кабели (5 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- Периферия -->
+                <label style="color: #ccc;">Периферия:
+                    <select id="peripheral" class="calc-select">
+                        <option value="0">Нет (0 руб.)</option>
+                        <option value="3000">Клавиатура + мышь (3 000 руб.)</option>
+                        <option value="10000">Монитор + клавиатура + мышь (10 000 руб.)</option>
+                    </select>
+                </label>
+                
+                <!-- ПО -->
+                <label style="color: #ccc;">ПО:
+                    <select id="software" class="calc-select">
+                        <option value="0">Бесплатное (0 руб.)</option>
+                        <option value="5000">Windows + офис (5 000 руб.)</option>
+                        <option value="10000">Профессиональное (10 000 руб.)</option>
+                    </select>
+                </label>
+                
             </div>
+            
+            <button onclick="calculatePC()" class="btn-download" style="margin-top: 20px; cursor: pointer; background: #2a7aff; color: #fff; border: none; max-width: 300px;">Рассчитать стоимость</button>
+            <p id="pcResult" style="font-size: 1.2rem; color: #2a7aff; font-weight: bold; margin-top: 15px;"></p>
         </div>
 
         <div class="grid">
@@ -510,6 +599,19 @@
             <button id="sendMessage">➤</button>
         </div>
     </div>
+
+    <style>
+        .calc-select {
+            width: 100%; 
+            padding: 8px; 
+            margin-top: 5px; 
+            background: #111; 
+            color: #fff; 
+            border: 1px solid #D4AF37; 
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 
     <script>
         const backToTop = document.getElementById('backToTop');
@@ -653,10 +755,19 @@
         // Калькулятор сборки ПК
         function calculatePC() {
             const cpu = parseInt(document.getElementById('cpu').value);
+            const motherboard = parseInt(document.getElementById('motherboard').value);
+            const psu = parseInt(document.getElementById('psu').value);
+            const case_ = parseInt(document.getElementById('case').value);
             const gpu = parseInt(document.getElementById('gpu').value);
+            const cooler = parseInt(document.getElementById('cooler').value);
             const ram = parseInt(document.getElementById('ram').value);
+            const storage = parseInt(document.getElementById('storage').value);
+            const sound = parseInt(document.getElementById('sound').value);
+            const extra = parseInt(document.getElementById('extra').value);
+            const peripheral = parseInt(document.getElementById('peripheral').value);
+            const software = parseInt(document.getElementById('software').value);
             
-            const total = cpu + gpu + ram;
+            const total = cpu + motherboard + psu + case_ + gpu + cooler + ram + storage + sound + extra + peripheral + software;
             
             document.getElementById('pcResult').innerText = `Примерная стоимость: ${total.toLocaleString()} руб.`;
         }
