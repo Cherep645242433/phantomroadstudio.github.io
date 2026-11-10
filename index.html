@@ -19,7 +19,7 @@
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
-            cursor: none;
+            /* cursor: none; — убрали, чтобы вернуть обычный курсор */
         }
 
         /* --- НЕОНОВЫЙ СКРОЛЛБАР --- */
@@ -35,14 +35,6 @@
             background: #ff2a2a;
             box-shadow: 0 0 15px #ff2a2a, 0 0 30px #ff2a2a;
         }
-
-        /* --- КУРСОР --- */
-        .cursor {
-            position: fixed; width: 20px; height: 20px; border: 2px solid #D4AF37;
-            border-radius: 50%; pointer-events: none; z-index: 99999;
-            transition: transform 0.1s ease-out; box-shadow: 0 0 10px #D4AF37;
-        }
-        .cursor.hover { transform: scale(1.5); background: rgba(212, 175, 55, 0.2); }
 
         /* --- ФОН --- */
         .phantom-bg {
@@ -218,7 +210,6 @@
 </head>
 <body>
 
-    <div class="cursor" id="cursor"></div>
     <img src="phantom (1).gif" class="phantom-bg" alt="Phantom Background">
     <div class="overlay"></div>
 
@@ -460,11 +451,6 @@
     </div>
 
     <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
-        const links = document.querySelectorAll('a, button, .card');
-        links.forEach(link => { link.addEventListener('mouseenter', () => cursor.classList.add('hover')); link.addEventListener('mouseleave', () => cursor.classList.remove('hover')); });
-
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => { if (window.scrollY > 300) backToTop.classList.add('show'); else backToTop.classList.remove('show'); });
         backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
@@ -476,12 +462,11 @@
         const sendMessage = document.getElementById('sendMessage');
         const chatMessages = document.getElementById('chatMessages');
 
-        chatButton.addEventListener('click', () => { chatWindow.classList.add('open'); document.body.style.cursor = 'auto'; });
-        closeChat.addEventListener('click', () => { chatWindow.classList.remove('open'); document.body.style.cursor = 'none'; });
+        chatButton.addEventListener('click', () => { chatWindow.classList.add('open'); });
+        closeChat.addEventListener('click', () => { chatWindow.classList.remove('open'); });
 
         function openChat() {
             chatWindow.classList.add('open');
-            document.body.style.cursor = 'auto';
             chatInput.focus();
         }
 
