@@ -223,7 +223,8 @@
 </head>
 <body>
 
-    <img src="phantom (1).gif" class="phantom-bg" alt="Phantom Background">
+    <!-- Если картинки нет, этот тег можно закомментировать (Ctrl + /) -->
+    <img src="phantom.gif" class="phantom-bg" alt="Phantom Background">
     <div class="overlay"></div>
 
     <!-- АНОНС -->
@@ -491,7 +492,7 @@
                     </select>
                 </label>
                 
-                <!-- ПО (переименовали id с software на soft) -->
+                <!-- ПО -->
                 <label style="color: #ccc;">ПО:
                     <select id="soft" class="calc-select">
                         <option value="0">Бесплатное (0 BYN)</option>
@@ -751,7 +752,7 @@
             });
         }
 
-        // Калькулятор сборки ПК (исправлен id: soft вместо software)
+        // Калькулятор сборки ПК
         function calculatePC() {
             const cpu = parseInt(document.getElementById('cpu').value);
             const motherboard = parseInt(document.getElementById('motherboard').value);
