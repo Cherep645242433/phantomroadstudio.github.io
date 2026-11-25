@@ -193,6 +193,64 @@
         /* --- СТИЛИ ДЛЯ КАЛЬКУЛЯТОРА --- */
         .calc-select { width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #D4AF37; border-radius: 5px; cursor: pointer; }
     </style>
+/* --- НОВОГОДНЯЯ ГИРЛЯНДА И СНЕГ --- */
+.ny-garland {
+    position: fixed;
+    top: 98px;
+    left: 0;
+    width: 100%;
+    height: 18px;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 998;
+    overflow: hidden;
+}
+.ny-garland span {
+    width: 10px;
+    height: 14px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: ny-twinkle 1.6s infinite alternate ease-in-out;
+}
+.ny-garland span:nth-child(4n+1) { background: #D4AF37; box-shadow: 0 0 12px #D4AF37, 0 0 24px #D4AF37; animation-delay: 0s; }
+.ny-garland span:nth-child(4n+2) { background: #ff2a2a; box-shadow: 0 0 12px #ff2a2a, 0 0 24px #ff2a2a; animation-delay: 0.4s; }
+.ny-garland span:nth-child(4n+3) { background: #00ffff; box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff; animation-delay: 0.8s; }
+.ny-garland span:nth-child(4n+4) { background: #00ff88; box-shadow: 0 0 12px #00ff88, 0 0 24px #00ff88; animation-delay: 1.2s; }
+
+@keyframes ny-twinkle {
+    0% { opacity: 0.35; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.15); }
+}
+#ny-snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 997;
+}
+.logo .ny-badge {
+    font-size: 0.75rem;
+    background: linear-gradient(45deg, #D4AF37, #ff2a2a);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+.hero .ny-greeting {
+    margin-top: 22px;
+    padding: 10px 24px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    background: rgba(20, 20, 20, 0.75);
+    border-radius: 30px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #D4AF37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
 </head>
 <body>
 
@@ -200,6 +258,45 @@
     <div class="overlay"></div>
 
     <div class="top-banner">
+          <canvas id="ny-snow-canvas"></canvas>
+
+    <div class="top-banner">
+        🎄 С наступающим Новым годом от Phantom Road Studio! Готовим релиз Need World Speed Reborn — а нашу книгу читают уже 735 человек! ❄️
+    </div>
+
+    <header>
+        <div class="logo">🎄 Phantom Road <span class="ny-badge">2027</span></div>
+        <nav>
+            <a href="#about">О студии</a>
+            <a href="#games">Игры</a>
+            <a href="#software">Софт</a>
+            <a href="#computers">Компьютеры</a>
+            <a href="#books">Книги</a>
+            <a href="#music">Музыка</a>
+            <a href="#phantom">Phantom</a>
+            <a href="#partners">Партнёры</a>
+            <a href="#merch">Мерч</a>
+            <a href="#team">Команда</a>
+            <a href="#releases">Релизы</a>
+            <a href="#dev">Разработчикам</a>
+            <a href="https://vk.ru" target="_blank">ВКонтакте</a>
+        </nav>
+    </header>
+
+    <div class="ny-garland" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hero">
+        <h1>❄️ Phantom Road Studio ❄️</h1>
+        <p>Игры. Музыка. Технологии.</p>
+        <div class="ny-greeting">✨ С Новым годом! Врываемся в новый сезон на полной скорости ✨</div>
+    </div>
+
         ✨ Phantom AI теперь в чате! Спроси его о ПК или погоде. ✨
     </div>
 
@@ -649,4 +746,48 @@
         }
     </script>
 </body>
+<script>
+(function() {
+    const canvas = document.getElementById('ny-snow-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    const flakesCount = window.innerWidth < 768 ? 45 : 90;
+    const flakes = Array.from({ length: flakesCount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2.5 + 1,
+        speedY: Math.random() * 1.1 + 0.4,
+        speedX: Math.random() * 0.6 - 0.3,
+        alpha: Math.random() * 0.6 + 0.3
+    }));
+
+    function drawSnow() {
+        ctx.clearRect(0, 0, width, height);
+        for (let f of flakes) {
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 250, 235, ${f.alpha})`;
+            ctx.fill();
+
+            f.y += f.speedY;
+            f.x += f.speedX;
+
+            if (f.y > height) { f.y = -5; f.x = Math.random() * width; }
+            if (f.x > width) f.x = 0;
+            if (f.x < 0) f.x = width;
+        }
+        requestAnimationFrame(drawSnow);
+    }
+    drawSnow();
+})();
+</script>
+
 </html>
