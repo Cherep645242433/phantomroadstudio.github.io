@@ -363,35 +363,138 @@
         </div>
     </section>
 
-    <section id="computers">
+     <section id="computers">
         <h2>Компьютеры</h2>
         <p>Для нас техника — это не просто железо. Мы (команда Phantom Road Studio и наш ИИ-напарник) помогаем с подбором комплектующих и собираем <strong>стационарные компьютеры</strong> для наших проектов и не только.</p>
-        <div class="card" style="border-color: #2a7aff; background: rgba(42, 122, 255, 0.05); margin-bottom: 30px;">
-            <h3>💰 Калькулятор сборки ПК</h3>
-            <p>Выбери комплектующие, и мы примерно посчитаем стоимость сборки.</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                <label style="color: #ccc;">Процессор:<select id="cpu" class="calc-select"><option value="450">Intel Core i3 (450 BYN)</option><option value="750">Intel Core i5 (750 BYN)</option><option value="1200">Intel Core i7 (1200 BYN)</option></select></label>
-                <label style="color: #ccc;">Мат. плата:<select id="motherboard" class="calc-select"><option value="150">Бюджетная (150 BYN)</option><option value="300">Средняя (300 BYN)</option><option value="600">Топовая (600 BYN)</option></select></label>
-                <label style="color: #ccc;">Блок питания:<select id="psu" class="calc-select"><option value="90">500 Вт (90 BYN)</option><option value="150">700 Вт (150 BYN)</option><option value="240">1000 Вт (240 BYN)</option></select></label>
-                <label style="color: #ccc;">Корпус:<select id="case" class="calc-select"><option value="60">Простой (60 BYN)</option><option value="150">С подсветкой (150 BYN)</option><option value="300">Премиум (300 BYN)</option></select></label>
-                <label style="color: #ccc;">Видеокарта:<select id="gpu" class="calc-select"><option value="0">Встроенная (0 BYN)</option><option value="600">GTX 1650 (600 BYN)</option><option value="1500">RTX 3060 (1500 BYN)</option></select></label>
-                <label style="color: #ccc;">Охлаждение:<select id="cooler" class="calc-select"><option value="30">Башенный (30 BYN)</option><option value="90">Водяное (90 BYN)</option><option value="180">СЖО (180 BYN)</option></select></label>
-                <label style="color: #ccc;">Оперативная память:<select id="ram" class="calc-select"><option value="90">8 ГБ (90 BYN)</option><option value="180">16 ГБ (180 BYN)</option><option value="360">32 ГБ (360 BYN)</option></select></label>
-                <label style="color: #ccc;">Накопители:<select id="storage" class="calc-select"><option value="60">HDD 1 ТБ (60 BYN)</option><option value="150">SSD 512 ГБ (150 BYN)</option><option value="300">SSD 1 ТБ (300 BYN)</option></select></label>
-                <label style="color: #ccc;">Звуковая карта:<select id="sound" class="calc-select"><option value="0">Встроенная (0 BYN)</option><option value="90">Внешняя (90 BYN)</option><option value="240">Профессиональная (240 BYN)</option></select></label>
-                <label style="color: #ccc;">Доп. детали:<select id="extra" class="calc-select"><option value="0">Нет (0 BYN)</option><option value="60">Вентиляторы (60 BYN)</option><option value="150">Подсветка + кабели (150 BYN)</option></select></label>
-                <label style="color: #ccc;">Периферия:<select id="peripheral" class="calc-select"><option value="0">Нет (0 BYN)</option><option value="90">Клавиатура + мышь (90 BYN)</option><option value="300">Монитор + клавиатура + мышь (300 BYN)</option></select></label>
-                <label style="color: #ccc;">ПО:<select id="soft" class="calc-select"><option value="0">Бесплатное (0 BYN)</option><option value="150">Windows + офис (150 BYN)</option><option value="300">Профессиональное (300 BYN)</option></select></label>
+        
+        <div class="card" style="border-color: #2a7aff; background: rgba(15, 22, 38, 0.85); margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                <h3 style="margin-bottom: 0;">🛒 Конфигуратор сборки ПК</h3>
+                <span id="catalogTotalBadge" style="background: rgba(42, 122, 255, 0.2); border: 1px solid #2a7aff; color: #7bb4ff; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">В каталоге: 118 комплектующих</span>
             </div>
-            <button onclick="calculatePC()" class="btn-download" style="margin-top: 20px; cursor: pointer; background: #2a7aff; color: #fff; border: none; max-width: 300px;">Рассчитать стоимость</button>
-            <p id="pcResult" style="font-size: 1.2rem; color: #2a7aff; font-weight: bold; margin-top: 15px;"></p>
-        </div>
-        <div class="grid">
-            <div class="card"><h3>Сборка стационарных ПК</h3><p>Поможем подобрать комплектующие под твои задачи и бюджет.</p></div>
-            <div class="card"><h3>Апгрейд ПК</h3><p>Хочешь больше FPS? Подскажем, какие детали заменить.</p></div>
-            <div class="card"><h3>Замена старых деталей</h3><p>Поможем с выбором новых и заменим их.</p></div>
-        </div>
-    </section>
+            <p style="font-size: 0.95rem; margin-bottom: 20px;">Выбирай реальные комплектующие из каталога — стоимость в <strong>BYN</strong> пересчитается автоматически.</p>
+
+            <div id="pcConfiguratorGrid" style="display: flex; flex-direction: column; gap: 12px;">
+                
+                <!-- 1. Процессор -->
+                <div class="cfg-row">
+                    <div class="cfg-head">
+                        <span class="cfg-title">🔲 Процессор</span>
+                        <span class="cfg-count"></span>
+                    </div>
+                    <select id="cpu" class="calc-select">
+                        <option value="0">— Не выбрано (0 BYN) —</option>
+                        <option value="240">Intel Core i3-10105F (4 ядра / 8 потоков, до 4.4 ГГц) — 240 BYN</option>
+                        <option value="295">Intel Core i3-12100F (4 ядра / 8 потоков, LGA1700) — 295 BYN</option>
+                        <option value="310">Intel Core i5-8600 (6 ядер / 6 потоков, до 4.3 ГГц) — 310 BYN</option>
+                        <option value="320">AMD Ryzen 5 3600 (6 ядер / 12 потоков, AM4) — 320 BYN</option>
+                        <option value="390">AMD Ryzen 5 5500 (6 ядер / 12 потоков, до 4.2 ГГц) — 390 BYN</option>
+                        <option value="440">Intel Core i5-12400F (6 ядер / 12 потоков, LGA1700) — 440 BYN</option>
+                        <option value="460">AMD Ryzen 5 5600 (6 ядер / 12 потоков, до 4.4 ГГц) — 460 BYN</option>
+                        <option value="590">AMD Ryzen 5 7500F (6 ядер / 12 потоков, AM5, DDR5) — 590 BYN</option>
+                        <option value="640">Intel Core i5-13400F (10 ядер / 16 потоков) — 640 BYN</option>
+                        <option value="790">Intel Core i5-14400F (10 ядер / 16 потоков, до 4.7 ГГц) — 790 BYN</option>
+                        <option value="860">AMD Ryzen 7 5700X3D (8 ядер / 16 потоков, 96 МБ кэш) — 860 BYN</option>
+                        <option value="1150">Intel Core i7-13700F (16 ядер / 24 потока) — 1150 BYN</option>
+                        <option value="1380">AMD Ryzen 7 7800X3D (8 ядер / 16 потоков, игровой топ) — 1380 BYN</option>
+                        <option value="1690">Intel Core i9-14900F (24 ядра / 32 потока) — 1690 BYN</option>
+                    </select>
+                </div>
+
+                <!-- 2. Система охлаждения -->
+                <div class="cfg-row">
+                    <div class="cfg-head">
+                        <span class="cfg-title">❄️ Система охлаждения</span>
+                        <span class="cfg-count"></span>
+                    </div>
+                    <select id="cooler" class="calc-select">
+                        <option value="0">— Не выбрано (0 BYN) —</option>
+                        <option value="25">Боксовый кулер Intel / AMD (до 65 Вт) — 25 BYN</option>
+                        <option value="45">ID-COOLING SE-903-XT (3 трубки, 130 Вт) — 45 BYN</option>
+                        <option value="65">DeepCool GAMMAXX 300 (3 трубки, 130 Вт) — 65 BYN</option>
+                        <option value="85">ID-COOLING SE-214-XT ARGB (4 трубки, 180 Вт) — 85 BYN</option>
+                        <option value="110">DeepCool AK400 (4 трубки, тихий, 220 Вт) — 110 BYN</option>
+                        <option value="145">ID-COOLING FROZN A620 (двухбашенный, 270 Вт) — 145 BYN</option>
+                        <option value="195">DeepCool AK620 (двухбашенный, 260 Вт) — 195 BYN</option>
+                        <option value="260">СЖО DeepCool LE520 (водяное 240 мм, ARGB) — 260 BYN</option>
+                        <option value="390">СЖО Arctic Liquid Freezer III 360 (360 мм) — 390 BYN</option>
+                    </select>
+                </div>
+
+                <!-- 3. Материнская плата -->
+                <div class="cfg-row">
+                    <div class="cfg-head">
+                        <span class="cfg-title">🔌 Материнская плата</span>
+                        <span class="cfg-count"></span>
+                    </div>
+                    <select id="motherboard" class="calc-select">
+                        <option value="0">— Не выбрано (0 BYN) —</option>
+                        <option value="180">ASUS PRIME H310M-R R2.0 (LGA1151v2, DDR4) — 180 BYN</option>
+                        <option value="210">Gigabyte H510M H V2 (LGA1200, DDR4, M.2) — 210 BYN</option>
+                        <option value="240">MSI A520M-A PRO (AM4, DDR4, M.2) — 240 BYN</option>
+                        <option value="275">ASUS PRIME H610M-K D4 (LGA1700, DDR4) — 275 BYN</option>
+                        <option value="310">Gigabyte B450M DS3H V2 (AM4, 4 слота DDR4) — 310 BYN</option>
+                        <option value="365">MSI B550M PRO-VDH WIFI (AM4, PCIe 4.0, Wi-Fi) — 365 BYN</option>
+                        <option value="410">Gigabyte B760M DS3H DDR4 (LGA1700, 2x M.2) — 410 BYN</option>
+                        <option value="460">ASUS TUF GAMING B550-PLUS (AM4, ATX) — 460 BYN</option>
+                        <option value="520">MSI PRO B650M-P (AM5, DDR5, PCIe 4.0) — 520 BYN</option>
+                        <option value="590">MSI MAG B760 TOMAHAWK WIFI (LGA1700, DDR5) — 590 BYN</option>
+                        <option value="680">Gigabyte B650 AORUS ELITE AX (AM5, DDR5, Wi-Fi 6E) — 680 BYN</option>
+                    </select>
+                </div>
+
+                <!-- 4. Видеокарта -->
+                <div class="cfg-row">
+                    <div class="cfg-head">
+                        <span class="cfg-title">🎮 Видеокарта</span>
+                        <span class="cfg-count"></span>
+                    </div>
+                    <select id="gpu" class="calc-select">
+                        <option value="0">— Встроенная графика процессора (0 BYN) —</option>
+                        <option value="290">AMD Radeon RX 560 4GB GDDR5 — 290 BYN</option>
+                        <option value="360">AMD Radeon RX 580 8GB GDDR5 — 360 BYN</option>
+                        <option value="490">NVIDIA GeForce GTX 1650 4GB GDDR6 — 490 BYN</option>
+                        <option value="620">NVIDIA GeForce GTX 1660 Super 6GB GDDR6 — 620 BYN</option>
+                        <option value="780">AMD Radeon RX 6600 8GB GDDR6 — 780 BYN</option>
+                        <option value="890">NVIDIA GeForce RTX 3050 8GB GDDR6 — 890 BYN</option>
+                        <option value="980">AMD Radeon RX 7600 8GB GDDR6 — 980 BYN</option>
+                        <option value="1050">NVIDIA GeForce RTX 3060 12GB GDDR6 — 1050 BYN</option>
+                        <option value="1190">NVIDIA GeForce RTX 4060 8GB GDDR6 (DLSS 3) — 1190 BYN</option>
+                        <option value="1490">NVIDIA GeForce RTX 4060 Ti 8GB GDDR6 — 1490 BYN</option>
+                        <option value="1650">AMD Radeon RX 7700 XT 12GB GDDR6 — 1650 BYN</option>
+                        <option value="2150">NVIDIA GeForce RTX 4070 Super 12GB GDDR6X — 2150 BYN</option>
+                        <option value="2950">NVIDIA GeForce RTX 4070 Ti Super 16GB — 2950 BYN</option>
+                    </select>
+                </div>
+
+                <!-- 5. Оперативная память -->
+                <div class="cfg-row">
+                    <div class="cfg-head">
+                        <span class="cfg-title">🧠 Оперативная память (RAM)</span>
+                        <span class="cfg-count"></span>
+                    </div>
+                    <select id="ram" class="calc-select">
+                        <option value="0">— Не выбрано (0 BYN) —</option>
+                        <option value="75">8 ГБ DDR4 3200 МГц (1x8 ГБ Kingston Fury) — 75 BYN</option>
+                        <option value="135">16 ГБ DDR4 3200 МГц (2x8 ГБ Kingston Fury Beast) — 135 BYN</option>
+                        <option value="145">16 ГБ DDR4 3600 МГц (2x8 ГБ G.Skill Ripjaws V) — 145 BYN</option>
+                        <option value="240">32 ГБ DDR4 3200 МГц (2x16 ГБ Kingston Fury Beast) — 240 BYN</option>
+                        <option value="265">32 ГБ DDR4 3600 МГц (2x16 ГБ Corsair Vengeance) — 265 BYN</option>
+                        <option value="210">16 ГБ DDR5 5600 МГц (2x8 ГБ Kingston Fury) — 210 BYN</option>
+                        <option value="360">32 ГБ DDR5 6000 МГц (2x16 ГБ Kingston Fury Beast) — 360 BYN</option>
+                        <option value="390">32 ГБ DDR5 6000 МГц (2x16 ГБ G.Skill Trident Z5 RGB) — 390 BYN</option>
+                        <option value="690">64 ГБ DDR5 6000 МГц (2x32 ГБ Kingston Fury) — 690 BYN</option>
+                    </select>
+                </div>
+
+                <!-- 6. Твердотельный накопитель (SSD) -->
+                <div class="cfg-row">
+                    <div class="cfg-head">
+                        <span class="cfg-title">⚡ Твердотельный накопитель (SSD)</span>
+                        <span class="cfg-count"></span>
+                    </div>
+                    <select id="storage" class="calc-select">
+
 
     <section id="books">
         <h2>Книги</h2>
