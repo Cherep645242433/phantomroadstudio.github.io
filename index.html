@@ -649,4 +649,260 @@
         }
     </script>
 </body>
+<!-- === ПОЛНЫЙ НОВОГОДНИЙ КОМПЛЕКТ PHANTOM ROAD STUDIO (ГИРЛЯНДА ВК + СНЕГ + СУГРОБЫ + ЁЛКА) === -->
+<style>
+    /* 1. Интерактивная гирлянда ВК */
+    .vk-garland-wrap {
+        position: fixed;
+        top: 96px;
+        left: 0;
+        width: 100%;
+        height: 45px;
+        z-index: 998;
+        pointer-events: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+        overflow: hidden;
+    }
+    .vk-garland-wrap::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: -10px;
+        right: -10px;
+        height: 22px;
+        border-bottom: 2px solid rgba(212, 175, 55, 0.35);
+        border-radius: 50%;
+    }
+    .vk-bulb {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        margin-top: 8px;
+        border-radius: 50%;
+        pointer-events: auto;
+        cursor: pointer;
+        transform-origin: top center;
+        transition: transform 0.2s ease;
+    }
+    .vk-bulb::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 5px;
+        width: 6px;
+        height: 6px;
+        background: #222;
+        border: 1px solid #D4AF37;
+        border-radius: 2px;
+    }
+    .vk-bulb.c1 { background: #ff2a2a; box-shadow: 0 0 12px #ff2a2a, 0 0 24px #ff2a2a; animation: vkGlow 1.8s infinite alternate; }
+    .vk-bulb.c2 { background: #D4AF37; box-shadow: 0 0 12px #D4AF37, 0 0 24px #D4AF37; animation: vkGlow 1.8s 0.45s infinite alternate; }
+    .vk-bulb.c3 { background: #00ffff; box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff; animation: vkGlow 1.8s 0.9s infinite alternate; }
+    .vk-bulb.c4 { background: #00ff88; box-shadow: 0 0 12px #00ff88, 0 0 24px #00ff88; animation: vkGlow 1.8s 1.35s infinite alternate; }
+    .vk-bulb.swing { animation: vkSwing 0.9s ease-in-out !important; filter: brightness(1.45); }
+
+    @keyframes vkGlow {
+        0% { opacity: 0.45; transform: scale(0.92); }
+        100% { opacity: 1; transform: scale(1.08); }
+    }
+    @keyframes vkSwing {
+        0% { transform: rotate(0deg) scale(1.25); }
+        25% { transform: rotate(22deg) scale(1.2); }
+        50% { transform: rotate(-18deg) scale(1.15); }
+        75% { transform: rotate(10deg) scale(1.1); }
+        100% { transform: rotate(0deg) scale(1); }
+    }
+
+    /* 2. Полотно снегопада */
+    #vk-snow {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 997;
+    }
+
+    /* 3. Сугробы по нижнему краю экрана */
+    .ny-snowdrifts {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 46px;
+        pointer-events: none;
+        z-index: 996;
+        overflow: hidden;
+    }
+    .ny-snowdrifts svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    /* 4. Новогодняя неоновая ёлочка в левом нижнем углу */
+    .ny-tree-box {
+        position: fixed;
+        bottom: 14px;
+        left: 22px;
+        width: 95px;
+        height: 125px;
+        z-index: 998;
+        pointer-events: auto;
+        cursor: pointer;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.35));
+    }
+    .ny-tree-box:hover {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.75));
+    }
+    .ny-star-pulse {
+        animation: starPulse 1.5s infinite alternate;
+        transform-origin: 50px 14px;
+    }
+    @keyframes starPulse {
+        0% { transform: scale(0.9); opacity: 0.8; }
+        100% { transform: scale(1.15); opacity: 1; }
+    }
+</style>
+
+<canvas id="vk-snow"></canvas>
+<div class="vk-garland-wrap" id="vkGarland"></div>
+
+<!-- Сугробы -->
+<div class="ny-snowdrifts" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path d="M0,35 C180,10 340,55 540,30 C760,5 960,50 1180,25 C1310,12 1390,32 1440,28 L1440,60 L0,60 Z" fill="rgba(220, 238, 255, 0.25)"/>
+        <path d="M0,42 C220,20 420,58 680,36 C920,16 1160,54 1440,34 L1440,60 L0,60 Z" fill="rgba(240, 248, 255, 0.55)"/>
+        <path d="M0,48 C260,34 520,60 820,44 C1080,30 1280,55 1440,45 L1440,60 L0,60 Z" fill="rgba(255, 255, 255, 0.85)"/>
+    </svg>
+</div>
+
+<!-- Новогодняя ёлка с гирляндой и подарками -->
+<div class="ny-tree-box" id="nyTree" title="С Новым годом от Phantom Road Studio! Нажми на ёлку ✨">
+    <svg viewBox="0 0 100 130" width="100%" height="100%">
+        <!-- Ствол -->
+        <rect x="44" y="102" width="12" height="18" rx="2" fill="#4a2e16"/>
+        <!-- Ярусы ели -->
+        <polygon points="50,18 20,52 80,52" fill="#0b3d24" stroke="#00ff88" stroke-width="1.2"/>
+        <polygon points="50,38 14,78 86,78" fill="#09331e" stroke="#00ff88" stroke-width="1.2"/>
+        <polygon points="50,60 8,105 92,105" fill="#072918" stroke="#00ff88" stroke-width="1.2"/>
+        <!-- Снег на лапах -->
+        <path d="M22,52 Q35,47 50,52 Q65,47 78,52" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M16,78 Q33,72 50,78 Q67,72 84,78" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M10,105 Q30,98 50,105 Q70,98 90,105" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+        <!-- Звезда на макушке -->
+        <polygon class="ny-star-pulse" points="50,4 53,11 61,11 55,16 57,23 50,19 43,23 45,16 39,11 47,11" fill="#D4AF37"/>
+        <!-- Игрушки-огоньки на ёлке -->
+        <circle cx="42" cy="42" r="3" fill="#ff2a2a"/>
+        <circle cx="58" cy="46" r="3" fill="#00ffff"/>
+        <circle cx="34" cy="68" r="3.2" fill="#D4AF37"/>
+        <circle cx="52" cy="64" r="3.2" fill="#ff2a2a"/>
+        <circle cx="67" cy="71" r="3.2" fill="#00ffff"/>
+        <circle cx="26" cy="94" r="3.5" fill="#00ffff"/>
+        <circle cx="45" cy="90" r="3.5" fill="#D4AF37"/>
+        <circle cx="63" cy="96" r="3.5" fill="#ff2a2a"/>
+        <circle cx="76" cy="92" r="3.5" fill="#D4AF37"/>
+        <!-- Подарки под ёлкой -->
+        <rect x="22" y="108" width="16" height="14" rx="2" fill="#ff2a2a" stroke="#D4AF37" stroke-width="1"/>
+        <line x1="30" y1="108" x2="30" y2="122" stroke="#D4AF37" stroke-width="2"/>
+        <rect x="62" y="110" width="15" height="12" rx="2" fill="#00ffff" stroke="#D4AF37" stroke-width="1"/>
+        <line x1="69.5" y1="110" x2="69.5" y2="122" stroke="#D4AF37" stroke-width="2"/>
+    </svg>
+</div>
+
+<script>
+(function() {
+    // 1. Интерактивная гирлянда ВК со звуком колокольчиков
+    const garland = document.getElementById('vkGarland');
+    const colors = ['c1', 'c2', 'c3', 'c4'];
+    const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
+    let audioCtx = null;
+
+    function playBell(freq) {
+        try {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.7);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.7);
+        } catch (e) {}
+    }
+
+    const bulbCount = Math.floor(window.innerWidth / 42);
+    for (let i = 0; i < bulbCount; i++) {
+        const bulb = document.createElement('div');
+        bulb.className = 'vk-bulb ' + colors[i % colors.length];
+        bulb.addEventListener('mouseenter', () => {
+            bulb.classList.remove('swing');
+            void bulb.offsetWidth;
+            bulb.classList.add('swing');
+            playBell(notes[i % notes.length]);
+        });
+        garland.appendChild(bulb);
+    }
+
+    // При клике по ёлке — праздничный перезвон всей гирлянды!
+    const tree = document.getElementById('nyTree');
+    if (tree) {
+        tree.addEventListener('click', () => {
+            const allBulbs = garland.querySelectorAll('.vk-bulb');
+            allBulbs.forEach((b, idx) => {
+                setTimeout(() => {
+                    b.classList.remove('swing');
+                    void b.offsetWidth;
+                    b.classList.add('swing');
+                    if (idx < notes.length) playBell(notes[idx]);
+                }, idx * 45);
+            });
+        });
+    }
+
+    // 2. Падающий снег
+    const canvas = document.getElementById('vk-snow');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    });
+
+    const flakes = Array.from({ length: 85 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2.5 + 0.9,
+        dy: Math.random() * 1.1 + 0.4,
+        dx: Math.random() * 0.5 - 0.25,
+        o: Math.random() * 0.6 + 0.3
+    }));
+
+    function renderSnow() {
+        ctx.clearRect(0, 0, w, h);
+        for (const f of flakes) {
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${f.o})`;
+            ctx.fill();
+            f.y += f.dy;
+            f.x += f.dx;
+            if (f.y > h) { f.y = -5; f.x = Math.random() * w; }
+            if (f.x > w) f.x = 0;
+            if (f.x < 0) f.x = w;
+        }
+        requestAnimationFrame(renderSnow);
+    }
+    renderSnow();
+})();
+</script>
+<!-- === КОНЕЦ НОВОГОДНЕГО КОМПЛЕКТА === -->
+
 </html>
